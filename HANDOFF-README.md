@@ -1,6 +1,6 @@
 # BX-AI+ Theme — Handoff
 
-Welcome. This is the static BX-AI+ dashboard theme that will become the BoxLang AI+ module's UI. This one-pager gets you running and points at the deeper docs.
+Welcome. This is the static BX-AI+ dashboard theme that will become the **BoxLang AI+ ColdBox 8.1+ module's UI** (ColdBox module running on a BoxLang server). This one-pager gets you running and points at the deeper docs.
 
 ---
 
@@ -60,11 +60,11 @@ An AI-centric Bootstrap 5 admin dashboard — **70 HTML pages**, dark-first with
 - No authentication. The `/auth/*` pages are visual only.
 - No database, no realtime socket, no telemetry. All chart data is hand-seeded in `src/html/_data/*.json`.
 
-**The port job** is replacing those mocks with the BoxLang runtime. See `BOXLANG-PORT-NOTES.md` — it's comprehensive.
+**The port job** is wrapping this static UI in a ColdBox 8.1+ module and replacing the mocks with real handlers/models on BoxLang. See `BOXLANG-PORT-NOTES.md` — it's comprehensive.
 
 ---
 
-## Key conventions the BoxLang port must preserve
+## Key conventions the ColdBox port must preserve
 
 1. **CSS custom properties drive the theme.** Every visual value lives in `--bx-*` tokens defined in `src/scss/config/_variables-custom.scss`. Changing the palette is a single-file edit. Don't hardcode colors in new components.
 
@@ -80,9 +80,9 @@ An AI-centric Bootstrap 5 admin dashboard — **70 HTML pages**, dark-first with
    … topbar markup …
    <!-- END :: TOPBAR -->
    ```
-   These survive Eleventy compilation. A BoxLang port can grep for them and replace chunks with `<bx:include>` wholesale. 16 unique seam names — run `grep -hoE "BEGIN :: [A-Z_]+" dist/**/*.html | sort -u` to list them.
+   These survive Eleventy compilation. A ColdBox port can grep for them and replace each chunk with a `view()` call — e.g. the `TOPBAR` block becomes `#view( view="partials/topbar", module="bxaiplus" )#` in `layouts/Main.cfm`. 16 unique seam names — run `grep -hoE "BEGIN :: [A-Z_]+" dist/**/*.html | sort -u` to list them.
 
-4. **Menu + data shapes are pre-locked.** All page data lives as JSON in `src/html/_data/`. The BoxLang module should emit the same shapes at runtime so templates work unchanged. Exact schemas documented in `BOXLANG-PORT-NOTES.md` § "Data shapes".
+4. **Menu + data shapes are pre-locked.** All page data lives as JSON in `src/html/_data/`. Each file corresponds to a ColdBox model method whose return struct matches the documented shape; handlers (or a `preLayout` interceptor) place those structs onto `prc` under the same top-level keys so views read them unchanged. Exact schemas documented in `BOXLANG-PORT-NOTES.md` § "Data shapes".
 
 5. **Page modules lazy-load.** Only pages that need ApexCharts, FullCalendar, Dragula, etc. get them. The opt-in is `page_module: <name>` in front matter + a case in `src/js/app.js`. Add new pages the same way.
 
@@ -150,9 +150,9 @@ npm run tour         # npm script added in package.json
 
 ## Final-ship checklist
 
-- [ ] Replace mock AI replies (`src/js/ai/mock-ai.js`) with real BoxLang AI endpoint
-- [ ] Wire live stat-card counters (`src/js/components/stat-card.js`) to a real metrics feed (SSE or WS)
-- [ ] Replace `_data/notifications.json` with live notifications service
+- [ ] Replace mock AI replies (`src/js/ai/mock-ai.js`) with a ColdBox handler action (e.g. `bxaiplus:ai.ask`) that proxies to the BoxLang AI service
+- [ ] Wire live stat-card counters (`src/js/components/stat-card.js`) to a real metrics feed (SSE from a ColdBox handler or a CBWire component)
+- [ ] Replace `_data/notifications.json` with `NotificationService` output populated onto `prc.notifications`
 - [ ] Replace seeded chart data with real queries
 - [ ] Replace voice waveform mock with real STT
 - [ ] Self-host Inter + JetBrains Mono (remove Google Fonts CDN)
@@ -161,4 +161,4 @@ npm run tour         # npm script added in package.json
 - [ ] Add a service worker if offline matters
 - [ ] `npm run build` — verify `dist/` is clean
 
-Questions during port: the seam inventory and data-shape tables in `BOXLANG-PORT-NOTES.md` are the authoritative reference. Start there.
+Questions during port: the seam inventory (with exact `view()` calls) and data-shape tables in `BOXLANG-PORT-NOTES.md` are the authoritative reference. Start there.

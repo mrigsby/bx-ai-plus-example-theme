@@ -1,45 +1,96 @@
-# BX-AI+ → BoxLang Port Notes
+# BX-AI+ → ColdBox 8.1+ Port Notes
 
-A guide for folding the static BX-AI+ theme into a BoxLang-powered module. This document is the handoff artifact — it tells the next engineer exactly where the seams are, what data shapes need to be emitted, and what to swap when going from mock to real.
+A guide for folding the static BX-AI+ theme into a **ColdBox 8.1+ module running on a BoxLang server**. This document is the handoff artifact — it tells the next engineer exactly where the seams are, what data shapes the module's handlers/models need to expose, and what to swap when going from mock to real.
+
+> **Snippet convention.** All CFML/BoxLang snippets below assume a ColdBox layout or view scope — i.e. they render inside an implicit `<cfoutput>`. Single `#var#` works there. If you paste a snippet outside a `cfoutput` block, wrap it. Views/layouts in this port can be `.cfm` on ColdBox; `.bxm` views also resolve on BoxLang — examples below use `.cfm`.
 
 ---
 
 ## Port philosophy
 
-- The theme's Eleventy + Nunjucks partials are the seams. Each partial becomes a BoxLang include / component (`<bx:include template="partials/topbar.bxm">` or equivalent).
+- The theme's Eleventy + Nunjucks partials are the seams. Each partial becomes a ColdBox view rendered with the `view()` helper inside the module's layout — e.g. `#view( view="partials/topbar", module="bxaiplus" )#`.
 - Every shared region wraps its output in HTML comments via the `seamBegin` / `seamEnd` shortcodes:
   ```html
   <!-- BEGIN :: TOPBAR -->
   ... rendered topbar markup ...
   <!-- END :: TOPBAR -->
   ```
-  These survive Eleventy compilation and give a mechanical find-and-replace target inside the built HTML.
-- Data currently sourced from `src/html/_data/*.json` becomes BoxLang component output at runtime — the JSON shapes are deliberately the shapes BoxLang should emit so the templates work unchanged.
+  These survive Eleventy compilation and give a mechanical find-and-replace target inside the built HTML. Each `BEGIN :: X` / `END :: X` block collapses to a single `#view( view="partials/x", module="bxaiplus" )#` call in the ColdBox layout/view.
+- Data currently sourced from `src/html/_data/*.json` becomes ColdBox model output at runtime — one model (or one method on a shared model) per JSON file. A `preLayout` interceptor (or the page's handler) places those structs onto the `prc` scope under the same top-level keys, so the migrated views reference them directly (e.g. `#prc.dashboard.stats[ 1 ].value#`).
+
+---
+
+## ColdBox module layout
+
+Where each build artefact lives inside the target module (`modules/bxaiplus/` by convention):
+
+| From the theme | Goes to in the ColdBox module |
+|---|---|
+| `dist/**/*.html` page bodies (non-layout `.njk`) | `views/<section>/<page>.cfm` |
+| `_includes/layouts/vertical.njk`, `horizontal.njk`, `auth.njk` | `layouts/Main.cfm`, `layouts/Horizontal.cfm`, `layouts/Auth.cfm` |
+| `_includes/partials/**.njk` | `views/partials/**.cfm` (rendered via `view()`) |
+| `dist/assets/**` (CSS, JS, fonts, images, icons, vendor) | `includes/**` — web-accessible at `/modules/bxaiplus/includes/...` |
+| `src/html/_data/*.json` | `models/` (e.g. `NavigationService.cfc`, `NotificationService.cfc`, `DashboardDataService.cfc`) + `interceptors/PreLayoutInterceptor.cfc` populating `prc` |
+| `src/html/_data/site.json` | `ModuleConfig.cfc` `settings` struct |
+
+A stripped-down sketch of a migrated layout:
+
+```cfml
+<cfoutput>
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="#prc.theme#" data-layout="vertical" data-sidenav-size="#prc.sidenavSize#">
+<head>
+  <meta charset="utf-8" />
+  <title>#prc.pageTitle# — BX-AI+</title>
+  <link rel="stylesheet" href="/modules/bxaiplus/includes/css/app.css" />
+</head>
+<body data-bx-page="#prc.pageModule#">
+  #view( view="partials/sidenav",              module="bxaiplus" )#
+  <div class="bx-app">
+    #view( view="partials/topbar",             module="bxaiplus" )#
+    <main class="bx-content">
+      #view( view="partials/page-title",       module="bxaiplus" )#
+      #renderView()#
+      #view( view="partials/footer",           module="bxaiplus" )#
+    </main>
+  </div>
+  #view( view="partials/customizer",           module="bxaiplus" )#
+  #view( view="partials/offcanvas-left",       module="bxaiplus" )#
+  #view( view="partials/chat-panel",           module="bxaiplus" )#
+  #view( view="partials/chat-command",         module="bxaiplus" )#
+  #view( view="partials/voice-toast",          module="bxaiplus" )#
+  <script src="/modules/bxaiplus/includes/js/app.js"></script>
+</body>
+</html>
+</cfoutput>
+```
+
+Each `view()` call resolves to a `.cfm` file under `views/partials/` and pulls its data from `prc`.
 
 ---
 
 ## Seam inventory
 
-Every seam name and the partial that owns it:
+Every seam name, the partial that owns it, and the exact ColdBox replacement call:
 
-| Seam | Partial | BoxLang responsibility |
+| Seam | Partial | ColdBox replacement |
 |---|---|---|
-| `APP_WRAPPER` | `_includes/layouts/vertical.njk`, `horizontal.njk` | Outer flex shell — render once per page |
-| `TOPBAR` | `_includes/partials/topbar.njk` | User chip, notifications count, chat-bar trigger |
-| `SIDENAV` | `_includes/partials/sidenav.njk` | Sidebar shell with brand + scrolling nav |
-| `HORIZONTAL_NAV` | `_includes/partials/horizontal-nav.njk` | Top nav strip on horizontal pages |
-| `PAGE_WRAPPER` | layout wrappers | `<main>` element with page-title slot + content + footer |
-| `PAGE_TITLE` | `_includes/partials/page-title.njk` | Heading + subtitle + breadcrumbs (driven by front-matter) |
-| `PAGE_CONTENT` | layout wrappers | `{{ content | safe }}` — the page body |
-| `FOOTER` | `_includes/partials/footer.njk` | Static footer |
-| `CUSTOMIZER` | `_includes/partials/customizer.njk` | Right offcanvas — theme/layout picker |
-| `OFFCANVAS_LEFT` | `_includes/partials/offcanvas-left.njk` | Left quick-actions drawer |
-| `CHAT_PANEL` | `_includes/partials/chat-panel.njk` | Right offcanvas AI chat |
-| `CHAT_COMMAND` | `_includes/partials/chat-command.njk` | ⌘K command palette |
-| `VOICE_TOAST` | `_includes/partials/voice-toast.njk` | Bottom-right voice capture |
-| `NOTIFICATIONS_MENU` | `_includes/partials/notifications-dropdown.njk` | Notifications dropdown body |
-| `ACCOUNT_MENU` | `_includes/partials/account-dropdown.njk` | Account dropdown body |
-| `AUTH_SHELL` / `AUTH_CARD` | `_includes/layouts/auth.njk` | Auth pages — centred glow card |
+| `APP_WRAPPER` | `_includes/layouts/vertical.njk`, `horizontal.njk` | Outer flex shell in `layouts/Main.cfm` / `layouts/Horizontal.cfm` — render once per request |
+| `TOPBAR` | `_includes/partials/topbar.njk` | `#view( view="partials/topbar", module="bxaiplus" )#` — `prc.user`, `prc.notifications` populated by `PreLayoutInterceptor` |
+| `SIDENAV` | `_includes/partials/sidenav.njk` | `#view( view="partials/sidenav", module="bxaiplus" )#` — `prc.menu` from `NavigationService.getMenuFor( prc.oCurrentUser )` |
+| `HORIZONTAL_NAV` | `_includes/partials/horizontal-nav.njk` | `#view( view="partials/horizontal-nav", module="bxaiplus" )#` — `prc.horizontalMenu` |
+| `PAGE_WRAPPER` | layout wrappers | `<main>` element wrapping `#view( view="partials/page-title" )#` + `#renderView()#` + `#view( view="partials/footer" )#` |
+| `PAGE_TITLE` | `_includes/partials/page-title.njk` | `#view( view="partials/page-title", module="bxaiplus" )#` — `prc.pageTitle`, `prc.pageSubtitle`, `prc.breadcrumbs` set by the handler |
+| `PAGE_CONTENT` | layout wrappers | `#renderView()#` — the event's primary view |
+| `FOOTER` | `_includes/partials/footer.njk` | `#view( view="partials/footer", module="bxaiplus" )#` |
+| `CUSTOMIZER` | `_includes/partials/customizer.njk` | `#view( view="partials/customizer", module="bxaiplus" )#` — theme/layout picker |
+| `OFFCANVAS_LEFT` | `_includes/partials/offcanvas-left.njk` | `#view( view="partials/offcanvas-left", module="bxaiplus" )#` — quick actions |
+| `CHAT_PANEL` | `_includes/partials/chat-panel.njk` | `#view( view="partials/chat-panel", module="bxaiplus" )#` — submissions hit event `bxaiplus:ai.ask` |
+| `CHAT_COMMAND` | `_includes/partials/chat-command.njk` | `#view( view="partials/chat-command", module="bxaiplus" )#` — ⌘K command palette |
+| `VOICE_TOAST` | `_includes/partials/voice-toast.njk` | `#view( view="partials/voice-toast", module="bxaiplus" )#` — mock today; STT endpoint later |
+| `NOTIFICATIONS_MENU` | `_includes/partials/notifications-dropdown.njk` | `#view( view="partials/notifications-dropdown", module="bxaiplus" )#` — `prc.notifications` from `NotificationService` |
+| `ACCOUNT_MENU` | `_includes/partials/account-dropdown.njk` | `#view( view="partials/account-dropdown", module="bxaiplus" )#` — `prc.user` |
+| `AUTH_SHELL` / `AUTH_CARD` | `_includes/layouts/auth.njk` | `layouts/Auth.cfm` — centred glow card wrapper |
 
 To regenerate this map after adding new partials, grep the built HTML:
 ```bash
@@ -48,9 +99,9 @@ grep -hoE "BEGIN :: [A-Z_]+" dist/**/*.html | sort -u
 
 ---
 
-## Data shapes (BoxLang must emit these)
+## Data shapes (the module's handlers/models must expose these)
 
-All page data lives in `src/html/_data/*.json`. The BoxLang module should produce identical structures at runtime so the templates work without modification.
+All page data lives in `src/html/_data/*.json`. In the ColdBox port, each JSON file corresponds to a model method whose return struct matches the documented shape. A handler (or `PreLayoutInterceptor`) places those structs onto the `prc` scope under the same top-level keys (`prc.menu`, `prc.notifications`, `prc.dashboard`, etc.) so the migrated views read them directly — e.g. `#prc.dashboard.stats[ 1 ].value#`.
 
 ### `menu.json` — sidebar tree
 
@@ -104,17 +155,17 @@ App data — see files.
 
 ## Mock → real replacement points
 
-Every place the demo uses fake data. Replace these to wire up the real BoxLang runtime.
+Every place the demo uses fake data. Replace these to wire the module into real services.
 
 | Mock | Location | Replace with |
 |---|---|---|
-| AI replies (regex bucket) | `src/js/ai/mock-ai.js` | Real call to BoxLang AI endpoint (HTTP POST) |
-| Voice waveform | `src/js/ai/voice-toast.js` + `waveform.js` | Web Speech API or custom Whisper.cpp endpoint |
-| Stat-card live counters | `src/js/components/stat-card.js` (uses seeded RNG drift) | WebSocket / SSE feed of runtime metrics |
-| Realtime chart | `src/js/pages/realtime.js` (1s setInterval) | Live `EventSource` from BoxLang runtime |
-| Dashboard chart series | `src/html/_data/dashboard.json` | BoxLang query result on page render |
-| Notifications | `src/html/_data/notifications.json` | BoxLang notifications service |
-| Menu tree | `src/html/_data/menu.json` | Permissions-aware menu emitter |
+| AI replies (regex bucket) | `src/js/ai/mock-ai.js` | ColdBox event `bxaiplus:ai.ask` that proxies to a BoxLang AI service/model; the front-end calls it via `fetch` or a CBWire action |
+| Voice waveform | `src/js/ai/voice-toast.js` + `waveform.js` | Browser Web Speech API or a ColdBox handler that streams to a Whisper.cpp endpoint |
+| Stat-card live counters | `src/js/components/stat-card.js` (uses seeded RNG drift) | WebSocket / SSE driven by a ColdBox scheduler or a CBWire component pushing runtime metrics |
+| Realtime chart | `src/js/pages/realtime.js` (1s setInterval) | `EventSource` backed by a ColdBox SSE handler action |
+| Dashboard chart series | `src/html/_data/dashboard.json` | `DashboardDataService.getSnapshot()` → set as `prc.dashboard` in the handler before rendering |
+| Notifications | `src/html/_data/notifications.json` | `NotificationService.unreadFor( prc.oCurrentUser )` → `prc.notifications` |
+| Menu tree | `src/html/_data/menu.json` | `NavigationService.getMenuFor( prc.oCurrentUser )` — permissions-aware |
 
 ---
 
@@ -130,7 +181,7 @@ Every place the demo uses fake data. Replace these to wire up the real BoxLang r
 
 `data-layout` (vertical / horizontal) is **not** stored — it's pinned by the page's layout file and switched via navigation. The customizer's "Vertical / Horizontal" buttons are `<a>` tags pointing at the equivalent page in the parallel set.
 
-The early-paint script in `src/html/_includes/layouts/base.njk` restores `data-bs-theme` and `data-sidenav-size` before the page paints to prevent flash. The BoxLang module should keep this guard or render the chosen theme server-side from the cookie.
+The early-paint script in `src/html/_includes/layouts/base.njk` restores `data-bs-theme` and `data-sidenav-size` before the page paints to prevent flash. **In the ColdBox port, read the `bx.theme` cookie in the layout and emit `data-bs-theme="#prc.theme#"` (and `data-sidenav-size="#prc.sidenavSize#"`) server-side on `<html>` so the guard script becomes unnecessary.**
 
 ---
 

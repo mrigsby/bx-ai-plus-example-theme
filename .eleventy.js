@@ -17,7 +17,9 @@ export default function (eleventyConfig) {
   // Copy /src/static/* straight through to /dist
   eleventyConfig.addPassthroughCopy({ "src/static": "." });
 
-  // Shortcodes for seam markers — keeps port markers consistent across partials.
+  // Shortcodes for seam markers — keeps seam markers consistent across partials.
+  // The ColdBox port greps for these comments in the built HTML and replaces
+  // each region with a ColdBox view() call.
   // Usage in .njk:   {% seamBegin "TOPBAR" %} … {% seamEnd "TOPBAR" %}
   eleventyConfig.addShortcode("seamBegin", (name) => `<!-- BEGIN :: ${name} -->`);
   eleventyConfig.addShortcode("seamEnd", (name) => `<!-- END :: ${name} -->`);

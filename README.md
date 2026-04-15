@@ -1,8 +1,8 @@
 # BX-AI+ — AI-centric Bootstrap 5 Dashboard Theme
 
-Custom Bootstrap 5 admin theme for Ortus Solutions **BoxLang AI+**. Static HTML/CSS/JS showcase; designed so its partials and conventions can be mechanically ported into a BoxLang-powered module later.
+Custom Bootstrap 5 admin theme for Ortus Solutions **BoxLang AI+**. Static HTML/CSS/JS showcase; the partials and conventions are laid out so they can be mechanically ported into a **ColdBox 8.1+ module running on a BoxLang server**.
 
-See **[`BX-AI-GENERATE-PLAN.md`](../BX-AI-GENERATE-PLAN.md)** for the full implementation plan and design decisions, and **[`BOXLANG-PORT-NOTES.md`](BOXLANG-PORT-NOTES.md)** for the porting guide.
+See **[`BOXLANG-PORT-NOTES.md`](BOXLANG-PORT-NOTES.md)** for the porting guide.
 
 ---
 
@@ -57,6 +57,3 @@ dist/            Build output (gitignored)
 - **Eleventy + Nunjucks** for build-time HTML includes (partials, recursive menu macro).
 - **No jQuery.** Vanilla JS modules + Bootstrap 5 JS only.
 
-## Status
-
-**Phase 1 — Foundation & build pipeline.** See the plan for all phases.

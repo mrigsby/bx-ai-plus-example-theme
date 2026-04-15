@@ -1,6 +1,7 @@
 // ---------------------------------------------------------------------------
 // ai/mock-ai.js — canned AI replies for demo purposes.
-// Replaced by a real BoxLang AI endpoint in the final module port.
+// Replaced in the ColdBox 8.1+ module by a handler action (e.g. 'ai.ask')
+// that calls the BoxLang AI service.
 // ---------------------------------------------------------------------------
 
 const REPLIES = {
@@ -24,8 +25,8 @@ const REPLIES = {
   ],
   "default": [
     "Got it — running that now. In a real environment I'd query the runtime, but this is the theme demo so replies are canned.",
-    "Good question. If this were wired to the BoxLang AI module, I'd check the runtime and come back with concrete numbers.",
-    "Let me look into that. (Mock reply — the real agent will plug in via the BoxLang module.)"
+    "Good question. If this were wired to the ColdBox AI handler, I'd check the runtime and come back with concrete numbers.",
+    "Let me look into that. (Mock reply — the real agent will plug in via the ColdBox handler.)"
   ]
 };
 

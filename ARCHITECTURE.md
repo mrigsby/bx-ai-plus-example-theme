@@ -1,9 +1,5 @@
 # BX-AI+ Architecture
 
-Developer-facing notes. For the implementation plan and phase breakdown see **[`BX-AI-GENERATE-PLAN.md`](../BX-AI-GENERATE-PLAN.md)**.
-
----
-
 ## Toolchain
 
 | Tool | Role |
@@ -45,7 +41,7 @@ All layout state lives on `<html>` as `data-*` attributes. A single controller i
 
 ## Seam markers
 
-Every shared partial wraps its output in `<!-- BEGIN :: NAME --> … <!-- END :: NAME -->` comments emitted via the `{% seamBegin "NAME" %}` / `{% seamEnd "NAME" %}` Eleventy shortcodes. These survive HTML compilation and give the later BoxLang port a mechanical find-and-replace path.
+Every shared partial wraps its output in `<!-- BEGIN :: NAME --> … <!-- END :: NAME -->` comments emitted via the `{% seamBegin "NAME" %}` / `{% seamEnd "NAME" %}` Eleventy shortcodes. These survive HTML compilation and give the later **ColdBox port** a mechanical find-and-replace path — each seam maps to a `view()` call in the module's layout (see `BOXLANG-PORT-NOTES.md` § "Seam inventory" for the exact calls).
 
 ## Third-party library roster
 

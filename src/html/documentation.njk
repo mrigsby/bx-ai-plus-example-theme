@@ -32,7 +32,7 @@ breadcrumbs:
     <a href="#libs">Bundled libraries</a>
     <a href="#vendor-css">Vendor CSS pipeline</a>
 
-    <h6>BoxLang port</h6>
+    <h6>ColdBox port</h6>
     <a href="#seams">Seam markers</a>
     <a href="#data-shape">Data shape</a>
   </nav>
@@ -42,7 +42,7 @@ breadcrumbs:
 
     <section id="overview">
       <h2>Overview</h2>
-      <p>BX-AI+ is a static, AI-centric Bootstrap 5 dashboard theme for Ortus Solutions BoxLang. It ships as 50+ HTML pages plus an SCSS pipeline you can recompile and rebrand.</p>
+      <p>BX-AI+ is a static, AI-centric Bootstrap 5 dashboard theme for Ortus Solutions BoxLang, designed for porting into a <strong>ColdBox 8.1+ module</strong> running on a BoxLang server. It ships as 50+ HTML pages plus an SCSS pipeline you can recompile and rebrand.</p>
       <p>The defining feature is the <strong>AI affordance layer</strong>: a topbar chat bar (⌘K command palette), a global voice toast, contextual "Ask AI" buttons on every widget, and an AI insights feed.</p>
     </section>
 
@@ -195,14 +195,14 @@ pageVendorCss:
 <pre><code>&lt;!-- BEGIN :: TOPBAR --&gt;
 ... topbar markup ...
 &lt;!-- END :: TOPBAR --&gt;</code></pre>
-      <p>These survive Eleventy compilation and give the BoxLang module a mechanical find-and-replace path. Search for <code>BEGIN ::</code> in any built HTML to see the full seam map.</p>
+      <p>These survive Eleventy compilation and give the ColdBox module a mechanical find-and-replace path — each seam collapses to a single <code>#view( view="partials/...", module="bxaiplus" )#</code> call in the ColdBox layout. Search for <code>BEGIN ::</code> in any built HTML to see the full seam map.</p>
     </section>
 
     <section id="data-shape">
       <h2>Data shape</h2>
-      <p>All page data comes from JSON files in <code>src/html/_data/</code> — the BoxLang module should emit identical shapes at runtime to keep the templates working unchanged.</p>
+      <p>All page data comes from JSON files in <code>src/html/_data/</code> — the ColdBox module should emit identical shapes at runtime (via models, placed on <code>prc</code> by a handler or <code>preLayout</code> interceptor) to keep the templates working unchanged.</p>
       <p>Locked schemas: <code>menu.json</code>, <code>horizontalMenu.json</code>, <code>notifications.json</code>, <code>user.json</code>, <code>dashboard.json</code> (stats, charts, insights, activity), <code>aiAgents.json</code>, <code>aiPrompts.json</code>, <code>aiHistory.json</code>, plus per-app data (calendar, kanban, email, chat, files, projects).</p>
-      <p>See <code>BOXLANG-PORT-NOTES.md</code> at the project root for the full porting guide.</p>
+      <p>See <code>BOXLANG-PORT-NOTES.md</code> at the project root for the full porting guide — including the exact <code>view()</code> call per seam and the ColdBox module layout map.</p>
     </section>
 
   </article>
