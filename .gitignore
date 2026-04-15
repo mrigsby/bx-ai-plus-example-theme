@@ -12,4 +12,4 @@ npm-debug.log*
 .env.local
 dist/**
 build/**
-tools/CODE-HIGHLIGHTER-PLAN.md
+_private/

@@ -114,9 +114,11 @@ OUTPUT/
 ├── tools/                    Build scripts (clean, css, js, asset copy, screenshot tour)
 ├── dist/                     Build output — this is what ships
 ├── screenshots/              Output of `node tools/screenshot-tour.mjs`
-├── ARCHITECTURE.md           Developer-facing architecture notes
-├── BOXLANG-PORT-NOTES.md     Full port guide — read this for porting
-└── HANDOFF-README.md         You are here
+├── documentation/
+│   ├── ARCHITECTURE.md       Developer-facing architecture notes
+│   ├── BOXLANG-PORT-NOTES.md Full port guide — read this for porting
+│   └── HANDOFF-README.md     You are here
+└── README.md                 Quick-start / scripts / project layout
 ```
 
 ---

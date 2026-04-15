@@ -24,9 +24,9 @@ if (!existsSync(distDir)) {
 
 // Files outside dist/ to include in the archive.
 const EXTRAS = [
-  "HANDOFF-README.md",
-  "BOXLANG-PORT-NOTES.md",
-  "ARCHITECTURE.md"
+  "documentation/HANDOFF-README.md",
+  "documentation/BOXLANG-PORT-NOTES.md",
+  "documentation/ARCHITECTURE.md"
 ].filter((f) => existsSync(resolve(root, f)));
 
 // Remove any previous archive before rebuilding.
