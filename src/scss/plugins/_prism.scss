@@ -1,0 +1,196 @@
+// ---------------------------------------------------------------------------
+// plugins/_prism.scss — Prism.js skin for BX-AI+.
+//
+// Everything is authored against --bx-* tokens so light/dark theme switching
+// happens through the existing <html data-bs-theme> pivot. No separate dark
+// stylesheet required.
+// ---------------------------------------------------------------------------
+
+pre[class*="language-"],
+code[class*="language-"] {
+  font-family: $font-family-monospace;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--bx-text);
+  background: none;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  tab-size: 2;
+  hyphens: none;
+}
+
+pre[class*="language-"] {
+  position: relative;
+  margin: 0;
+  padding: 0.9rem 1rem;
+  overflow: auto;
+  border: 1px solid var(--bx-border);
+  border-radius: var(--bx-radius-sm);
+  background: var(--bx-surface-2);
+}
+
+:not(pre) > code[class*="language-"] {
+  padding: 0.12rem 0.4rem;
+  border: 1px solid var(--bx-border);
+  border-radius: var(--bx-radius-xs);
+  background: var(--bx-surface-1);
+  white-space: normal;
+}
+
+// --- tokens --------------------------------------------------------------
+.token.comment,
+.token.prolog,
+.token.cdata,
+.token.doctype {
+  color: var(--bx-text-muted);
+  font-style: italic;
+}
+
+.token.punctuation,
+.token.operator {
+  color: var(--bx-text);
+  opacity: 0.75;
+}
+
+.token.namespace { opacity: 0.7; }
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: var(--bx-danger-text, #c0392b);
+}
+
+.token.boolean,
+.token.number {
+  color: var(--bx-warning-text, #b06a00);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: var(--bx-success-text, #1f7a4d);
+}
+
+.token.atrule,
+.token.keyword,
+.token.important {
+  color: var(--bx-brand-primary-text, #5b3ad6);
+  font-weight: 600;
+}
+
+.token.function,
+.token.class-name {
+  color: var(--bx-info-text, #106b8f);
+}
+
+.token.regex,
+.token.variable {
+  color: var(--bx-warning-text, #b06a00);
+}
+
+.token.attr-value {
+  color: var(--bx-success-text, #1f7a4d);
+}
+
+.token.url { text-decoration: underline; }
+.token.bold { font-weight: 700; }
+.token.italic { font-style: italic; }
+.token.entity { cursor: help; }
+
+// --- toolbar (show-language + copy button) -------------------------------
+div.code-toolbar {
+  position: relative;
+
+  > .toolbar {
+    position: absolute;
+    top: 0.35rem;
+    right: 0.5rem;
+    display: flex;
+    gap: 0.35rem;
+    opacity: 0;
+    transition: opacity 120ms ease;
+  }
+
+  &:hover > .toolbar,
+  &:focus-within > .toolbar {
+    opacity: 1;
+  }
+
+  > .toolbar .toolbar-item {
+    display: inline-flex;
+
+    > span,
+    > a,
+    > button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-family: $font-family-base;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--bx-text-muted);
+      background: var(--bx-surface-1);
+      border: 1px solid var(--bx-border);
+      border-radius: var(--bx-radius-xs);
+      padding: 2px 8px;
+      line-height: 1.4;
+      cursor: pointer;
+      transition: color 120ms ease, background 120ms ease, border-color 120ms ease;
+    }
+
+    > button:hover,
+    > button:focus-visible {
+      color: var(--bx-text);
+      background: var(--bx-surface-2);
+      border-color: var(--bx-border-strong);
+      outline: none;
+    }
+  }
+}
+
+// --- line numbers --------------------------------------------------------
+// .line-numbers-rows is injected as a child of <code>. We anchor it to the
+// <pre> (the nearest positioned ancestor) by NOT positioning <code>, then
+// park it in the left padding gutter.
+pre[class*="language-"].line-numbers {
+  position: relative;
+  padding-left: 3.2rem;
+  counter-reset: linenumber;
+}
+
+.line-numbers .line-numbers-rows {
+  position: absolute;
+  pointer-events: none;
+  top: 0.9rem;
+  left: 0;
+  width: 2.6rem;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  letter-spacing: -1px;
+  border-right: 1px solid var(--bx-border);
+  user-select: none;
+
+  > span {
+    display: block;
+    counter-increment: linenumber;
+    pointer-events: none;
+
+    &::before {
+      content: counter(linenumber);
+      display: block;
+      padding-right: 0.6rem;
+      color: var(--bx-text-muted);
+      text-align: right;
+    }
+  }
+}

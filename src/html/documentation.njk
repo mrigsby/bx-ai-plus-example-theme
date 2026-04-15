@@ -49,7 +49,7 @@ breadcrumbs:
     <section id="install">
       <h2>Install &amp; build</h2>
       <p>Requires Node 20+. From the project root:</p>
-<pre><code>npm install
+<pre><code class="language-bash">npm install
 npm run dev      # live-reload dev server at :3000
 npm run build    # production build → dist/</code></pre>
       <p>Build output is plain HTML/CSS/JS in <code>dist/</code>. No server runtime is required to view the demo.</p>
@@ -57,7 +57,7 @@ npm run build    # production build → dist/</code></pre>
 
     <section id="structure">
       <h2>File structure</h2>
-<pre><code>src/
+<pre><code class="language-none">src/
 ├── html/         Eleventy input — pages, layouts, partials, _data
 ├── scss/         SCSS sources — config, components, structure, ai, pages, plugins
 ├── js/           JS modules — core, ai, components, pages, util
@@ -119,7 +119,7 @@ dist/             Build output</code></pre>
         <li><code>widgetMenu(context, prompt)</code> — 3-dot overflow menu including "Ask AI about this"</li>
         <li><code>inlinePrompt(context, placeholder)</code> — embedded one-line AI prompt input</li>
       </ul>
-<pre><code>{% raw %}{% from "partials/widgets/stat-card.njk" import statCard %}
+<pre><code class="language-markup">{% raw %}{% from "partials/widgets/stat-card.njk" import statCard %}
 {{ statCard(s) }}{% endraw %}</code></pre>
     </section>
 
@@ -137,7 +137,7 @@ dist/             Build output</code></pre>
     <section id="charts">
       <h2>Charts</h2>
       <p>ApexCharts is the primary chart library. Theming hooks into our token system via <code>src/js/components/apex-defaults.js</code>:</p>
-<pre><code>import { palette, themeSettings } from "./components/apex-defaults.js";
+<pre><code class="language-javascript">import { palette, themeSettings } from "./components/apex-defaults.js";
 
 const t = themeSettings();
 new ApexCharts(el, {
@@ -180,7 +180,7 @@ new ApexCharts(el, {
     <section id="vendor-css">
       <h2>Vendor CSS pipeline</h2>
       <p>Plugin base CSS files are copied into <code>dist/assets/vendor/</code> by <code>tools/copy-assets.mjs</code>. A page opts into a vendor stylesheet via front-matter:</p>
-<pre><code>---
+<pre><code class="language-yaml">---
 pageVendorCss:
   - choices
   - flatpickr
@@ -192,7 +192,7 @@ pageVendorCss:
     <section id="seams">
       <h2>Seam markers</h2>
       <p>Every shared partial wraps its output with HTML comments via the <code>seamBegin</code> / <code>seamEnd</code> Eleventy shortcodes:</p>
-<pre><code>&lt;!-- BEGIN :: TOPBAR --&gt;
+<pre><code class="language-markup">&lt;!-- BEGIN :: TOPBAR --&gt;
 ... topbar markup ...
 &lt;!-- END :: TOPBAR --&gt;</code></pre>
       <p>These survive Eleventy compilation and give the ColdBox module a mechanical find-and-replace path — each seam collapses to a single <code>#view( view="partials/...", module="bxaiplus" )#</code> call in the ColdBox layout. Search for <code>BEGIN ::</code> in any built HTML to see the full seam map.</p>

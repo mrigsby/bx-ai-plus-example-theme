@@ -44,12 +44,28 @@ breadcrumbs:
     <div class="bx-widget">
       <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Code</h3></div></div>
       <div class="bx-widget__body">
-<pre style="background:var(--bx-surface-2);border:1px solid var(--bx-border);border-radius:var(--bx-radius-sm);padding:1rem;font-size:0.82rem;overflow:auto;"><code>// Calling BX-AI+ from BoxLang
-agent = bxai.run( "summarize", {
-  context: "/api/agents anomaly window 14:18-14:24 UTC",
-  voice: "internal-ops"
-} );
-return agent.reply;</code></pre>
+<pre class="line-numbers"><code class="language-bx">// Calling BX-AI+ from BoxLang
+component {
+  function handle( required struct event ) {
+    var agent = bxai.run( "summarize", {
+      context: "/api/agents anomaly window 14:18-14:24 UTC",
+      voice: "internal-ops"
+    } );
+    return agent.reply;
+  }
+}</code></pre>
+
+<pre style="margin-top:1rem;"><code class="language-json">{
+  "agent": "summarizer-v3",
+  "model": "claude-sonnet-4.6",
+  "latencyMs": 128,
+  "tokens": { "input": 612, "output": 84 },
+  "voice": "internal-ops"
+}</code></pre>
+
+<pre style="margin-top:1rem;"><code class="language-bash"># Build + preview
+npm run build
+npm run serve -- --port 4321</code></pre>
       </div>
     </div>
   </div>

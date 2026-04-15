@@ -1,0 +1,110 @@
+---
+layout: vertical.njk
+title: Fine-tuning jobs
+pageTitle: Fine-tuning jobs
+pageSubtitle: Monitor active, queued, and completed fine-tuning runs.
+permalink: /ai/tuning/jobs/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "AI" }
+  - { label: "Models" }
+  - { label: "Fine-tuning" }
+  - { label: "Jobs" }
+---
+{% from "partials/widgets/widget-menu.njk" import widgetMenu %}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <div class="d-flex gap-3 align-items-center flex-wrap small">
+    <span><strong class="text-info-emphasis">{{ aiTuningJobs.summary.running }}</strong> <span class="text-secondary">running</span></span>
+    <span><strong class="text-secondary-emphasis">{{ aiTuningJobs.summary.queued }}</strong> <span class="text-secondary">queued</span></span>
+    <span><strong class="text-success-emphasis">{{ aiTuningJobs.summary.succeeded }}</strong> <span class="text-secondary">succeeded</span></span>
+    <span><strong class="text-danger-emphasis">{{ aiTuningJobs.summary.failed }}</strong> <span class="text-secondary">failed</span></span>
+    <span class="text-secondary">· ${{ aiTuningJobs.summary.spendMonthUsd }} spent this month</span>
+  </div>
+  <div class="d-flex gap-2">
+    <button type="button" class="btn btn-outline-secondary btn-sm">
+      <i data-lucide="filter" style="width:14px;height:14px;"></i> Status
+    </button>
+    <button type="button" class="btn btn-primary btn-sm">
+      <i data-lucide="plus" style="width:14px;height:14px;"></i> New fine-tuning job
+    </button>
+  </div>
+</div>
+
+<div class="row g-3">
+  {% for j in aiTuningJobs.jobs %}
+  <div class="col-12 col-xl-6">
+    <div class="bx-agent-card">
+      {{ widgetMenu("tuning-job-" + j.id, "Summarize fine-tuning job " + j.name + " — status, loss trajectory, and any concerns.") }}
+
+      <div class="bx-agent-card__head">
+        <span class="bx-agent-card__icon bx-agent-card__icon--{{ j.tone }}" aria-hidden="true">
+          <i data-lucide="{% if j.status == 'running' %}loader{% elseif j.status == 'queued' %}clock{% elseif j.status == 'succeeded' %}check-circle-2{% elseif j.status == 'failed' %}x-circle{% else %}circle{% endif %}"></i>
+        </span>
+        <div style="flex:1;min-width:0;">
+          <h3 class="bx-agent-card__name">{{ j.name }}</h3>
+          <div class="bx-agent-card__role">
+            base: {{ j.baseModel }} ·
+            <a href="/ai/tuning/datasets/#{{ j.datasetId }}" class="text-decoration-none">{{ j.datasetName }}</a>
+          </div>
+        </div>
+        <span class="bx-agent-card__status bx-agent-card__status--{% if j.status == 'succeeded' %}healthy{% elseif j.status == 'running' %}degraded{% elseif j.status == 'failed' %}errored{% else %}paused{% endif %}">{{ j.status }}</span>
+      </div>
+
+      <div class="mb-2">
+        <div class="d-flex justify-content-between small text-secondary mb-1">
+          <span>Epoch {{ j.currentEpoch }}/{{ j.epochs }} · step {{ j.currentStep }}/{{ j.steps }}</span>
+          <span>{% if j.etaMinutes != null and j.etaMinutes > 0 %}ETA {{ j.etaMinutes }}m{% elseif j.status == 'succeeded' %}done{% elseif j.status == 'failed' %}aborted{% else %}—{% endif %}</span>
+        </div>
+        <div class="progress" style="height:6px;">
+          <div class="progress-bar {% if j.status == 'failed' %}bg-danger{% elseif j.status == 'succeeded' %}bg-success{% endif %}"
+               role="progressbar"
+               style="width: {{ (j.progress * 100) | round }}%;"
+               aria-valuenow="{{ (j.progress * 100) | round }}"
+               aria-valuemin="0"
+               aria-valuemax="100"></div>
+        </div>
+      </div>
+
+      <dl class="bx-agent-card__meta">
+        <div><dt>Train loss</dt><dd>{% if j.trainLoss != null %}{{ j.trainLoss }}{% else %}—{% endif %}</dd></div>
+        <div><dt>Val loss</dt><dd>{% if j.valLoss != null %}{{ j.valLoss }}{% else %}—{% endif %}</dd></div>
+        <div><dt>Cost</dt><dd>${{ j.costUsd }}</dd></div>
+        <div><dt>Owner</dt><dd>{{ j.owner }}</dd></div>
+      </dl>
+
+      {% if j.errorMessage %}
+      <p class="small text-danger-emphasis mb-2" style="background:var(--bs-danger-bg-subtle, rgba(220,53,69,.08)); padding:.5rem .75rem; border-radius:6px;">
+        <i data-lucide="triangle-alert" style="width:14px;height:14px;vertical-align:-2px;"></i>
+        {{ j.errorMessage }}
+      </p>
+      {% endif %}
+
+      <div class="bx-agent-card__foot">
+        <button type="button" class="btn btn-sm btn-primary bx-ai-ask-btn"
+                data-bx-ai-ask
+                data-ai-context="tuning-job-{{ j.id }}"
+                data-ai-prompt="Summarize fine-tuning job {{ j.name }} — status, loss trajectory, and any concerns.">
+          <i data-lucide="sparkles" aria-hidden="true"></i>
+          Ask AI
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">
+          <i data-lucide="scroll-text" aria-hidden="true"></i>
+          Logs
+        </button>
+        {% if j.status == 'running' or j.status == 'queued' %}
+        <button type="button" class="btn btn-sm btn-outline-danger">
+          <i data-lucide="square" aria-hidden="true"></i>
+          Cancel
+        </button>
+        {% elseif j.status == 'succeeded' %}
+        <button type="button" class="btn btn-sm btn-outline-secondary">
+          <i data-lucide="rocket" aria-hidden="true"></i>
+          Deploy
+        </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>

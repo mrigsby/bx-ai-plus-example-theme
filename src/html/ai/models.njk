@@ -1,0 +1,99 @@
+---
+layout: vertical.njk
+title: Models
+pageTitle: Model library
+pageSubtitle: Browse every model wired up to BX-AI+. Compare capabilities, pricing, and latency.
+permalink: /ai/models/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "AI" }
+  - { label: "Models" }
+  - { label: "Library" }
+---
+{% from "partials/widgets/widget-menu.njk" import widgetMenu %}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <div class="d-flex gap-2 align-items-center flex-wrap">
+    <span class="text-secondary small">{{ aiModels.summary.total }} models · {{ aiModels.summary.providers }} providers · avg {{ aiModels.summary.avgLatencyMs }}ms</span>
+  </div>
+  <div class="d-flex gap-2">
+    <div class="bx-ai-page__search" style="max-width:260px;">
+      <i data-lucide="search" aria-hidden="true"></i>
+      <input type="search" placeholder="Search models…" aria-label="Search models">
+    </div>
+    <button type="button" class="btn btn-outline-secondary btn-sm">
+      <i data-lucide="filter" style="width:14px;height:14px;"></i> Filter
+    </button>
+    <button type="button" class="btn btn-outline-secondary btn-sm">
+      <i data-lucide="git-compare" style="width:14px;height:14px;"></i> Compare
+    </button>
+    <button type="button" class="btn btn-primary btn-sm">
+      <i data-lucide="plus" style="width:14px;height:14px;"></i> Add custom model
+    </button>
+  </div>
+</div>
+
+<div class="row g-3">
+  {% for m in aiModels.models %}
+  <div class="col-12 col-md-6 col-xl-4">
+    <div class="bx-agent-card">
+      {{ widgetMenu("model-" + m.id, "Tell me about the " + m.name + " model — capabilities, best use cases, and tradeoffs.") }}
+
+      <div class="bx-agent-card__head">
+        <span class="bx-agent-card__icon bx-agent-card__icon--{{ m.tone }}" aria-hidden="true">
+          <i data-lucide="{{ m.icon }}"></i>
+        </span>
+        <div style="flex:1;min-width:0;">
+          <h3 class="bx-agent-card__name">{{ m.name }}</h3>
+          <div class="bx-agent-card__role">{{ m.provider }} · {{ m.family }}</div>
+        </div>
+        <span class="bx-agent-card__status bx-agent-card__status--{% if m.status == 'available' %}healthy{% elseif m.status == 'preview' %}degraded{% else %}paused{% endif %}">{{ m.status }}</span>
+      </div>
+
+      <p class="bx-agent-card__desc">{{ m.description }}</p>
+
+      <div class="d-flex flex-wrap gap-1 mb-2">
+        {% for mod in m.modality %}
+        <span class="badge bg-secondary-subtle text-secondary-emphasis fw-normal">{{ mod }}</span>
+        {% endfor %}
+        {% for t in m.tags %}
+        <span class="badge bg-primary-subtle text-primary-emphasis fw-normal">{{ t }}</span>
+        {% endfor %}
+      </div>
+
+      <dl class="bx-agent-card__meta">
+        <div><dt>Context</dt><dd>{% if m.contextWindow > 0 %}{{ (m.contextWindow / 1000) | round }}k{% else %}—{% endif %}</dd></div>
+        <div><dt>Input</dt><dd>${{ m.pricing.input }} / {{ m.pricing.unit }}</dd></div>
+        <div><dt>Output</dt><dd>${{ m.pricing.output }} / {{ m.pricing.unit }}</dd></div>
+        <div><dt>Latency</dt><dd>{{ m.latencyMs }}ms</dd></div>
+      </dl>
+
+      <div class="bx-agent-card__foot">
+        <a href="/ai/chat/?model={{ m.id }}" class="btn btn-sm btn-primary">
+          <i data-lucide="message-square" aria-hidden="true"></i>
+          Try in chat
+        </a>
+        <button type="button" class="btn btn-sm btn-outline-secondary bx-ai-ask-btn"
+                data-bx-ai-ask
+                data-ai-context="model-{{ m.id }}"
+                data-ai-prompt="Tell me about the {{ m.name }} model — capabilities, best use cases, and tradeoffs.">
+          <i data-lucide="sparkles" aria-hidden="true"></i>
+          Ask AI
+        </button>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="mt-4">
+  <h2 class="h6 text-secondary mb-2">Recently used</h2>
+  <div class="d-flex flex-wrap gap-2">
+    {% for r in aiModels.recent %}
+    <a href="/ai/chat/?model={{ r.id }}" class="badge bg-body-tertiary text-body border text-decoration-none px-3 py-2">
+      <i data-lucide="sparkles" style="width:12px;height:12px;vertical-align:-2px;"></i>
+      {{ r.name }} <span class="text-secondary">· {{ r.provider }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</div>

@@ -145,6 +145,15 @@ Top-level keys: `brief`, `stats[]`, `revenueChart`, `agentStatus`, `tokenUsage`,
 ### `aiAgents.json`, `aiPrompts.json`, `aiHistory.json`, `aiInsightsFeed.json`, `aiVoice.json`
 AI section data — see files for shapes.
 
+### `aiModels.json`, `aiTuningJobs.json`, `aiTuningDatasets.json`
+AI Models library and Fine-tuning sub-section data. In the ColdBox port:
+
+- `aiModels.json` → `AIModelService.list()` → `prc.aiModels` (view: `ai/models.cfm`, URL: `/ai/models/`)
+- `aiTuningJobs.json` → `AITuningService.listJobs()` → `prc.aiTuningJobs` (view: `ai/tuning-jobs.cfm`, URL: `/ai/tuning/jobs/`)
+- `aiTuningDatasets.json` → `AITuningService.listDatasets()` → `prc.aiTuningDatasets` (view: `ai/tuning-datasets.cfm`, URL: `/ai/tuning/datasets/`)
+
+See files for full shapes (`summary` + collection arrays). Each collection item includes a `tone` key consumed by `bx-agent-card__icon--{tone}` and `bx-agent-card__status--*` modifiers.
+
 ### `analytics.json`, `sales.json`, `aiOps.json`, `realtime.json`
 Per-dashboard data, all share the `stats[]` + `*Chart` pattern.
 

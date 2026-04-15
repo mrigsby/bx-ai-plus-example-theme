@@ -74,12 +74,21 @@ async function bootPage() {
     }
   }
 
-  // Filter pills (prompts + insights) — load only if the hooks exist.
-  if (document.querySelector("[data-bx-prompt-filter], [data-bx-insight-filter]")) {
+  // Filter pills (prompts + insights + projects) — load only if the hooks exist.
+  if (document.querySelector("[data-bx-prompt-filter], [data-bx-insight-filter], [data-bx-project-filter]")) {
     try {
       (await import("./pages/ai-filters.js")).init();
     } catch (err) {
       console.error("[BX-AI+] Failed to load ai-filters", err);
+    }
+  }
+
+  // Code highlighting — load Prism only when a tagged code block is present.
+  if (document.querySelector('pre > code[class*="language-"]')) {
+    try {
+      (await import("./pages/code.js")).init();
+    } catch (err) {
+      console.error("[BX-AI+] Failed to load code highlighter", err);
     }
   }
 }

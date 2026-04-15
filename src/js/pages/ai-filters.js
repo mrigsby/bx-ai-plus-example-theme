@@ -42,5 +42,10 @@ export function init() {
     gridSelector: "[data-bx-insight-grid]",
     itemAttr: "data-bx-insight-variant"
   });
+  bindFilters({
+    filterAttr: "data-bx-project-filter",
+    gridSelector: "[data-bx-project-grid]",
+    itemAttr: "data-bx-project-status"
+  });
   bindStarToggles();
 }

@@ -1,0 +1,108 @@
+---
+layout: vertical.njk
+title: Fine-tuning datasets
+pageTitle: Fine-tuning datasets
+pageSubtitle: Training data uploaded for fine-tuning. Validate, version, and track usage.
+permalink: /ai/tuning/datasets/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "AI" }
+  - { label: "Models" }
+  - { label: "Fine-tuning" }
+  - { label: "Datasets" }
+---
+{% from "partials/widgets/widget-menu.njk" import widgetMenu %}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <div class="d-flex gap-2 align-items-center small text-secondary">
+    {{ aiTuningDatasets.summary.total }} datasets · {{ aiTuningDatasets.summary.examplesTotal }} examples · {{ aiTuningDatasets.summary.sizeMbTotal }} MB
+  </div>
+  <div class="d-flex gap-2">
+    <button type="button" class="btn btn-outline-secondary btn-sm">
+      <i data-lucide="filter" style="width:14px;height:14px;"></i> Format
+    </button>
+    <button type="button" class="btn btn-outline-secondary btn-sm">
+      <i data-lucide="tag" style="width:14px;height:14px;"></i> Tags
+    </button>
+    <button type="button" class="btn btn-primary btn-sm">
+      <i data-lucide="upload" style="width:14px;height:14px;"></i> Upload dataset
+    </button>
+  </div>
+</div>
+
+<div class="alert alert-info d-flex gap-2 align-items-start py-2 px-3 mb-3 small" role="note">
+  <i data-lucide="info" style="width:16px;height:16px;flex-shrink:0;margin-top:2px;"></i>
+  <div>
+    Expected JSONL shape: <code>{"messages": [{"role": "system|user|assistant", "content": "…"}]}</code>.
+    Minimum 10 examples; 100+ recommended for measurable gains.
+  </div>
+</div>
+
+<div class="row g-3">
+  {% for d in aiTuningDatasets.datasets %}
+  <div class="col-12 col-xl-6" id="{{ d.id }}">
+    <div class="bx-agent-card">
+      {{ widgetMenu("dataset-" + d.id, "Summarize dataset " + d.name + " — composition, validation status, and any concerns.") }}
+
+      <div class="bx-agent-card__head">
+        <span class="bx-agent-card__icon bx-agent-card__icon--{{ d.tone }}" aria-hidden="true">
+          <i data-lucide="database"></i>
+        </span>
+        <div style="flex:1;min-width:0;">
+          <h3 class="bx-agent-card__name">{{ d.name }}</h3>
+          <div class="bx-agent-card__role">{{ d.format | upper }} · {{ d.examples }} examples · {{ d.sizeMb }} MB</div>
+        </div>
+        <span class="bx-agent-card__status bx-agent-card__status--{% if d.validation.status == 'passed' %}healthy{% elseif d.validation.status == 'warnings' %}degraded{% else %}errored{% endif %}">
+          {{ d.validation.status }}{% if d.validation.issues > 0 %} ({{ d.validation.issues }}){% endif %}
+        </span>
+      </div>
+
+      <p class="bx-agent-card__desc">{{ d.description }}</p>
+
+      <div class="mb-2">
+        <div class="d-flex small text-secondary justify-content-between mb-1">
+          <span>Train {{ (d.splits.train * 100) | round }}%</span>
+          <span>Val {{ (d.splits.val * 100) | round }}%</span>
+          <span>Test {{ (d.splits.test * 100) | round }}%</span>
+        </div>
+        <div class="progress" style="height:6px;" role="group" aria-label="Train/val/test split">
+          <div class="progress-bar bg-primary" style="width: {{ (d.splits.train * 100) | round }}%;"></div>
+          <div class="progress-bar bg-info"    style="width: {{ (d.splits.val   * 100) | round }}%;"></div>
+          <div class="progress-bar bg-warning" style="width: {{ (d.splits.test  * 100) | round }}%;"></div>
+        </div>
+      </div>
+
+      <div class="d-flex flex-wrap gap-1 mb-2">
+        {% for t in d.tags %}
+        <span class="badge bg-secondary-subtle text-secondary-emphasis fw-normal">{{ t }}</span>
+        {% endfor %}
+      </div>
+
+      <dl class="bx-agent-card__meta">
+        <div><dt>Owner</dt><dd>{{ d.owner }}</dd></div>
+        <div><dt>Updated</dt><dd>{{ d.updated }}</dd></div>
+        <div><dt>Used by</dt><dd>{% if d.usedByJobs > 0 %}<a href="/ai/tuning/jobs/" class="text-decoration-none">{{ d.usedByJobs }} job{% if d.usedByJobs != 1 %}s{% endif %}</a>{% else %}—{% endif %}</dd></div>
+        <div><dt>Format</dt><dd>{{ d.format | upper }}</dd></div>
+      </dl>
+
+      <div class="bx-agent-card__foot">
+        <button type="button" class="btn btn-sm btn-primary bx-ai-ask-btn"
+                data-bx-ai-ask
+                data-ai-context="dataset-{{ d.id }}"
+                data-ai-prompt="Summarize dataset {{ d.name }} — composition, validation status, and any concerns.">
+          <i data-lucide="sparkles" aria-hidden="true"></i>
+          Ask AI
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">
+          <i data-lucide="eye" aria-hidden="true"></i>
+          Preview
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">
+          <i data-lucide="check-circle-2" aria-hidden="true"></i>
+          Re-validate
+        </button>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>

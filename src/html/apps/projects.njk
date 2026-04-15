@@ -28,20 +28,20 @@ breadcrumbs:
 </div>
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-  <div class="bx-prompt-filters">
-    <button type="button" class="is-active">All <span class="bx-prompt-filters__count">{{ projects.projects | length }}</span></button>
-    <button type="button">On track</button>
-    <button type="button">At risk</button>
-    <button type="button">Blocked</button>
+  <div class="bx-prompt-filters" data-bx-project-filters>
+    <button type="button" data-bx-project-filter="all" class="is-active">All <span class="bx-prompt-filters__count">{{ projects.projects | length }}</span></button>
+    <button type="button" data-bx-project-filter="on-track">On track</button>
+    <button type="button" data-bx-project-filter="at-risk">At risk</button>
+    <button type="button" data-bx-project-filter="blocked">Blocked</button>
   </div>
   <button type="button" class="btn btn-primary btn-sm d-inline-flex align-items-center gap-1">
     <i data-lucide="plus" style="width:14px;height:14px;"></i> New project
   </button>
 </div>
 
-<div class="row g-3">
+<div class="row g-3" data-bx-project-grid>
   {% for p in projects.projects %}
-  <div class="col-12 col-md-6 col-xl-4">
+  <div class="col-12 col-md-6 col-xl-4" data-bx-project-status="{{ p.status }}">
     <div class="bx-project-card bx-project-card--{{ p.tone }}">
       <div class="bx-project-card__head">
         <span class="bx-project-card__cat">{{ p.category }}</span>
