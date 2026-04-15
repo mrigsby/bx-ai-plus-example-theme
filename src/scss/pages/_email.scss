@@ -1,0 +1,266 @@
+// ---------------------------------------------------------------------------
+// pages/_email.scss — inbox + read view.
+// ---------------------------------------------------------------------------
+
+.bx-email {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 1rem;
+  align-items: start;
+
+  @media (max-width: 991.98px) {
+    grid-template-columns: 1fr;
+  }
+
+  &__sidebar {
+    background: var(--bx-surface-1);
+    border: 1px solid var(--bx-border);
+    border-radius: var(--bx-radius);
+    padding: 0.75rem;
+    position: sticky;
+    top: calc(var(--bx-topbar-height) + 1rem);
+
+    @media (max-width: 991.98px) { position: static; }
+  }
+
+  &__compose {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+
+    i, svg { width: 14px; height: 14px; }
+  }
+
+  &__folders {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+
+    li a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.65rem;
+      border-radius: var(--bx-radius-sm);
+      color: var(--bx-text);
+      text-decoration: none;
+      font-size: 0.84rem;
+      transition: background var(--bx-transition-fast), color var(--bx-transition-fast);
+
+      i, svg { width: 15px; height: 15px; opacity: 0.8; }
+      &:hover { background: var(--bx-surface-2); color: var(--bx-brand-primary-text); }
+      &.is-active { background: var(--bx-sidenav-active-bg); color: var(--bx-sidenav-active-fg); }
+
+      .bx-email__folder-count {
+        margin-left: auto;
+        font-size: 0.66rem;
+        padding: 1px 7px;
+        background: color-mix(in srgb, var(--bx-text-muted) 22%, transparent);
+        border-radius: var(--bx-radius-pill);
+      }
+      &.is-active .bx-email__folder-count {
+        background: color-mix(in srgb, var(--bx-brand-primary) 22%, transparent);
+        color: var(--bx-brand-primary-text);
+      }
+    }
+  }
+
+  &__labels {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--bx-divider);
+  }
+
+  &__labels-title {
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bx-text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.3rem 0.4rem;
+    font-size: 0.8rem;
+    color: var(--bx-text);
+
+    .bx-cat-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  }
+
+  // ---- Main panel ----
+  &__main {
+    background: var(--bx-surface-1);
+    border: 1px solid var(--bx-border);
+    border-radius: var(--bx-radius);
+    overflow: hidden;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.85rem;
+    border-bottom: 1px solid var(--bx-divider);
+
+    .bx-email__search { flex: 1; max-width: 320px; }
+    .bx-ai-page__search { width: 100%; }
+  }
+
+  &__head-actions {
+    margin-left: auto;
+    display: inline-flex;
+    gap: 0.25rem;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 24px 32px 1fr auto;
+    gap: 0.65rem;
+    align-items: center;
+    padding: 0.65rem 0.85rem;
+    border-bottom: 1px solid var(--bx-divider);
+    cursor: pointer;
+    transition: background var(--bx-transition-fast);
+
+    &:hover { background: var(--bx-surface-2); }
+    &--unread { background: color-mix(in srgb, var(--bx-brand-primary) 5%, transparent); }
+    &--unread .bx-email__row-subject { font-weight: 600; color: var(--bx-text-heading); }
+
+    &-star {
+      background: transparent;
+      border: 0;
+      padding: 2px;
+      color: var(--bx-text-muted);
+      cursor: pointer;
+      i, svg { width: 14px; height: 14px; }
+      &.is-on { color: var(--bx-warning); }
+    }
+
+    &-body {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    &-from {
+      font-size: 0.74rem;
+      color: var(--bx-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    &-subject {
+      font-size: 0.84rem;
+      color: var(--bx-text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &-snip {
+      font-size: 0.74rem;
+      color: var(--bx-text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &-meta {
+      font-size: 0.72rem;
+      color: var(--bx-text-muted);
+      white-space: nowrap;
+    }
+  }
+}
+
+// ---- Email read view ----
+.bx-email-read {
+  background: var(--bx-surface-1);
+  border: 1px solid var(--bx-border);
+  border-radius: var(--bx-radius);
+  padding: 1.5rem 1.75rem 1.25rem;
+
+  &__head {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--bx-divider);
+  }
+
+  &__subject {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--bx-text-heading);
+    margin: 0 0 0.4rem;
+    letter-spacing: -0.005em;
+  }
+
+  &__from-line {
+    font-size: 0.84rem;
+    color: var(--bx-text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  &__from-name {
+    font-weight: 600;
+    color: var(--bx-text);
+  }
+
+  &__body {
+    margin-top: 1.25rem;
+    color: var(--bx-text);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    p { margin: 0 0 0.85rem; }
+  }
+
+  &__attachments {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--bx-divider);
+  }
+
+  &__attachment {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.7rem;
+    background: var(--bx-surface-2);
+    border: 1px solid var(--bx-border);
+    border-radius: var(--bx-radius-sm);
+    font-size: 0.78rem;
+    color: var(--bx-text);
+    text-decoration: none;
+    transition: border-color var(--bx-transition-fast);
+
+    i, svg { width: 14px; height: 14px; color: var(--bx-text-muted); }
+    &:hover { border-color: var(--bx-brand-primary); }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    flex-wrap: wrap;
+  }
+}

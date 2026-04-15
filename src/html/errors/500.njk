@@ -1,0 +1,21 @@
+---
+layout: blank.njk
+title: 500 · Server error
+permalink: /errors/500/index.html
+---
+<main class="bx-error">
+  <div class="bx-error__bg" aria-hidden="true"></div>
+  <div class="bx-error__inner">
+    <div class="bx-error__icon"><i data-lucide="server-crash"></i></div>
+    <div class="bx-error__code">500</div>
+    <h1 class="bx-error__title">Something on our end broke</h1>
+    <p class="bx-error__lede">We've been notified and are looking into it. Try the operation again in a moment, or check the status page.</p>
+    <div class="bx-error__actions">
+      <a class="btn btn-primary" href="/"><i data-lucide="home"></i> Back to dashboard</a>
+      <button class="btn btn-outline-secondary" type="button" onclick="window.location.reload();">
+        <i data-lucide="refresh-cw"></i> Try again
+      </button>
+      <a class="btn btn-outline-secondary" href="#"><i data-lucide="activity"></i> Status</a>
+    </div>
+  </div>
+</main>

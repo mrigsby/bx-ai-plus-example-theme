@@ -1,0 +1,32 @@
+{
+  "channels": [
+    { "id": "ch-platform", "label": "platform",  "icon": "hash",     "unread":  3 },
+    { "id": "ch-ops",      "label": "ops",       "icon": "hash",     "unread":  1 },
+    { "id": "ch-design",   "label": "design",    "icon": "hash",     "unread":  0 },
+    { "id": "ch-growth",   "label": "growth",    "icon": "hash",     "unread":  0 },
+    { "id": "ch-eng-rand", "label": "eng-random","icon": "hash",     "unread":  0 }
+  ],
+  "dms": [
+    { "id": "dm-avery",  "name": "Avery Liu",   "initials": "AL", "presence": "online",  "lastActivity": "2m",  "unread": 2 },
+    { "id": "dm-marcus", "name": "Marcus Reed", "initials": "MR", "presence": "online",  "lastActivity": "8m",  "unread": 0 },
+    { "id": "dm-priya",  "name": "Priya Shah",  "initials": "PS", "presence": "away",    "lastActivity": "1h",  "unread": 0 },
+    { "id": "dm-theo",   "name": "Theo Kim",    "initials": "TK", "presence": "offline", "lastActivity": "2h",  "unread": 0 },
+    { "id": "dm-sasha",  "name": "Sasha Volkov","initials": "SV", "presence": "online",  "lastActivity": "now", "unread": 0 }
+  ],
+  "active": {
+    "id": "ch-platform",
+    "kind": "channel",
+    "title": "platform",
+    "subtitle": "16 members · pinned: incident-response runbook",
+    "messages": [
+      { "id": "msg-01", "author": "Avery Liu",   "initials": "AL", "time": "09:14", "body": "Morning all. Pushed retriever-xl v1.2 to staging — eval looks 12% better on loss." },
+      { "id": "msg-02", "author": "Marcus Reed", "initials": "MR", "time": "09:18", "body": "Nice. We'll watch p95 in prod once it promotes. I'll pin the dashboard for the day." },
+      { "id": "msg-03", "author": "Sarah Chen",  "initials": "SC", "time": "13:22", "body": "Heads up — anomaly hitting /api/agents. p95 just jumped to 1.24s.", "tone": "alert" },
+      { "id": "msg-04", "author": "Marcus Reed", "initials": "MR", "time": "13:24", "body": "Looking. Looks correlated with planner-alpha cache flush at 14:20." },
+      { "id": "msg-05", "author": "BX-AI",       "initials": "AI", "time": "13:25", "body": "I correlated the p95 spike with the planner-alpha cache flush. 3 mitigations attached.", "tone": "ai" },
+      { "id": "msg-06", "author": "M. Rigsby",   "initials": "MR", "time": "13:26", "body": "Thanks BX-AI. Going with mitigation 2 — least invasive.", "self": true },
+      { "id": "msg-07", "author": "Avery Liu",   "initials": "AL", "time": "13:32", "body": "Latency back to baseline. Closing the alert." },
+      { "id": "msg-08", "author": "Sarah Chen",  "initials": "SC", "time": "14:24", "body": "cc @mrigsby — can you take the writeup?" }
+    ]
+  }
+}

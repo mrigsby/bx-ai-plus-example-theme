@@ -1,0 +1,105 @@
+---
+layout: vertical.njk
+title: File manager
+pageTitle: File manager
+pageSubtitle: Browse, search, and share files across your workspace.
+permalink: /apps/file-manager/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Apps" }
+  - { label: "File manager" }
+---
+{% from "partials/widgets/widget-menu.njk" import widgetMenu %}
+
+<div class="row g-3 mb-3">
+  {% for s in files.stats %}
+  <div class="col-6 col-xl-3">
+    <div class="bx-stat-card">
+      <div class="bx-stat-card__head">
+        <span class="bx-stat-card__icon" aria-hidden="true"><i data-lucide="{{ s.icon }}"></i></span>
+        <span class="bx-stat-card__label">{{ s.label }}</span>
+      </div>
+      <div class="bx-stat-card__value-row">
+        <span class="bx-stat-card__value">{{ s.value }}</span>
+      </div>
+      {% if s.of %}<div class="bx-stat-card__delta">{{ s.of }}</div>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="bx-files">
+  <aside class="bx-files__sidebar">
+    <button class="btn btn-primary w-100 mb-3 d-inline-flex align-items-center justify-content-center gap-1">
+      <i data-lucide="upload" style="width:14px;height:14px;"></i> Upload
+    </button>
+    <div class="bx-files__sidebar-section">
+      <div class="bx-calendar-page__sidebar-label">Workspace</div>
+      <ul class="bx-files__tree">
+        {% for f in files.tree %}
+        <li{% if loop.first %} class="is-active"{% endif %}>
+          <i data-lucide="folder"></i>
+          <span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ f.name }}</span>
+          <span class="bx-files__tree-meta">{{ f.items }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </aside>
+
+  <section class="bx-files__main">
+    <div class="bx-files__head">
+      <div class="bx-ai-page__search" style="flex:1;max-width:320px;">
+        <i data-lucide="search"></i>
+        <input type="search" placeholder="Search files…">
+      </div>
+      <div class="bx-files__head-actions">
+        <button class="bx-btn-icon" aria-label="Grid view"><i data-lucide="grid"></i></button>
+        <button class="bx-btn-icon" aria-label="List view"><i data-lucide="list"></i></button>
+        <button class="bx-btn-icon bx-ai-ask-btn"
+                data-bx-ai-ask
+                data-ai-context="files-workspaces"
+                data-ai-prompt="Find the most-recently-modified files in this workspace and summarize what changed."
+                aria-label="Ask AI" title="Ask AI">
+          <i data-lucide="sparkles"></i>
+        </button>
+      </div>
+    </div>
+
+    <table class="table bx-files-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Owner</th>
+          <th>Size</th>
+          <th>Modified</th>
+          <th>Shared</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for f in files.items %}
+        <tr>
+          <td>
+            <a href="#" class="bx-files-table__name">
+              <span class="bx-files-table__icon bx-files-table__icon--{{ f.type }}"><i data-lucide="{{ f.icon }}"></i></span>
+              {{ f.name }}
+            </a>
+          </td>
+          <td style="color:var(--bx-text-muted);">{{ f.owner }}</td>
+          <td style="color:var(--bx-text-muted);">{{ f.size }}</td>
+          <td style="color:var(--bx-text-muted);">{{ f.modified }}</td>
+          <td>
+            {% if f.shared > 0 %}
+            <span class="bx-files-table__shared"><i data-lucide="users"></i> {{ f.shared }}</span>
+            {% else %}<span style="color:var(--bx-text-muted);">—</span>{% endif %}
+          </td>
+          <td>
+            <button class="bx-btn-icon" aria-label="More"><i data-lucide="more-horizontal"></i></button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div>

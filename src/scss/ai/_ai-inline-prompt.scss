@@ -1,0 +1,58 @@
+// ---------------------------------------------------------------------------
+// ai/_ai-inline-prompt.scss
+// One-line pill input embedded inside a widget to start an AI conversation.
+// ---------------------------------------------------------------------------
+
+.bx-ai-inline-prompt {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.4rem 0.35rem 0.7rem;
+  background: color-mix(in srgb, var(--bx-surface-2) 80%, transparent);
+  border: 1px solid var(--bx-border);
+  border-radius: var(--bx-radius-pill);
+  transition: border-color var(--bx-transition-fast), box-shadow var(--bx-transition-fast);
+
+  &:focus-within {
+    border-color: var(--bx-brand-primary);
+    box-shadow: 0 0 0 3px var(--bx-focus-ring);
+  }
+
+  &__icon {
+    display: inline-flex;
+    color: var(--bx-brand-primary-text);
+    i, svg { width: 15px; height: 15px; }
+  }
+
+  &__input {
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--bx-text);
+    font-size: 0.8rem;
+
+    &:focus { outline: none; }
+    &::placeholder { color: var(--bx-text-muted); }
+  }
+
+  &__send {
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: var(--bx-text-on-primary);
+    background: var(--bx-brand-primary);
+    border: 0;
+    border-radius: var(--bx-radius-pill);
+    cursor: pointer;
+    transition: background var(--bx-transition-fast), transform var(--bx-transition-fast);
+
+    i, svg { width: 14px; height: 14px; }
+
+    &:hover { background: var(--bx-brand-primary-hover); transform: scale(1.05); }
+  }
+}

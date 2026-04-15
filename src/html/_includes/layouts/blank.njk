@@ -1,0 +1,11 @@
+---
+layout: base.njk
+layoutVariant: vertical
+---
+{#
+  ----------------------------------------------------------------------------
+  layouts/blank.njk — full-bleed page (no chrome). Used by errors,
+  maintenance, and any standalone page that wants its own shell.
+  ----------------------------------------------------------------------------
+#}
+{{ content | safe }}

@@ -1,0 +1,17 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/footer.njk — sticks to the bottom of .bx-page.
+  ----------------------------------------------------------------------------
+#}
+{% seamBegin "FOOTER" %}
+<footer class="bx-footer">
+  <div class="bx-footer__left">
+    © {% year %} {{ site.vendor }} — {{ site.name }} v{{ site.version }}
+  </div>
+  <div class="bx-footer__right">
+    <a href="/documentation/">Docs</a>
+    <span class="bx-footer__sep">·</span>
+    <a href="#" data-bs-toggle="offcanvas" data-bs-target="#bx-customizer">Customize</a>
+  </div>
+</footer>
+{% seamEnd "FOOTER" %}

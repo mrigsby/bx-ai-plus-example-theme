@@ -1,0 +1,79 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/chat-command.njk — command-palette modal for the chat bar.
+  Triggered by clicking the topbar chat pill OR pressing ⌘K / Ctrl+K.
+  Enter sends → modal auto-closes, opens the right-offcanvas AI chat panel
+  with the query pre-submitted.
+  ----------------------------------------------------------------------------
+#}
+{% seamBegin "CHAT_COMMAND" %}
+<div class="bx-chat-command" id="bx-chat-command" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="bx-chat-command-label">
+  <div class="bx-chat-command__backdrop" data-bx-chat-command-dismiss></div>
+
+  <div class="bx-chat-command__panel" role="document">
+    <div class="bx-chat-command__header">
+      <span class="bx-chat-command__icon" aria-hidden="true">
+        <i data-lucide="sparkles"></i>
+      </span>
+      <input
+        type="text"
+        id="bx-chat-command-input"
+        class="bx-chat-command__input"
+        placeholder="Ask BX-AI anything…"
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Ask BX-AI"
+        aria-describedby="bx-chat-command-label"
+      >
+      <kbd class="bx-chat-command__kbd">esc</kbd>
+    </div>
+
+    <div class="bx-chat-command__results" data-bx-chat-command-results>
+
+      <div class="bx-chat-command__group" data-bx-chat-command-group="suggestions">
+        <div class="bx-chat-command__group-label" id="bx-chat-command-label">Suggestions</div>
+        <ul class="bx-chat-command__list" role="listbox">
+          {% for s in aiSuggestions.default %}
+          <li role="option" class="bx-chat-command__item" data-bx-chat-command-item="{{ s.label }}">
+            <span class="bx-chat-command__item-icon"><i data-lucide="{{ s.icon }}"></i></span>
+            <span class="bx-chat-command__item-body">
+              <span class="bx-chat-command__item-label">{{ s.label }}</span>
+              <span class="bx-chat-command__item-hint">{{ s.hint }}</span>
+            </span>
+            <span class="bx-chat-command__item-enter" aria-hidden="true">↵</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="bx-chat-command__group" data-bx-chat-command-group="recent">
+        <div class="bx-chat-command__group-label">Recent</div>
+        <ul class="bx-chat-command__list" role="listbox">
+          {% for r in aiSuggestions.recent %}
+          <li role="option" class="bx-chat-command__item" data-bx-chat-command-item="{{ r.label }}">
+            <span class="bx-chat-command__item-icon"><i data-lucide="{{ r.icon }}"></i></span>
+            <span class="bx-chat-command__item-body">
+              <span class="bx-chat-command__item-label">{{ r.label }}</span>
+              <span class="bx-chat-command__item-hint">{{ r.time }}</span>
+            </span>
+            <span class="bx-chat-command__item-enter" aria-hidden="true">↵</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="bx-chat-command__empty" hidden>
+        <i data-lucide="search-x"></i>
+        <span>No suggestions match.</span>
+      </div>
+
+    </div>
+
+    <div class="bx-chat-command__footer">
+      <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+      <span><kbd>↵</kbd> send</span>
+      <span><kbd>esc</kbd> close</span>
+    </div>
+  </div>
+</div>
+{% seamEnd "CHAT_COMMAND" %}

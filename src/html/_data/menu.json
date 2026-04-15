@@ -1,0 +1,188 @@
+[
+  {
+    "id": "section-core",
+    "label": "Core",
+    "type": "section"
+  },
+  {
+    "id": "dashboards",
+    "label": "Dashboards",
+    "icon": "layout-dashboard",
+    "badge": { "text": "5", "variant": "brand" },
+    "children": [
+      { "id": "dash-main",      "label": "Main",       "href": "/index.html" },
+      { "id": "dash-analytics", "label": "Analytics",  "href": "/dashboards/analytics/" },
+      { "id": "dash-sales",     "label": "Sales",      "href": "/dashboards/sales/" },
+      { "id": "dash-ai-ops",    "label": "AI Ops",     "href": "/dashboards/ai-ops/" },
+      { "id": "dash-realtime",  "label": "Realtime",   "href": "/dashboards/realtime/" }
+    ]
+  },
+  {
+    "id": "ai",
+    "label": "AI",
+    "icon": "sparkles",
+    "badge": { "text": "NEW", "variant": "primary" },
+    "children": [
+      { "id": "ai-chat",     "label": "Chat",        "href": "/ai/chat/" },
+      { "id": "ai-agents",   "label": "Agents",      "href": "/ai/agents/" },
+      {
+        "id": "ai-models",
+        "label": "Models",
+        "children": [
+          { "id": "ai-models-library",    "label": "Library",       "href": "/ai/models/" },
+          {
+            "id": "ai-models-tuning",
+            "label": "Fine-tuning",
+            "children": [
+              { "id": "ai-models-tuning-jobs",     "label": "Jobs",     "href": "/ai/tuning/jobs/" },
+              { "id": "ai-models-tuning-datasets", "label": "Datasets", "href": "/ai/tuning/datasets/" }
+            ]
+          }
+        ]
+      },
+      { "id": "ai-prompts",  "label": "Prompt library", "href": "/ai/prompts/" },
+      { "id": "ai-insights", "label": "Insights",       "href": "/ai/insights/" },
+      { "id": "ai-history",  "label": "History",        "href": "/ai/history/" },
+      { "id": "ai-voice",    "label": "Voice log",      "href": "/ai/voice/" }
+    ]
+  },
+  {
+    "id": "section-apps",
+    "label": "Apps",
+    "type": "section"
+  },
+  {
+    "id": "apps",
+    "label": "Applications",
+    "icon": "boxes",
+    "children": [
+      { "id": "apps-calendar",    "label": "Calendar",     "href": "/apps/calendar/" },
+      { "id": "apps-kanban",      "label": "Kanban",       "href": "/apps/kanban/" },
+      {
+        "id": "apps-email",
+        "label": "Email",
+        "children": [
+          { "id": "apps-email-inbox", "label": "Inbox", "href": "/apps/email/inbox/" },
+          { "id": "apps-email-read",  "label": "Read",  "href": "/apps/email/read/" }
+        ]
+      },
+      { "id": "apps-chat",        "label": "Chat",         "href": "/apps/chat/" },
+      { "id": "apps-files",       "label": "File manager", "href": "/apps/file-manager/" },
+      { "id": "apps-projects",    "label": "Projects",     "href": "/apps/projects/" }
+    ]
+  },
+  {
+    "id": "section-ui",
+    "label": "UI",
+    "type": "section"
+  },
+  {
+    "id": "components",
+    "label": "Components",
+    "icon": "blocks",
+    "children": [
+      { "id": "ui-widgets",         "label": "Widgets gallery",  "href": "/ui/widgets/", "badge": { "text": "NEW", "variant": "primary" } },
+      { "id": "ui-buttons",         "label": "Buttons",          "href": "/ui/buttons/" },
+      { "id": "ui-cards",           "label": "Cards",            "href": "/ui/cards/" },
+      { "id": "ui-alerts-badges",   "label": "Alerts & badges",  "href": "/ui/alerts-badges/" },
+      { "id": "ui-modals-offcanvas","label": "Modals & offcanvas","href": "/ui/modals-offcanvas/" },
+      { "id": "ui-dropdowns-toasts","label": "Dropdowns & toasts","href": "/ui/dropdowns-toasts/" },
+      { "id": "ui-avatars-progress","label": "Avatars & progress","href": "/ui/avatars-progress/" },
+      { "id": "ui-tabs-accordion",  "label": "Tabs & accordion", "href": "/ui/tabs-accordion/" },
+      { "id": "ui-typography",      "label": "Typography",       "href": "/ui/typography/" },
+      { "id": "ui-icons",           "label": "Icons",            "href": "/ui/icons/" }
+    ]
+  },
+  {
+    "id": "forms",
+    "label": "Forms",
+    "icon": "clipboard-list",
+    "children": [
+      { "id": "forms-basic",      "label": "Basic",      "href": "/forms/basic/" },
+      { "id": "forms-advanced",   "label": "Advanced",   "href": "/forms/advanced/" },
+      { "id": "forms-validation", "label": "Validation", "href": "/forms/validation/" },
+      { "id": "forms-wizard",     "label": "Wizard",     "href": "/forms/wizard/" }
+    ]
+  },
+  {
+    "id": "tables",
+    "label": "Tables",
+    "icon": "table",
+    "children": [
+      { "id": "tables-basic",      "label": "Basic",       "href": "/tables/basic/" },
+      { "id": "tables-datatables", "label": "DataTables",  "href": "/tables/datatables/" },
+      { "id": "tables-gridjs",     "label": "GridJS",      "href": "/tables/gridjs/" }
+    ]
+  },
+  {
+    "id": "charts",
+    "label": "Charts",
+    "icon": "chart-column",
+    "children": [
+      { "id": "charts-line-area",  "label": "Line & area",    "href": "/charts/line-area/" },
+      { "id": "charts-bar-column", "label": "Bar & column",   "href": "/charts/bar-column/" },
+      { "id": "charts-mixed",      "label": "Mixed & misc",   "href": "/charts/mixed/" }
+    ]
+  },
+  {
+    "id": "section-pages",
+    "label": "Pages",
+    "type": "section"
+  },
+  {
+    "id": "pages",
+    "label": "Pages",
+    "icon": "file-text",
+    "children": [
+      { "id": "pages-profile",  "label": "Profile",   "href": "/pages/profile/" },
+      { "id": "pages-settings", "label": "Settings",  "href": "/pages/settings/" },
+      { "id": "pages-pricing",  "label": "Pricing",   "href": "/pages/pricing/" },
+      { "id": "pages-invoice",  "label": "Invoice",   "href": "/pages/invoice/" },
+      { "id": "pages-faq",      "label": "FAQ",       "href": "/pages/faq/" },
+      { "id": "pages-timeline", "label": "Timeline",  "href": "/pages/timeline/" }
+    ]
+  },
+  {
+    "id": "auth",
+    "label": "Authentication",
+    "icon": "shield-check",
+    "children": [
+      { "id": "auth-sign-in",         "label": "Sign in",         "href": "/auth/sign-in/" },
+      { "id": "auth-sign-up",         "label": "Sign up",         "href": "/auth/sign-up/" },
+      { "id": "auth-forgot-password", "label": "Forgot password", "href": "/auth/forgot-password/" },
+      { "id": "auth-lock-screen",     "label": "Lock screen",     "href": "/auth/lock-screen/" }
+    ]
+  },
+  {
+    "id": "errors",
+    "label": "Errors",
+    "icon": "triangle-alert",
+    "children": [
+      { "id": "errors-404",         "label": "404",          "href": "/errors/404/" },
+      { "id": "errors-500",         "label": "500",          "href": "/errors/500/" },
+      { "id": "errors-maintenance", "label": "Maintenance",  "href": "/errors/maintenance/" }
+    ]
+  },
+  {
+    "id": "section-layouts",
+    "label": "Layouts",
+    "type": "section"
+  },
+  {
+    "id": "layouts",
+    "label": "Layouts",
+    "icon": "layout-panel-left",
+    "children": [
+      { "id": "layouts-vertical",         "label": "Vertical",          "href": "/layouts/vertical/" },
+      { "id": "layouts-vertical-compact", "label": "Vertical · compact","href": "/layouts/vertical-compact/" },
+      { "id": "layouts-vertical-hover",   "label": "Vertical · hover",  "href": "/layouts/vertical-hover/" },
+      { "id": "layouts-horizontal",       "label": "Horizontal",        "href": "/layouts/horizontal/" }
+    ]
+  },
+  {
+    "id": "documentation",
+    "label": "Documentation",
+    "icon": "book-open",
+    "href": "/documentation/"
+  }
+]

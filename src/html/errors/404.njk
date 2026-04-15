@@ -1,0 +1,22 @@
+---
+layout: blank.njk
+title: 404 · Page not found
+permalink: /errors/404/index.html
+---
+<main class="bx-error">
+  <div class="bx-error__bg" aria-hidden="true"></div>
+  <div class="bx-error__inner">
+    <div class="bx-error__code">404</div>
+    <h1 class="bx-error__title">We couldn't find that page</h1>
+    <p class="bx-error__lede">The page you're looking for has moved, been renamed, or never existed. Try the dashboard, or ask BX-AI to find it.</p>
+    <div class="bx-error__actions">
+      <a class="btn btn-primary" href="/"><i data-lucide="home"></i> Back to dashboard</a>
+      <button class="btn btn-outline-secondary bx-ai-ask-btn"
+              data-bx-ai-ask
+              data-ai-context="error-404"
+              data-ai-prompt="I'm trying to find a page in BX-AI+ but landed on a 404. Help me find what I was looking for.">
+        <i data-lucide="sparkles"></i> Ask BX-AI to help
+      </button>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,65 @@
+---
+layout: vertical.njk
+title: Prompts
+pageTitle: Prompt library
+pageSubtitle: Reusable prompts shared across the team. Click "Use" to send to the AI panel.
+permalink: /ai/prompts/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "AI" }
+  - { label: "Prompts" }
+---
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <div class="bx-ai-page__search" style="max-width:320px;flex:1;">
+    <i data-lucide="search" aria-hidden="true"></i>
+    <input type="search" placeholder="Search prompts…" aria-label="Search prompts">
+  </div>
+  <button type="button" class="btn btn-primary btn-sm">
+    <i data-lucide="plus" style="width:14px;height:14px;"></i> New prompt
+  </button>
+</div>
+
+<div class="bx-prompt-filters" data-bx-prompt-filters>
+  {% for c in aiPrompts.categories %}
+  <button type="button"
+          data-bx-prompt-filter="{{ c.id }}"
+          {% if c.id == "all" %}class="is-active"{% endif %}>
+    {{ c.label }}
+    <span class="bx-prompt-filters__count">{{ c.count }}</span>
+  </button>
+  {% endfor %}
+</div>
+
+<div class="row g-3" data-bx-prompt-grid>
+  {% for p in aiPrompts.prompts %}
+  <div class="col-12 col-md-6 col-xl-4" data-bx-prompt-cat="{{ p.category }}">
+    <div class="bx-prompt-card">
+      <div class="bx-prompt-card__head">
+        <h3 class="bx-prompt-card__title">{{ p.title }}</h3>
+        <button type="button"
+                class="bx-prompt-card__star {% if p.favorite %}is-on{% endif %}"
+                aria-label="Toggle favorite"
+                data-bx-prompt-star>
+          <i data-lucide="star" aria-hidden="true"></i>
+        </button>
+      </div>
+      <span class="bx-prompt-card__cat bx-prompt-card__cat--{{ p.tone }}">{{ p.categoryLabel }}</span>
+      <p class="bx-prompt-card__snip">{{ p.snippet }}</p>
+      <div class="bx-prompt-card__foot">
+        <span class="bx-prompt-card__author">
+          <i data-lucide="user" style="width:12px;height:12px;"></i>
+          {{ p.author }} · {{ p.uses }} uses · {{ p.updated }}
+        </span>
+        <button type="button"
+                class="bx-prompt-card__use bx-ai-ask-btn"
+                data-bx-ai-ask
+                data-ai-context="prompt-{{ p.id }}"
+                data-ai-prompt="{{ p.snippet }}">
+          <i data-lucide="play" aria-hidden="true"></i> Use
+        </button>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>

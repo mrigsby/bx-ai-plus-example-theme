@@ -1,0 +1,414 @@
+---
+layout: vertical.njk
+title: Widgets gallery
+pageTitle: Widgets gallery
+pageSubtitle: Every widget primitive used across the dashboards, in one place.
+page_module: widgets-gallery
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "UI" }
+  - { label: "Widgets gallery" }
+permalink: /ui/widgets/index.html
+---
+{% from "partials/widgets/widget-menu.njk"      import widgetMenu %}
+{% from "partials/widgets/stat-card.njk"        import statCard %}
+{% from "partials/widgets/ai-insight-card.njk"  import insightCard %}
+{% from "partials/widgets/ai-inline-prompt.njk" import inlinePrompt %}
+
+{# Macro for section headings #}
+{% macro section(label, id) %}
+<div class="d-flex align-items-center gap-2 mt-4 mb-3" id="{{ id }}">
+  <span class="text-secondary text-uppercase small" style="letter-spacing:.08em;font-weight:600;">{{ label }}</span>
+  <span style="flex:1;height:1px;background:var(--bx-divider);"></span>
+</div>
+{% endmacro %}
+
+{# ---- Sticky in-page nav ---- #}
+<div class="d-flex flex-wrap gap-2 mb-4 p-2" style="background:var(--bx-surface-2);border:1px solid var(--bx-border);border-radius:var(--bx-radius-pill);">
+  {% for s in [
+    ["Stat cards","stat"],["AI brief","brief"],["AI insights","insight"],
+    ["Charts","chart"],["Activity","activity"],["Notifications","notif"],
+    ["Project cards","project"],["Agent cards","agent"],
+    ["Quick actions","quick"],["Email rows","email"],["Chat bubbles","chat"],
+    ["Status pills","status"],["Top agents table","top"]
+  ] %}
+  <a href="#sec-{{ s[1] }}" class="btn btn-outline-secondary btn-sm" style="border-radius:var(--bx-radius-pill);">{{ s[0] }}</a>
+  {% endfor %}
+</div>
+
+{# ============================ STAT CARDS ============================ #}
+{{ section("Stat cards", "sec-stat") }}
+<p class="text-secondary small mb-3">Live-drift counters from the main dashboard. Each ticks every ~3 s with a pulse animation. Macro: <code>statCard(s)</code>.</p>
+<div class="row g-3">
+  {% for s in dashboard.stats %}
+  <div class="col-12 col-sm-6 col-xl-3">{{ statCard(s) }}</div>
+  {% endfor %}
+</div>
+
+<p class="text-secondary small mt-4 mb-3">Compact stat cards (no sparkline) — used by the realtime dashboard and the file/projects/AI-voice headers.</p>
+<div class="row g-3">
+  {% for s in [
+    { id:"wg-rps",   label:"Requests / sec", icon:"activity",     value:184, unit:"",   driftMin:170, driftMax:200, driftStep:4, format:"number" },
+    { id:"wg-cache", label:"Cache hit rate", icon:"database",     value:92,  unit:"%",  driftMin:88,  driftMax:96,  driftStep:1, format:"decimal" },
+    { id:"wg-err",   label:"Error rate",     icon:"alert-circle", value:0.4, unit:"%",  driftMin:0.2, driftMax:1.2, driftStep:0.1, format:"decimal" },
+    { id:"wg-flight",label:"In-flight",      icon:"sparkles",     value:18,  unit:"",   driftMin:12,  driftMax:28,  driftStep:2, format:"number" }
+  ] %}
+  <div class="col-6 col-xl-3">
+    <div class="bx-stat-card bx-stat-card--trend-up"
+         data-bx-stat-id="{{ s.id }}"
+         data-bx-stat-format="{{ s.format }}"
+         data-bx-stat-drift-min="{{ s.driftMin }}"
+         data-bx-stat-drift-max="{{ s.driftMax }}"
+         data-bx-stat-drift-step="{{ s.driftStep }}">
+      <div class="bx-stat-card__head">
+        <span class="bx-stat-card__icon"><i data-lucide="{{ s.icon }}"></i></span>
+        <span class="bx-stat-card__label">{{ s.label }}</span>
+      </div>
+      <div class="bx-stat-card__value-row">
+        <span class="bx-stat-card__value" data-bx-stat-value>{{ s.value }}</span>
+        {% if s.unit %}<span class="bx-stat-card__unit">{{ s.unit }}</span>{% endif %}
+      </div>
+      <div class="bx-stat-card__pulse" aria-hidden="true" data-bx-stat-pulse></div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{# ========================= AI BRIEF BANNER ========================== #}
+{{ section("AI morning brief banner", "sec-brief") }}
+<p class="text-secondary small mb-3">Full-width AI banner with gradient stripe, bullets, and AI actions. Used at the top of the main dashboard.</p>
+<div class="row g-3">
+  <div class="col-12">{% include "partials/widgets/ai-brief-banner.njk" %}</div>
+</div>
+
+{# ========================= AI INSIGHT CARDS ========================= #}
+{{ section("AI insight cards", "sec-insight") }}
+<p class="text-secondary small mb-3">Four variants — anomaly, suggestion, query, summary. Macro: <code>insightCard(insight)</code>.</p>
+<div class="row g-3">
+  {% for insight in [
+    { variant:"anomaly",    icon:"triangle-alert",          eyebrow:"Anomaly",    title:"/api/agents p95 spike",         body:"p95 climbed to 1.24 s at 14:22 UTC — likely correlated with the planner-alpha cache flush.", primaryCta:{label:"Investigate",prompt:"Investigate the /api/agents anomaly."}, secondaryCta:{label:"Mute"}, aiContext:"wg-anomaly" },
+    { variant:"suggestion", icon:"sparkles",                eyebrow:"Suggestion", title:"Pricing traffic up 32%",        body:"Want a draft #growth announcement?", primaryCta:{label:"Draft it",prompt:"Draft a #growth announcement."}, secondaryCta:{label:"Not now"}, aiContext:"wg-suggest" },
+    { variant:"query",      icon:"message-circle-question", eyebrow:"Last query", title:"Compare planner-alpha vs v2",   body:"v2 is 38% faster, 0.4 pp better quality, 11% costlier.", primaryCta:{label:"Open in chat",prompt:"Compare planner-alpha and v2."}, aiContext:"wg-query" }
+  ] %}
+  <div class="col-12 col-lg-4">{{ insightCard(insight) }}</div>
+  {% endfor %}
+
+  {# Summary variant #}
+  <div class="col-12">
+    <div class="bx-insight-card bx-insight-card--summary">
+      <span class="bx-insight-card__stripe" aria-hidden="true"></span>
+      <div class="bx-insight-card__head">
+        <span class="bx-insight-card__icon" aria-hidden="true"><i data-lucide="sparkles"></i></span>
+        <span class="bx-insight-card__eyebrow">Summary</span>
+      </div>
+      <div class="bx-insight-card__body">
+        <h4 class="bx-insight-card__title">Usage up 17% this week</h4>
+        <p class="bx-insight-card__text">Overall agent invocations climbed across every service except router-s. Latency improved 6% after the weekend planner-alpha tuning.</p>
+      </div>
+      <div class="bx-insight-card__actions">
+        <button type="button" class="btn btn-sm btn-primary bx-ai-ask-btn"
+                data-bx-ai-ask data-ai-context="wg-summary"
+                data-ai-prompt="Expand the weekly usage summary into a full report.">
+          <i data-lucide="arrow-up-right"></i> Full report
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# ============================== CHARTS ============================== #}
+{{ section("Charts", "sec-chart") }}
+<p class="text-secondary small mb-3">A few chart variants — gradient area, donut, stacked bar. The full chart gallery lives at <a href="/charts/line-area/">/charts/line-area</a>.</p>
+<div class="row g-3">
+  <div class="col-12 col-xl-5">
+    <div class="bx-widget bx-widget--full-height">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Revenue area</h3><p class="bx-widget__subtitle">Multi-series gradient</p></div>
+        {{ widgetMenu("wg-chart-area","Explain this revenue trend.") }}
+      </div>
+      <div class="bx-widget__body">
+        <div data-bx-widget-chart="area" style="min-height:240px;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-3">
+    <div class="bx-widget bx-widget--full-height">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Donut</h3><p class="bx-widget__subtitle">Agent fleet</p></div>
+        {{ widgetMenu("wg-chart-donut","Describe the fleet status.") }}
+      </div>
+      <div class="bx-widget__body">
+        <div data-bx-widget-chart="donut" style="min-height:200px;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-4">
+    <div class="bx-widget bx-widget--full-height">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Stacked bar</h3><p class="bx-widget__subtitle">Token usage by agent</p></div>
+        {{ widgetMenu("wg-chart-bar","Which agents are over budget?") }}
+      </div>
+      <div class="bx-widget__body">
+        <div data-bx-widget-chart="bar" style="min-height:240px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# ============================ ACTIVITY ============================== #}
+{{ section("Activity feed", "sec-activity") }}
+<p class="text-secondary small mb-3">Timeline-style feed with colored icon dots. Five tone variants: primary, success, warning, danger, info.</p>
+<div class="row g-3">
+  <div class="col-12 col-xl-7">
+    <div class="bx-widget">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Recent activity</h3><p class="bx-widget__subtitle">Last 12 hours</p></div>
+      </div>
+      <div class="bx-widget__body">
+        <ul class="bx-activity">
+          {% for a in dashboard.activity %}
+          <li class="bx-activity__item">
+            <span class="bx-activity__item-icon bx-activity__item-icon--{{ a.variant }}"><i data-lucide="{{ a.icon }}"></i></span>
+            <div class="bx-activity__item-body">
+              <p class="bx-activity__item-text">{{ a.text }}</p>
+              <p class="bx-activity__item-meta">{{ a.actor }}</p>
+            </div>
+            <span class="bx-activity__item-time">{{ a.time }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-xl-5">
+    <div class="bx-widget">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Inline AI prompt</h3><p class="bx-widget__subtitle">Drop-in pill input</p></div>
+      </div>
+      <div class="bx-widget__body">
+        <p class="text-secondary small">Place this anywhere a user might want to ask AI about the surrounding widget. Macro: <code>inlinePrompt(context, placeholder)</code>.</p>
+        {{ inlinePrompt("wg-inline","Ask about this widget…") }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{# ========================== NOTIFICATIONS =========================== #}
+{{ section("Notification rows", "sec-notif") }}
+<p class="text-secondary small mb-3">Used inside the topbar bell-dropdown. Variants by icon background color.</p>
+<div class="bx-widget">
+  <div class="bx-widget__body" style="padding:0;">
+    <div class="bx-notifications__list" style="max-height:none;">
+      {% for n in notifications.items %}
+      <button type="button"
+              class="bx-notification {% if n.unread %}bx-notification--unread{% endif %}"
+              style="border-bottom:1px solid var(--bx-divider);">
+        <span class="bx-notification__icon bx-notification__icon--{{ n.variant }}"><i data-lucide="{{ n.icon }}"></i></span>
+        <span class="bx-notification__body">
+          <span class="bx-notification__title">{{ n.title }}</span>
+          <span class="bx-notification__text">{{ n.body }}</span>
+          <span class="bx-notification__time">{{ n.time }}</span>
+        </span>
+        {% if n.unread %}<span class="bx-notification__dot"></span>{% endif %}
+      </button>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{# ========================= PROJECT CARDS ============================ #}
+{{ section("Project cards", "sec-project") }}
+<p class="text-secondary small mb-3">Used on the Projects page. Status pill (success / warning / danger), progress bar, overlapping avatar stack with "+N more".</p>
+<div class="row g-3">
+  {% for p in projects.projects %}{% if loop.index <= 3 %}
+  <div class="col-12 col-md-6 col-xl-4">
+    <div class="bx-project-card bx-project-card--{{ p.tone }}">
+      <div class="bx-project-card__head">
+        <span class="bx-project-card__cat">{{ p.category }}</span>
+        <span class="bx-project-card__status bx-project-card__status--{{ p.tone }}" style="margin-left:auto;">{{ p.status | replace('-', ' ') }}</span>
+      </div>
+      <h3 class="bx-project-card__name">{{ p.name }}</h3>
+      <div class="bx-project-card__meta">
+        <span><i data-lucide="user"></i> {{ p.owner }}</span>
+        <span><i data-lucide="calendar"></i> {{ p.due }}</span>
+      </div>
+      <div class="bx-project-card__progress">
+        <div class="bx-project-card__progress-row"><span><strong>{{ p.progress }}%</strong> complete</span></div>
+        <div class="progress" role="progressbar"><div class="progress-bar" style="width:{{ p.progress }}%"></div></div>
+      </div>
+      <div class="bx-project-card__foot">
+        <div class="bx-project-card__avatars">
+          {% for m in p.members %}{% if loop.index <= 3 %}<span class="bx-avatar"><span class="bx-avatar__initials">{{ m }}</span></span>{% endif %}{% endfor %}
+          {% if (p.members | length) > 3 %}<span class="bx-project-card__avatars-more">+{{ (p.members | length) - 3 }}</span>{% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}{% endfor %}
+</div>
+
+{# ============================ AGENT CARDS =========================== #}
+{{ section("Agent cards", "sec-agent") }}
+<p class="text-secondary small mb-3">Used on the AI → Agents page. Icon tile, status pill, key/value meta grid, action footer.</p>
+<div class="row g-3">
+  {% for a in aiAgents.agents %}{% if loop.index <= 3 %}
+  <div class="col-12 col-md-6 col-xl-4">
+    <div class="bx-agent-card">
+      {{ widgetMenu("wg-agent-" + a.id, "Tell me about " + a.name + ".") }}
+      <div class="bx-agent-card__head">
+        <span class="bx-agent-card__icon bx-agent-card__icon--{{ a.tone }}"><i data-lucide="{{ a.icon }}"></i></span>
+        <div style="flex:1;min-width:0;">
+          <h3 class="bx-agent-card__name">{{ a.name }}</h3>
+          <div class="bx-agent-card__role">{{ a.role }} · {{ a.model }}</div>
+        </div>
+        <span class="bx-agent-card__status bx-agent-card__status--{{ a.status }}">{{ a.status }}</span>
+      </div>
+      <p class="bx-agent-card__desc">{{ a.description }}</p>
+      <dl class="bx-agent-card__meta">
+        <div><dt>Owner</dt><dd>{{ a.owner }}</dd></div>
+        <div><dt>Last run</dt><dd>{{ a.lastRun }}</dd></div>
+        <div><dt>p95 latency</dt><dd>{% if a.p95 %}{{ a.p95 }}ms{% else %}—{% endif %}</dd></div>
+        <div><dt>Spend (k tok)</dt><dd>{{ a.spend }}</dd></div>
+      </dl>
+      <div class="bx-agent-card__foot">
+        <button type="button" class="btn btn-sm btn-primary"><i data-lucide="sparkles"></i> Ask</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">Configure</button>
+      </div>
+    </div>
+  </div>
+  {% endif %}{% endfor %}
+</div>
+
+{# ====================== QUICK ACTIONS / RECENT ====================== #}
+{{ section("Quick action tiles & recent list", "sec-quick") }}
+<p class="text-secondary small mb-3">Used in the left offcanvas. Icon tiles for shortcuts, compact list for recent activity.</p>
+<div class="row g-3">
+  <div class="col-12 col-lg-7">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Shortcut tiles</h3></div></div>
+      <div class="bx-widget__body">
+        <div class="bx-shortcut-grid">
+          {% for s in quickActions.shortcuts %}
+          <button type="button" class="bx-shortcut">
+            <span class="bx-shortcut__icon"><i data-lucide="{{ s.icon }}"></i></span>
+            <span class="bx-shortcut__label">{{ s.label }}</span>
+            <span class="bx-shortcut__hint">{{ s.hint }}</span>
+          </button>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-lg-5">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Recent list</h3></div></div>
+      <div class="bx-widget__body">
+        <ul class="bx-recent-list">
+          {% for r in quickActions.recent %}
+          <li>
+            <button type="button" class="bx-recent-list__item">
+              <span class="bx-recent-list__icon"><i data-lucide="{{ r.icon }}"></i></span>
+              <span class="bx-recent-list__label">{{ r.label }}</span>
+              <span class="bx-recent-list__time">{{ r.time }}</span>
+            </button>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# ============================== EMAIL =============================== #}
+{{ section("Email rows", "sec-email") }}
+<p class="text-secondary small mb-3">Used in the inbox. Star + avatar + sender/subject/snippet + time. Unread variant has primary-tinted background.</p>
+<div class="bx-widget">
+  <div class="bx-widget__body" style="padding:0;">
+    <ul class="bx-email__list">
+      {% for m in email.messages %}{% if loop.index <= 4 %}
+      <li class="bx-email__row {% if m.unread %}bx-email__row--unread{% endif %}">
+        <button class="bx-email__row-star {% if m.starred %}is-on{% endif %}" type="button" aria-label="Star"><i data-lucide="star"></i></button>
+        <span class="bx-avatar bx-avatar--sm"><span class="bx-avatar__initials">{{ m.from.initials }}</span></span>
+        <div class="bx-email__row-body">
+          <div class="bx-email__row-from">{{ m.from.name }}</div>
+          <span class="bx-email__row-subject">{{ m.subject }}</span>
+          <div class="bx-email__row-snip">{{ m.snippet }}</div>
+        </div>
+        <div class="bx-email__row-meta">{{ m.time }}</div>
+      </li>
+      {% endif %}{% endfor %}
+    </ul>
+  </div>
+</div>
+
+{# ============================ CHAT BUBBLES ========================== #}
+{{ section("Chat message bubbles", "sec-chat") }}
+<p class="text-secondary small mb-3">Used in both the AI chat panel and the team chat app. Variants: user (right), AI (left), alert (red border-left), self (primary tint).</p>
+<div class="bx-widget">
+  <div class="bx-widget__body">
+    <div style="display:flex;flex-direction:column;gap:.85rem;max-width:680px;">
+      <div class="bx-chat-msg bx-chat-msg--user"><div class="bx-chat-msg__bubble"><p>Investigate the latency spike on /api/agents.</p></div></div>
+      <div class="bx-chat-msg bx-chat-msg--ai"><div class="bx-chat-msg__bubble"><p>Looking at it now — p95 went from 380 ms to 1,240 ms at 14:22 UTC. Likely the planner-alpha cache flush.</p><p class="bx-chat-msg__meta">Mock reply via <code>ai/mock-ai.js</code></p></div></div>
+      <div class="bx-chat-msg bx-chat-msg--ai bx-chat-msg--typing"><div class="bx-chat-msg__bubble"><span class="bx-typing"><span></span><span></span><span></span></span></div></div>
+
+      <div class="bx-chat-app__msg bx-chat-app__msg--alert" style="margin-top:1rem;">
+        <span class="bx-avatar"><span class="bx-avatar__initials">SC</span></span>
+        <div class="bx-chat-app__msg-body">
+          <div class="bx-chat-app__msg-meta"><span class="bx-chat-app__msg-author">Sarah Chen</span><span>13:22</span></div>
+          <p class="bx-chat-app__msg-text">Heads up — anomaly hitting /api/agents. p95 just jumped to 1.24 s.</p>
+        </div>
+      </div>
+      <div class="bx-chat-app__msg bx-chat-app__msg--ai">
+        <span class="bx-avatar"><span class="bx-avatar__initials">AI</span></span>
+        <div class="bx-chat-app__msg-body">
+          <div class="bx-chat-app__msg-meta"><span class="bx-chat-app__msg-author">BX-AI</span><span>13:25</span></div>
+          <p class="bx-chat-app__msg-text">I correlated the p95 spike with the planner-alpha cache flush. 3 mitigations attached.</p>
+        </div>
+      </div>
+      <div class="bx-chat-app__msg bx-chat-app__msg--self">
+        <span class="bx-avatar"><span class="bx-avatar__initials">MR</span></span>
+        <div class="bx-chat-app__msg-body">
+          <div class="bx-chat-app__msg-meta"><span class="bx-chat-app__msg-author">M. Rigsby</span><span>13:26</span></div>
+          <p class="bx-chat-app__msg-text">Going with mitigation 2 — least invasive.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# =========================== STATUS PILLS =========================== #}
+{{ section("Status pills", "sec-status") }}
+<p class="text-secondary small mb-3">Pulse-shadow dot + uppercase label. Used in tables (top-agents, leaderboard) and on agent cards.</p>
+<div class="bx-widget">
+  <div class="bx-widget__body d-flex flex-wrap gap-2 align-items-center">
+    <span class="bx-top-agents__status bx-top-agents__status--healthy">Healthy</span>
+    <span class="bx-top-agents__status bx-top-agents__status--degraded">Degraded</span>
+    <span class="bx-top-agents__status bx-top-agents__status--errored">Errored</span>
+    <span class="bx-top-agents__status bx-top-agents__status--paused">Paused</span>
+  </div>
+</div>
+
+{# ========================== TOP AGENTS TABLE ======================== #}
+{{ section("Top agents table", "sec-top") }}
+<p class="text-secondary small mb-3">Compact table styling with right-aligned numerics, status pill column.</p>
+<div class="bx-widget bx-top-agents">
+  <div class="bx-widget__body">
+    <table class="table table-hover">
+      <thead>
+        <tr><th>Agent</th><th>Status</th><th class="num">Requests</th><th class="num">p95 ms</th><th class="num">Spend (k)</th></tr>
+      </thead>
+      <tbody>
+        {% for a in dashboard.topAgents %}
+        <tr>
+          <td><span class="bx-top-agents__name">{{ a.name }}</span></td>
+          <td><span class="bx-top-agents__status bx-top-agents__status--{{ a.status }}">{{ a.status }}</span></td>
+          <td class="num">{{ a.requests }}</td>
+          <td class="num">{{ a.latency }}</td>
+          <td class="num">{{ a.spend }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>

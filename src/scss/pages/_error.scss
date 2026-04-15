@@ -1,0 +1,90 @@
+// ---------------------------------------------------------------------------
+// pages/_error.scss — 404, 500, maintenance.
+// ---------------------------------------------------------------------------
+
+.bx-error {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  background: var(--bx-body-bg);
+  text-align: center;
+  overflow: hidden;
+
+  &__bg {
+    position: absolute;
+    inset: -10%;
+    background:
+      radial-gradient(900px 480px at 50% -5%, color-mix(in srgb, var(--bx-brand-primary) 14%, transparent) 0%, transparent 60%),
+      radial-gradient(700px 420px at 30% 100%, color-mix(in srgb, var(--bx-brand-accent-1) 16%, transparent) 0%, transparent 60%);
+    filter: blur(40px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 520px;
+  }
+
+  &__code {
+    font-size: 6rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin: 0 0 1rem;
+    background: var(--bx-ai-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    @media (max-width: 575.98px) { font-size: 4.5rem; }
+  }
+
+  &__title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--bx-text-heading);
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  &__lede {
+    margin: 0 0 1.75rem;
+    color: var(--bx-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+
+    .btn { display: inline-flex; align-items: center; gap: 0.35rem; }
+    i, svg { width: 14px; height: 14px; }
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: var(--bx-radius-pill);
+    background: color-mix(in srgb, var(--bx-warning) 20%, var(--bx-surface-2));
+    color: var(--bx-warning);
+    margin: 0 auto 1rem;
+
+    i, svg { width: 32px; height: 32px; }
+  }
+
+  &--maint &__icon {
+    background: color-mix(in srgb, var(--bx-info) 22%, var(--bx-surface-2));
+    color: #fff;
+  }
+}

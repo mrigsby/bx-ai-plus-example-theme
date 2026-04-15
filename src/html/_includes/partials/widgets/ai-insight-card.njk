@@ -1,0 +1,41 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/widgets/ai-insight-card.njk — macro: insightCard(insight)
+  ----------------------------------------------------------------------------
+#}
+{% from "partials/widgets/widget-menu.njk" import widgetMenu %}
+
+{% macro insightCard(insight) %}
+<div class="bx-insight-card bx-insight-card--{{ insight.variant }}"
+     data-ai-context="{{ insight.aiContext }}">
+
+  <span class="bx-insight-card__stripe" aria-hidden="true"></span>
+
+  <div class="bx-insight-card__head">
+    <span class="bx-insight-card__icon" aria-hidden="true">
+      <i data-lucide="{{ insight.icon }}"></i>
+    </span>
+    <span class="bx-insight-card__eyebrow">{{ insight.eyebrow }}</span>
+    {{ widgetMenu(insight.aiContext, insight.primaryCta.prompt) }}
+  </div>
+
+  <div class="bx-insight-card__body">
+    <h4 class="bx-insight-card__title">{{ insight.title }}</h4>
+    <p class="bx-insight-card__text">{{ insight.body }}</p>
+  </div>
+
+  <div class="bx-insight-card__actions">
+    <button type="button"
+            class="btn btn-sm btn-primary bx-ai-ask-btn"
+            data-bx-ai-ask
+            data-ai-context="{{ insight.aiContext }}"
+            data-ai-prompt="{{ insight.primaryCta.prompt }}">
+      <i data-lucide="sparkles" aria-hidden="true"></i>
+      <span>{{ insight.primaryCta.label }}</span>
+    </button>
+    {% if insight.secondaryCta %}
+      <button type="button" class="btn btn-sm btn-outline-secondary">{{ insight.secondaryCta.label }}</button>
+    {% endif %}
+  </div>
+</div>
+{% endmacro %}

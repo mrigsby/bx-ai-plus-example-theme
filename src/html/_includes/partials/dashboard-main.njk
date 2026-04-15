@@ -1,0 +1,192 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/dashboard-main.njk — flagship dashboard body shared by:
+    src/html/index.njk            (vertical layout)
+    src/html/horizontal/index.njk (horizontal layout)
+  ----------------------------------------------------------------------------
+#}
+{% from "partials/widgets/widget-menu.njk"      import widgetMenu %}
+{% from "partials/widgets/stat-card.njk"        import statCard %}
+{% from "partials/widgets/ai-insight-card.njk"  import insightCard %}
+{% from "partials/widgets/ai-inline-prompt.njk" import inlinePrompt %}
+
+{# ROW 1 — AI MORNING BRIEF #}
+<div class="row g-3 mb-3">
+  <div class="col-12">
+    {% include "partials/widgets/ai-brief-banner.njk" %}
+  </div>
+</div>
+
+{# ROW 2 — STAT CARDS #}
+<div class="row g-3 mb-3">
+  {% for s in dashboard.stats %}
+  <div class="col-12 col-sm-6 col-xl-3">
+    {{ statCard(s) }}
+  </div>
+  {% endfor %}
+</div>
+
+{# ROW 3 — REVENUE CHART · AGENT STATUS DONUT #}
+<div class="row g-3 mb-3">
+  <div class="col-12 col-xl-8">
+    <div class="bx-widget bx-widget--full-height">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">{{ dashboard.revenueChart.title }}</h3>
+          <p class="bx-widget__subtitle">{{ dashboard.revenueChart.subtitle }}</p>
+        </div>
+        {{ widgetMenu(dashboard.revenueChart.aiContext, "Explain the revenue and inference-cost trends over the last 30 days and flag anything unusual.") }}
+      </div>
+      <div class="bx-widget__body">
+        <div data-bx-chart-revenue
+             data-bx-chart-data='{{ dashboard.revenueChart | dump }}'
+             style="min-height:300px"></div>
+      </div>
+      <div class="bx-widget__footer">
+        {{ inlinePrompt(dashboard.revenueChart.aiContext, "Ask about this trend…") }}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-4">
+    <div class="bx-widget bx-widget--full-height">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">{{ dashboard.agentStatus.title }}</h3>
+          <p class="bx-widget__subtitle">{{ dashboard.agentStatus.subtitle }}</p>
+        </div>
+        {{ widgetMenu(dashboard.agentStatus.aiContext, "Describe the current agent fleet health and recommend actions.") }}
+      </div>
+      <div class="bx-widget__body">
+        <div data-bx-chart-donut
+             data-bx-chart-data='{{ dashboard.agentStatus | dump }}'
+             style="min-height:220px"></div>
+        <ul class="bx-donut-legend">
+          {% for l in dashboard.agentStatus.legend %}
+          <li class="bx-donut-legend__item bx-donut-legend__item--{{ l.variant }}">
+            <span class="bx-donut-legend__item-dot" aria-hidden="true"></span>
+            <span class="bx-donut-legend__item-label">{{ l.label }}</span>
+            <span class="bx-donut-legend__item-value">{{ l.value }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# ROW 4 — AI INSIGHT CARDS #}
+<div class="row g-3 mb-3">
+  {% for insight in dashboard.insights %}
+  <div class="col-12 col-lg-4">{{ insightCard(insight) }}</div>
+  {% endfor %}
+</div>
+
+{# ROW 5 — TOKEN SPEND · TOP AGENTS #}
+<div class="row g-3 mb-3">
+  <div class="col-12 col-xl-7">
+    <div class="bx-widget">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">{{ dashboard.tokenUsage.title }}</h3>
+          <p class="bx-widget__subtitle">{{ dashboard.tokenUsage.subtitle }}</p>
+        </div>
+        {{ widgetMenu(dashboard.tokenUsage.aiContext, "Which agents are trending over budget on token usage this week?") }}
+      </div>
+      <div class="bx-widget__body">
+        <div data-bx-chart-tokens
+             data-bx-chart-data='{{ dashboard.tokenUsage | dump }}'
+             style="min-height:280px"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-5">
+    <div class="bx-widget bx-top-agents bx-widget--full-height">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">Top agents</h3>
+          <p class="bx-widget__subtitle">By request volume in the last 24h</p>
+        </div>
+        {{ widgetMenu("top-agents-24h", "Summarize the top-performing agents and any that need attention.") }}
+      </div>
+      <div class="bx-widget__body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Agent</th><th>Status</th><th class="num">Requests</th><th class="num">p95 ms</th><th class="num">Spend (k)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for a in dashboard.topAgents %}
+            <tr>
+              <td><span class="bx-top-agents__name">{{ a.name }}</span></td>
+              <td><span class="bx-top-agents__status bx-top-agents__status--{{ a.status }}">{{ a.status }}</span></td>
+              <td class="num">{{ a.requests }}</td>
+              <td class="num">{{ a.latency }}</td>
+              <td class="num">{{ a.spend }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# ROW 6 — ACTIVITY · SUMMARY #}
+<div class="row g-3">
+  <div class="col-12 col-lg-8">
+    <div class="bx-widget">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">Recent activity</h3>
+          <p class="bx-widget__subtitle">Workspace events · last 12 hours</p>
+        </div>
+        {{ widgetMenu("recent-activity", "Summarize the recent activity feed in 3 bullets.") }}
+      </div>
+      <div class="bx-widget__body">
+        <ul class="bx-activity">
+          {% for a in dashboard.activity %}
+          <li class="bx-activity__item">
+            <span class="bx-activity__item-icon bx-activity__item-icon--{{ a.variant }}" aria-hidden="true"><i data-lucide="{{ a.icon }}"></i></span>
+            <div class="bx-activity__item-body">
+              <p class="bx-activity__item-text">{{ a.text }}</p>
+              <p class="bx-activity__item-meta">{{ a.actor }}</p>
+            </div>
+            <span class="bx-activity__item-time">{{ a.time }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-4">
+    <div class="bx-insight-card bx-insight-card--summary bx-widget--full-height">
+      <span class="bx-insight-card__stripe" aria-hidden="true"></span>
+      <div class="bx-insight-card__head">
+        <span class="bx-insight-card__icon" aria-hidden="true"><i data-lucide="sparkles"></i></span>
+        <span class="bx-insight-card__eyebrow">Weekly summary</span>
+      </div>
+      <div class="bx-insight-card__body">
+        <h4 class="bx-insight-card__title">Usage up 17% this week</h4>
+        <p class="bx-insight-card__text">
+          Overall agent invocations climbed across every service except router-s.
+          Latency improved 6% after the weekend planner-alpha tuning.
+          Cache hit rate held at 92% despite the extra load.
+        </p>
+      </div>
+      <div class="bx-insight-card__actions">
+        <button type="button" class="btn btn-sm btn-primary bx-ai-ask-btn"
+                data-bx-ai-ask
+                data-ai-context="weekly-summary"
+                data-ai-prompt="Expand the weekly usage summary into a full report for the #leadership channel.">
+          <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+          <span>Full report</span>
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

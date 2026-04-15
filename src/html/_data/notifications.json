@@ -1,0 +1,75 @@
+{
+  "unreadCount": 4,
+  "items": [
+    {
+      "id": "n-01",
+      "variant": "danger",
+      "icon": "triangle-alert",
+      "title": "Anomaly: /api/agents latency spike",
+      "body": "p95 jumped to 1.2s — above 480ms threshold",
+      "time": "2 min ago",
+      "unread": true,
+      "flavor": "ai"
+    },
+    {
+      "id": "n-02",
+      "variant": "primary",
+      "icon": "sparkles",
+      "title": "3 proactive suggestions",
+      "body": "BX-AI drafted responses to 3 trending prompts",
+      "time": "14 min ago",
+      "unread": true,
+      "flavor": "ai"
+    },
+    {
+      "id": "n-03",
+      "variant": "success",
+      "icon": "check",
+      "title": "Deployment complete",
+      "body": "summarizer-v3 promoted to production",
+      "time": "1 hr ago",
+      "unread": true,
+      "flavor": "generic"
+    },
+    {
+      "id": "n-04",
+      "variant": "info",
+      "icon": "message-circle",
+      "title": "Sarah Chen mentioned you",
+      "body": "In #platform: \"cc @mrigsby — can you take this?\"",
+      "time": "2 hr ago",
+      "unread": true,
+      "flavor": "generic"
+    },
+    {
+      "id": "n-05",
+      "variant": "warning",
+      "icon": "gauge",
+      "title": "Token budget 78% consumed",
+      "body": "planner-alpha tracking 14% over weekly budget",
+      "time": "4 hr ago",
+      "unread": false,
+      "flavor": "ai"
+    },
+    {
+      "id": "n-06",
+      "variant": "secondary",
+      "icon": "user-plus",
+      "title": "New customer: Helix Labs",
+      "body": "Enterprise plan · onboarding scheduled",
+      "time": "Yesterday",
+      "unread": false,
+      "flavor": "generic"
+    },
+    {
+      "id": "n-07",
+      "variant": "primary",
+      "icon": "brain",
+      "title": "Fine-tune job finished",
+      "body": "retriever-xl v1.2 · loss 0.184 (−12%)",
+      "time": "Yesterday",
+      "unread": false,
+      "flavor": "ai"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+// ---------------------------------------------------------------------------
+// plugins/_quill.scss — Quill editor theming.
+// ---------------------------------------------------------------------------
+
+.ql-toolbar.ql-snow {
+  background: var(--bx-surface-2);
+  border: 1px solid var(--bx-border-strong) !important;
+  border-bottom: 0 !important;
+  border-radius: var(--bx-radius-sm) var(--bx-radius-sm) 0 0;
+
+  .ql-stroke { stroke: var(--bx-text); }
+  .ql-fill   { fill: var(--bx-text); }
+  .ql-picker-label { color: var(--bx-text); }
+  button:hover, button.ql-active,
+  .ql-picker-label:hover, .ql-picker-label.ql-active {
+    .ql-stroke { stroke: var(--bx-brand-primary); }
+    .ql-fill   { fill: var(--bx-brand-primary); }
+    color: var(--bx-brand-primary-text);
+  }
+}
+
+.ql-container.ql-snow {
+  background: var(--bx-surface-1);
+  border: 1px solid var(--bx-border-strong) !important;
+  border-radius: 0 0 var(--bx-radius-sm) var(--bx-radius-sm);
+  color: var(--bx-text);
+  font-family: inherit;
+  font-size: 0.92rem;
+
+  .ql-editor {
+    min-height: 160px;
+    &.ql-blank::before { color: var(--bx-text-muted); font-style: normal; }
+  }
+}
+
+.ql-snow .ql-picker-options {
+  background: var(--bx-surface-1);
+  border: 1px solid var(--bx-border-strong);
+  color: var(--bx-text);
+}

@@ -1,0 +1,80 @@
+---
+layout: vertical.njk
+title: Invoice
+pageTitle: Invoice INV-2026-0042
+pageSubtitle: Issued April 14, 2026 · Due May 14, 2026
+permalink: /pages/invoice/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Pages" }
+  - { label: "Invoice" }
+---
+
+<div class="d-flex gap-2 mb-3">
+  <button class="btn btn-primary d-inline-flex align-items-center gap-1"><i data-lucide="download" style="width:14px;height:14px;"></i> Download PDF</button>
+  <button class="btn btn-outline-secondary d-inline-flex align-items-center gap-1"><i data-lucide="send" style="width:14px;height:14px;"></i> Email</button>
+  <button class="btn btn-outline-secondary d-inline-flex align-items-center gap-1"><i data-lucide="printer" style="width:14px;height:14px;"></i> Print</button>
+  <button class="btn btn-outline-secondary bx-ai-ask-btn ms-auto d-inline-flex align-items-center gap-1"
+          data-bx-ai-ask
+          data-ai-context="invoice-INV-2026-0042"
+          data-ai-prompt="Summarize this invoice for the customer in plain English.">
+    <i data-lucide="sparkles" style="width:14px;height:14px;"></i> Explain to customer
+  </button>
+</div>
+
+<div class="bx-widget" style="padding:2rem;">
+  {# ---- Header ---- #}
+  <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4">
+    <div>
+      <div class="d-inline-flex align-items-center gap-2 mb-2">
+        <img src="/assets/images/brand/bx-ai-icon-full.svg" alt="" width="36" height="36">
+        <span style="font-size:1.2rem;font-weight:600;color:var(--bx-text-heading);">{{ site.name }}</span>
+      </div>
+      <p class="mb-0 small text-secondary">{{ site.vendor }}<br>1 Ortus Plaza<br>Las Vegas, NV 89101 · USA</p>
+    </div>
+    <div class="text-end">
+      <h2 style="font-size:1.4rem;color:var(--bx-text-heading);margin:0 0 0.25rem;">INVOICE</h2>
+      <p class="mb-0 small text-secondary">No. <strong style="color:var(--bx-text);">INV-2026-0042</strong></p>
+      <p class="mb-0 small text-secondary">Issued <strong style="color:var(--bx-text);">Apr 14, 2026</strong></p>
+      <p class="mb-0 small text-secondary">Due <strong style="color:var(--bx-text);">May 14, 2026</strong></p>
+      <span class="bx-top-agents__status bx-top-agents__status--healthy mt-2">Paid</span>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <div class="text-secondary text-uppercase small mb-1" style="letter-spacing:.08em;">Bill to</div>
+      <p class="mb-0"><strong style="color:var(--bx-text-heading);">Helix Labs Inc.</strong><br>500 Market St., Suite 400<br>San Francisco, CA 94105<br>billing@helixlabs.example</p>
+    </div>
+    <div class="col-md-6">
+      <div class="text-secondary text-uppercase small mb-1" style="letter-spacing:.08em;">For period</div>
+      <p class="mb-0">Mar 14, 2026 → Apr 14, 2026<br><span class="text-secondary small">Plan: Business · 14 seats · Net 30</span></p>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr><th>Description</th><th class="num">Qty</th><th class="num">Unit</th><th class="num">Total</th></tr>
+    </thead>
+    <tbody>
+      {% for line in [
+        { d: "Business plan · seat · Apr 2026",            q: 14,  u: 149.00, t: 2086.00 },
+        { d: "Token usage overage · planner-alpha (k tok)", q: 142, u:   0.40, t:   56.80 },
+        { d: "Custom model fine-tune · retriever-xl v1.2",  q:  1,  u: 320.00, t:  320.00 },
+        { d: "Annual prepayment discount",                  q:  1,  u: -240.00, t: -240.00 }
+      ] %}
+      <tr><td>{{ line.d }}</td><td class="num">{{ line.q }}</td><td class="num">${{ "%.2f" | format(line.u) }}</td><td class="num">${{ "%.2f" | format(line.t) }}</td></tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr><td colspan="3" class="num text-secondary">Subtotal</td><td class="num">$2,222.80</td></tr>
+      <tr><td colspan="3" class="num text-secondary">Tax (8.6%)</td><td class="num">$191.16</td></tr>
+      <tr><td colspan="3" class="num"><strong style="color:var(--bx-text-heading);">Total due</strong></td><td class="num"><strong style="color:var(--bx-text-heading);font-size:1.1rem;">$2,413.96</strong></td></tr>
+    </tfoot>
+  </table>
+
+  <div class="mt-4 small text-secondary">
+    <strong style="color:var(--bx-text);">Payment terms.</strong>
+    Net 30. ACH preferred — see Settings → Billing for instructions. Late payments accrue 1% interest per month.
+  </div>
+</div>

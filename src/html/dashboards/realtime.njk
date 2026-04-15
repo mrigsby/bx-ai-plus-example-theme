@@ -1,0 +1,64 @@
+---
+layout: vertical.njk
+title: Realtime
+pageTitle: Realtime
+pageSubtitle: Live throughput, error rate, and active agents — refreshing every second.
+page_module: realtime
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Dashboards" }
+  - { label: "Realtime" }
+permalink: /dashboards/realtime/index.html
+---
+{% from "partials/widgets/widget-menu.njk"      import widgetMenu %}
+{% from "partials/widgets/ai-inline-prompt.njk" import inlinePrompt %}
+
+<div class="row g-3 mb-3">
+  {% for s in realtime.stats %}
+  <div class="col-12 col-sm-6 col-xl-3">
+    <div class="bx-stat-card bx-stat-card--trend-up"
+         data-bx-stat-id="{{ s.id }}"
+         data-bx-stat-format="decimal"
+         data-bx-stat-drift-min="{{ s.drift.min }}"
+         data-bx-stat-drift-max="{{ s.drift.max }}"
+         data-bx-stat-drift-step="{{ s.drift.stepMax }}">
+
+      {{ widgetMenu(s.id, "Explain the " + s.label + " metric and what it means in the BX-AI+ runtime.") }}
+
+      <div class="bx-stat-card__head">
+        <span class="bx-stat-card__icon" aria-hidden="true">
+          <i data-lucide="{{ s.icon }}"></i>
+        </span>
+        <span class="bx-stat-card__label">{{ s.label }}</span>
+      </div>
+
+      <div class="bx-stat-card__value-row">
+        <span class="bx-stat-card__value" data-bx-stat-value>{{ s.value }}</span>
+        {% if s.unit %}<span class="bx-stat-card__unit">{{ s.unit }}</span>{% endif %}
+      </div>
+
+      <div class="bx-stat-card__pulse" aria-hidden="true" data-bx-stat-pulse></div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="row g-3">
+  <div class="col-12">
+    <div class="bx-widget">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">{{ realtime.liveChart.title }}</h3>
+          <p class="bx-widget__subtitle">{{ realtime.liveChart.subtitle }}</p>
+        </div>
+        {{ widgetMenu("live-throughput", "Describe the live throughput pattern and any spikes or dips.") }}
+      </div>
+      <div class="bx-widget__body">
+        <div data-bx-chart-realtime style="min-height:320px"></div>
+      </div>
+      <div class="bx-widget__footer">
+        {{ inlinePrompt("live-throughput", "Ask about live throughput…") }}
+      </div>
+    </div>
+  </div>
+</div>

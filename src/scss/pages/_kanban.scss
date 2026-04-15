@@ -1,0 +1,150 @@
+// ---------------------------------------------------------------------------
+// pages/_kanban.scss — drag-and-drop board.
+// ---------------------------------------------------------------------------
+
+.bx-kanban {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(280px, 320px);
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+
+  // Custom scrollbar
+  &::-webkit-scrollbar { height: 6px; }
+  &::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--bx-text-muted) 30%, transparent); border-radius: 3px; }
+
+  &__col {
+    background: color-mix(in srgb, var(--bx-surface-2) 60%, transparent);
+    border: 1px solid var(--bx-border);
+    border-radius: var(--bx-radius);
+    display: flex;
+    flex-direction: column;
+    min-height: 240px;
+  }
+
+  &__col-head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 0.85rem;
+    border-bottom: 1px solid var(--bx-divider);
+  }
+
+  &__col-title {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--bx-text-heading);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    flex: 1;
+  }
+
+  &__col-count {
+    font-size: 0.66rem;
+    padding: 1px 8px;
+    font-weight: 600;
+    border-radius: var(--bx-radius-pill);
+    background: color-mix(in srgb, var(--bx-text-muted) 22%, transparent);
+    color: var(--bx-text);
+  }
+  &__col--success .bx-kanban__col-count { background: color-mix(in srgb, var(--bx-brand-primary) 18%, transparent); color: var(--bx-brand-primary-text); }
+  &__col--warning .bx-kanban__col-count { background: color-mix(in srgb, var(--bx-warning) 22%, transparent); color: #f2a400; }
+  &__col--info    .bx-kanban__col-count { background: color-mix(in srgb, var(--bx-info) 22%, transparent); color: #fff; }
+
+  &__col-add {
+    background: transparent;
+    border: 0;
+    padding: 4px;
+    border-radius: var(--bx-radius-sm);
+    color: var(--bx-text-muted);
+    cursor: pointer;
+    transition: background var(--bx-transition-fast), color var(--bx-transition-fast);
+    &:hover { background: var(--bx-surface-3); color: var(--bx-brand-primary-text); }
+    i, svg { width: 14px; height: 14px; }
+  }
+
+  &__cards {
+    flex: 1;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 80px;
+  }
+}
+
+.bx-kcard {
+  background: var(--bx-surface-1);
+  border: 1px solid var(--bx-border);
+  border-radius: var(--bx-radius-sm);
+  padding: 0.65rem 0.75rem 0.7rem;
+  cursor: grab;
+  // No transform on :active — it creates a stacking context that fights with
+  // Dragula's mirror element on mousedown.
+  transition: border-color var(--bx-transition-fast), box-shadow var(--bx-transition-fast);
+  position: relative;
+  touch-action: none; // allow drag on touch devices
+
+  &:hover { border-color: var(--bx-border-strong); box-shadow: var(--bx-shadow-xs); }
+  &:active { cursor: grabbing; }
+  &.is-dragging { opacity: 0.4; }
+
+  &--priority-high::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--bx-danger);
+    border-radius: var(--bx-radius-sm) 0 0 var(--bx-radius-sm);
+  }
+  &--priority-medium::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--bx-warning);
+    border-radius: var(--bx-radius-sm) 0 0 var(--bx-radius-sm);
+  }
+
+  &__title {
+    font-size: 0.84rem;
+    font-weight: 500;
+    color: var(--bx-text-heading);
+    margin: 0 0 0.4rem;
+    line-height: 1.35;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__tag {
+    font-size: 0.62rem;
+    padding: 1px 7px;
+    background: color-mix(in srgb, var(--bx-text-muted) 18%, transparent);
+    color: var(--bx-text-muted);
+    border-radius: var(--bx-radius-pill);
+  }
+
+  &__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    color: var(--bx-text-muted);
+
+    .bx-avatar { width: 22px; height: 22px; font-size: 0.6rem; }
+  }
+
+  // Dragula state classes
+  &.gu-mirror { box-shadow: var(--bx-shadow-lg); cursor: grabbing; }
+  &.gu-transit { opacity: 0.4; }
+}
+.gu-hide { display: none !important; }
+.gu-unselectable { user-select: none !important; }
+.gu-mirror { position: fixed !important; margin: 0 !important; z-index: 9999 !important; opacity: 0.95; }

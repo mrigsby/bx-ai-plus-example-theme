@@ -1,0 +1,50 @@
+---
+layout: vertical.njk
+title: Horizontal layout
+pageTitle: Horizontal layout
+pageSubtitle: Top-bar + dedicated nav strip — parallel page set under /horizontal/.
+permalink: /layouts/horizontal/index.html
+showcaseEyebrow: Layout · horizontal
+showcaseTitle: Top-bar nav strip
+showcaseColor: "#4B4265"
+showcaseBullets:
+  - "Topbar (64 px) sits above a dedicated nav strip (52 px)"
+  - "Multi-level menus open as floating mega-menus on hover or click"
+  - "Lives in a parallel page set under /horizontal/* — explore it from the link below"
+  - "On <992 px the nav collapses into the same hamburger drawer as the sidebar"
+  - "Switching back to vertical: any /horizontal/ page links to / via the topbar brand or the dedicated link"
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Layouts" }
+  - { label: "Horizontal" }
+---
+{% include "partials/layout-showcase.njk" %}
+
+<div class="row g-3 mt-1">
+  <div class="col-12">
+    <div class="bx-widget">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">Horizontal page set</h3>
+          <p class="bx-widget__subtitle">12 mirrored pages under <code>/horizontal/*</code></p>
+        </div>
+      </div>
+      <div class="bx-widget__body">
+        <div class="row g-2">
+          <div class="col-6 col-md-4 col-lg-3"><a class="btn btn-outline-secondary w-100" href="/horizontal/">Dashboard</a></div>
+          <div class="col-6 col-md-4 col-lg-3"><a class="btn btn-outline-secondary w-100" href="/horizontal/dashboards/analytics/">Analytics</a></div>
+          <div class="col-6 col-md-4 col-lg-3"><a class="btn btn-outline-secondary w-100" href="/horizontal/dashboards/ai-ops/">AI Ops</a></div>
+          <div class="col-6 col-md-4 col-lg-3"><a class="btn btn-outline-secondary w-100" href="/horizontal/ai/chat/">AI Chat</a></div>
+          <div class="col-6 col-md-4 col-lg-3"><a class="btn btn-outline-secondary w-100" href="/horizontal/ai/insights/">AI Insights</a></div>
+          <div class="col-6 col-md-4 col-lg-3"><a class="btn btn-outline-secondary w-100" href="/horizontal/apps/calendar/">Calendar</a></div>
+          <div class="col-6 col-md-4 col-lg-3"><a class="btn btn-outline-secondary w-100" href="/horizontal/apps/kanban/">Kanban</a></div>
+          <div class="col-6 col-md-4 col-lg-3"><a class="btn btn-outline-secondary w-100" href="/horizontal/ui/buttons/">Buttons</a></div>
+          <div class="col-6 col-md-4 col-lg-3"><a class="btn btn-outline-secondary w-100" href="/horizontal/ui/cards/">Cards</a></div>
+          <div class="col-6 col-md-4 col-lg-3"><a class="btn btn-outline-secondary w-100" href="/horizontal/forms/advanced/">Forms</a></div>
+          <div class="col-6 col-md-4 col-lg-3"><a class="btn btn-outline-secondary w-100" href="/horizontal/tables/datatables/">Tables</a></div>
+          <div class="col-6 col-md-4 col-lg-3"><a class="btn btn-outline-secondary w-100" href="/horizontal/pages/profile/">Profile</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

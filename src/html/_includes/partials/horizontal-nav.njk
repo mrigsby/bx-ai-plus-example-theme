@@ -1,0 +1,17 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/horizontal-nav.njk — full-width nav bar below the topbar.
+  ----------------------------------------------------------------------------
+#}
+{% from "partials/horizontal-menu.njk" import renderHMenu %}
+
+{% seamBegin "HORIZONTAL_NAV" %}
+<nav class="bx-hnav" id="bx-hnav" aria-label="Primary navigation">
+  <div class="bx-hnav__inner">
+    {# Horizontal layouts use a dedicated menu (horizontalMenu.json) so links
+       stay within the /horizontal/ page set. Vertical sidenav still uses
+       menu.json for the full app navigation. #}
+    {{ renderHMenu(horizontalMenu) }}
+  </div>
+</nav>
+{% seamEnd "HORIZONTAL_NAV" %}

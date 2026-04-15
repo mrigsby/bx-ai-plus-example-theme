@@ -1,0 +1,61 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/layout-showcase.njk — explanation card used by /layouts/* pages.
+  Inputs (set by including page front-matter):
+    showcaseTitle    : heading text
+    showcaseEyebrow  : eyebrow text
+    showcaseBullets  : array of bullet strings
+    showcaseSetSize  : optional sidenav size to apply on this page
+    showcaseSetLayout: optional layout (vertical|horizontal) to apply
+    showcaseColor    : optional hex bar color
+  ----------------------------------------------------------------------------
+#}
+
+{% if showcaseSetSize %}
+{# Apply the showcase sidenav size on load so the user sees the layout
+   the page documents. Persists for this tab only. (Note: data-layout is
+   NOT settable here — layout variant is a navigation concern, swap pages
+   via the customizer's Vertical/Horizontal links instead.) #}
+<script>
+  (function () {
+    var html = document.documentElement;
+    html.setAttribute("data-sidenav-size", "{{ showcaseSetSize }}");
+    try { sessionStorage.setItem("bx.sidenav.size", "{{ showcaseSetSize }}"); } catch(e) {}
+  })();
+</script>
+{% endif %}
+
+<div class="bx-showcase">
+  <span class="bx-showcase__bar" {% if showcaseColor %}style="background:{{ showcaseColor }}"{% endif %}></span>
+  <div class="bx-showcase__eyebrow">{{ showcaseEyebrow }}</div>
+  <h2 class="bx-showcase__title">{{ showcaseTitle }}</h2>
+
+  <div class="row g-4 mt-1">
+    <div class="col-lg-7">
+      <ul class="bx-showcase__list">
+        {% for b in showcaseBullets %}
+        <li>
+          <span class="bx-showcase__check" aria-hidden="true"><i data-lucide="check"></i></span>
+          <span>{{ b }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-lg-5">
+      <div class="bx-showcase__diagram">
+        {% block showcaseDiagram %}{% endblock %}
+      </div>
+    </div>
+  </div>
+
+  <div class="bx-showcase__actions">
+    <a class="btn btn-primary" href="/" data-bs-toggle="offcanvas" data-bs-target="#bx-customizer">
+      <i data-lucide="sliders-horizontal" aria-hidden="true"></i>
+      Open customizer
+    </a>
+    <a class="btn btn-outline-secondary" href="/layouts/vertical/">Vertical</a>
+    <a class="btn btn-outline-secondary" href="/layouts/vertical-compact/">Compact</a>
+    <a class="btn btn-outline-secondary" href="/layouts/vertical-hover/">Hover</a>
+    <a class="btn btn-outline-secondary" href="/layouts/horizontal/">Horizontal</a>
+  </div>
+</div>

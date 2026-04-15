@@ -1,0 +1,175 @@
+// ---------------------------------------------------------------------------
+// pages/_chat.scss — Slack-style team chat (apps/chat.html).
+// ---------------------------------------------------------------------------
+
+.bx-chat-app {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  height: calc(100vh - var(--bx-topbar-height) - 1rem);
+  min-height: 540px;
+  background: var(--bx-surface-1);
+  border: 1px solid var(--bx-border);
+  border-radius: var(--bx-radius-lg);
+  overflow: hidden;
+
+  [data-layout="horizontal"] & {
+    height: calc(100vh - var(--bx-topbar-height) - var(--bx-horizontal-menu-height) - 2rem);
+  }
+
+  @media (max-width: 767.98px) {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 0;
+  }
+
+  &__sidebar {
+    background: color-mix(in srgb, var(--bx-surface-2) 60%, transparent);
+    border-right: 1px solid var(--bx-border);
+    overflow-y: auto;
+  }
+
+  &__group {
+    padding: 0.85rem 0.65rem 0.4rem;
+
+    &-title {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bx-text-muted);
+      padding: 0 0.65rem;
+      margin-bottom: 0.35rem;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.4rem 0.65rem;
+    border-radius: var(--bx-radius-sm);
+    color: var(--bx-text);
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 0.82rem;
+    transition: background var(--bx-transition-fast), color var(--bx-transition-fast);
+
+    &:hover { background: var(--bx-surface-3); color: var(--bx-brand-primary-text); }
+    &.is-active { background: var(--bx-sidenav-active-bg); color: var(--bx-sidenav-active-fg); font-weight: 500; }
+
+    &-icon {
+      display: inline-flex;
+      width: 18px;
+      height: 18px;
+      align-items: center;
+      justify-content: center;
+      color: var(--bx-text-muted);
+      i, svg { width: 14px; height: 14px; }
+    }
+    &.is-active &-icon { color: currentColor; }
+
+    &-label { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    &-badge {
+      font-size: 0.62rem;
+      padding: 1px 6px;
+      background: var(--bx-brand-primary);
+      color: var(--bx-text-on-primary);
+      border-radius: var(--bx-radius-pill);
+      font-weight: 600;
+    }
+
+    .bx-presence {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+      box-shadow: 0 0 0 2px var(--bx-surface-1);
+      &--online  { background: var(--bx-success); }
+      &--away    { background: var(--bx-warning); }
+      &--offline { background: var(--bx-text-muted); }
+    }
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  &__head {
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid var(--bx-divider);
+
+    &-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--bx-text-heading);
+      margin: 0;
+    }
+    &-sub {
+      font-size: 0.74rem;
+      color: var(--bx-text-muted);
+      margin: 1px 0 0;
+    }
+  }
+
+  &__messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  &__msg {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+
+    &-body {
+      flex: 1;
+      min-width: 0;
+    }
+    &-meta {
+      display: flex;
+      gap: 0.5rem;
+      align-items: baseline;
+      font-size: 0.74rem;
+      color: var(--bx-text-muted);
+    }
+    &-author {
+      font-weight: 600;
+      color: var(--bx-text-heading);
+      font-size: 0.82rem;
+    }
+    &-text {
+      margin: 2px 0 0;
+      color: var(--bx-text);
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+
+    &--alert &-text {
+      padding: 0.4rem 0.6rem;
+      background: color-mix(in srgb, var(--bx-danger) 12%, transparent);
+      border-left: 3px solid var(--bx-danger);
+      border-radius: var(--bx-radius-xs);
+    }
+    &--ai &-text {
+      padding: 0.5rem 0.7rem;
+      background: color-mix(in srgb, var(--bx-brand-primary) 8%, transparent);
+      border: 1px solid color-mix(in srgb, var(--bx-brand-primary) 22%, transparent);
+      border-radius: var(--bx-radius-sm);
+    }
+    &--ai .bx-avatar { background: var(--bx-ai-gradient); }
+
+    &--self &-text {
+      padding: 0.4rem 0.6rem;
+      background: color-mix(in srgb, var(--bx-brand-primary) 14%, var(--bx-surface-2));
+      border-radius: var(--bx-radius-sm);
+    }
+  }
+
+  &__composer {
+    padding: 0.75rem 1.25rem 1.1rem;
+    border-top: 1px solid var(--bx-divider);
+  }
+}

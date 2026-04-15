@@ -1,0 +1,88 @@
+---
+layout: vertical.njk
+title: Timeline
+pageTitle: Timeline
+pageSubtitle: Workspace events from the last 7 days, grouped chronologically.
+permalink: /pages/timeline/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Pages" }
+  - { label: "Timeline" }
+---
+
+<div class="row g-3">
+  <div class="col-12 col-xl-9">
+    <div class="bx-widget">
+      <div class="bx-widget__body">
+        <div class="bx-tl">
+          {% for group in [
+            { date: "Today",     items: [
+              { time: "14:24", icon: "triangle-alert", tone: "danger",  title: "Anomaly: /api/agents latency spike", body: "p95 climbed to 1.24s — likely correlated with the planner-alpha cache flush. <a href='/ai/insights/'>View incident</a>." },
+              { time: "11:14", icon: "rocket",         tone: "success", title: "retriever-xl v1.2 promoted",        body: "Promoted to production by Priya Shah after a 12% loss reduction on eval." },
+              { time: "09:30", icon: "users",          tone: "info",    title: "Standup",                            body: "Discussed planner-alpha v2 rollout window (Apr 17) and pricing experiment kickoff." }
+            ]},
+            { date: "Yesterday", items: [
+              { time: "16:42", icon: "user-plus",     tone: "info",    title: "New customer: Helix Labs",          body: "Enterprise plan, 14 seats. Onboarding scheduled with Sasha for Friday." },
+              { time: "11:08", icon: "gauge",         tone: "warning", title: "Token budget alert · planner-alpha", body: "Tracking 14% over weekly budget. 3 mitigations attached." }
+            ]},
+            { date: "Apr 12",    items: [
+              { time: "Morning", icon: "git-commit",  tone: "success", title: "Deployment: cache layer v2",          body: "Cache hit rate jumped from 88% to 92% within an hour." },
+              { time: "Evening", icon: "message-circle", tone: "primary", title: "AI generated weekly brief",        body: "Sent to leadership — 3 bullets covering fleet health, token spend, and customer wins." }
+            ]},
+            { date: "Apr 10",    items: [
+              { time: "All day", icon: "kanban",      tone: "info",    title: "Q1 review prep",                      body: "Cleared the kanban backlog of all design-debt cards." }
+            ]}
+          ] %}
+          <div class="bx-tl__group">
+            <div class="bx-tl__date">{{ group.date }}</div>
+            <ul class="bx-tl__items">
+              {% for it in group.items %}
+              <li class="bx-tl__item">
+                <span class="bx-tl__dot bx-tl__dot--{{ it.tone }}" aria-hidden="true"><i data-lucide="{{ it.icon }}"></i></span>
+                <div class="bx-tl__body">
+                  <div class="bx-tl__head"><strong style="color:var(--bx-text-heading);">{{ it.title }}</strong><span class="bx-tl__time">{{ it.time }}</span></div>
+                  <p class="bx-tl__text">{{ it.body | safe }}</p>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-3">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Filter</h3></div></div>
+      <div class="bx-widget__body">
+        <div class="form-check"><input class="form-check-input" type="checkbox" id="tlf-1" checked><label class="form-check-label" for="tlf-1">Anomalies</label></div>
+        <div class="form-check"><input class="form-check-input" type="checkbox" id="tlf-2" checked><label class="form-check-label" for="tlf-2">Deployments</label></div>
+        <div class="form-check"><input class="form-check-input" type="checkbox" id="tlf-3" checked><label class="form-check-label" for="tlf-3">Customers</label></div>
+        <div class="form-check"><input class="form-check-input" type="checkbox" id="tlf-4" checked><label class="form-check-label" for="tlf-4">AI activity</label></div>
+        <div class="form-check"><input class="form-check-input" type="checkbox" id="tlf-5"><label class="form-check-label" for="tlf-5">Team chatter</label></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.bx-tl__group + .bx-tl__group { margin-top: 1.75rem; }
+.bx-tl__date { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bx-text-muted); margin-bottom: 0.75rem; padding-left: 38px; }
+.bx-tl__items { list-style: none; padding: 0; margin: 0; position: relative; }
+.bx-tl__items::before { content: ""; position: absolute; left: 12px; top: 6px; bottom: 6px; width: 2px; background: var(--bx-divider); }
+.bx-tl__item { display: flex; gap: 0.85rem; padding: 0.5rem 0; }
+.bx-tl__dot { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--bx-surface-2); border: 2px solid var(--bx-surface-1); color: var(--bx-text-muted); position: relative; z-index: 1; flex-shrink: 0; box-shadow: 0 0 0 2px var(--bx-surface-1); }
+.bx-tl__dot--success { background: color-mix(in srgb, var(--bx-brand-primary) 16%, var(--bx-surface-2)); color: var(--bx-brand-primary-text); }
+.bx-tl__dot--danger  { background: color-mix(in srgb, var(--bx-danger) 18%, var(--bx-surface-2)); color: #ff6b8b; }
+.bx-tl__dot--warning { background: color-mix(in srgb, var(--bx-warning) 22%, var(--bx-surface-2)); color: #f2a400; }
+.bx-tl__dot--info    { background: color-mix(in srgb, var(--bx-info) 22%, var(--bx-surface-2)); color: #fff; }
+.bx-tl__dot--primary { background: color-mix(in srgb, var(--bx-brand-primary) 18%, var(--bx-surface-2)); color: var(--bx-brand-primary-text); }
+.bx-tl__dot i, .bx-tl__dot svg { width: 12px; height: 12px; }
+.bx-tl__body { flex: 1; min-width: 0; padding-top: 2px; }
+.bx-tl__head { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
+.bx-tl__time { font-size: 0.72rem; color: var(--bx-text-muted); margin-left: auto; }
+.bx-tl__text { margin: 4px 0 0; color: var(--bx-text-muted); font-size: 0.85rem; line-height: 1.45; }
+.bx-tl__text a { color: var(--bx-brand-primary-text); text-decoration: none; }
+</style>

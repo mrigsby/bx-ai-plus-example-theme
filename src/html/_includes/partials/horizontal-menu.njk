@@ -1,0 +1,58 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/horizontal-menu.njk — recursive macro for the horizontal nav.
+  Uses the same menu.json tree as the sidenav, rendered as a hover/click
+  mega-menu with up to 3 levels of nested dropdowns.
+
+  Macro: renderHMenu(items, level=0)
+  ----------------------------------------------------------------------------
+#}
+
+{% macro renderHMenu(items, level=0) %}
+  <ul class="bx-hmenu bx-hmenu--level-{{ level }}"{% if level == 0 %} data-bx-hmenu="root"{% endif %}>
+    {%- for item in items -%}
+      {# Skip section labels — they're sidenav-only structural hints. #}
+      {% if item.type != "section" %}
+
+      {% if item.children %}
+      <li class="bx-hmenu__item bx-hmenu__item--has-children" data-bx-hmenu-item="{{ item.id }}">
+        <a href="#"
+           class="bx-hmenu__link bx-hmenu__link--toggle"
+           data-bx-hmenu-toggle="{{ item.id }}"
+           aria-haspopup="true"
+           aria-expanded="false">
+          {% if item.icon %}
+            <span class="bx-hmenu__icon" aria-hidden="true"><i data-lucide="{{ item.icon }}"></i></span>
+          {% endif %}
+          <span class="bx-hmenu__label">{{ item.label }}</span>
+          {% if item.badge %}
+            <span class="bx-hmenu__badge bx-hmenu__badge--{{ item.badge.variant | default('primary') }}">{{ item.badge.text }}</span>
+          {% endif %}
+          <span class="bx-hmenu__chevron" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              {% if level == 0 %}<polyline points="6 9 12 15 18 9"/>{% else %}<polyline points="9 18 15 12 9 6"/>{% endif %}
+            </svg>
+          </span>
+        </a>
+        <div class="bx-hmenu__sub" data-bx-hmenu-sub="{{ item.id }}">
+          {{ renderHMenu(item.children, level + 1) }}
+        </div>
+      </li>
+      {% else %}
+      <li class="bx-hmenu__item" data-bx-hmenu-item="{{ item.id }}">
+        <a href="{{ item.href }}" class="bx-hmenu__link">
+          {% if item.icon %}
+            <span class="bx-hmenu__icon" aria-hidden="true"><i data-lucide="{{ item.icon }}"></i></span>
+          {% endif %}
+          <span class="bx-hmenu__label">{{ item.label }}</span>
+          {% if item.badge %}
+            <span class="bx-hmenu__badge bx-hmenu__badge--{{ item.badge.variant | default('primary') }}">{{ item.badge.text }}</span>
+          {% endif %}
+        </a>
+      </li>
+      {% endif %}
+
+      {% endif %}{# end skip-section #}
+    {%- endfor -%}
+  </ul>
+{% endmacro %}

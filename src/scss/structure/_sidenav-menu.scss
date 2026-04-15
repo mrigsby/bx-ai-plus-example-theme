@@ -1,0 +1,162 @@
+// ---------------------------------------------------------------------------
+// structure/_sidenav-menu.scss
+// Multi-level menu rendered by partials/sidenav-menu.njk macro.
+// ---------------------------------------------------------------------------
+
+.bx-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  // Root level spacing
+  &--level-0 {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  // Nested indent increases by level
+  &--level-1 { padding-left: 0.75rem; }
+  &--level-2 { padding-left: 0.75rem; }
+  &--level-3 { padding-left: 0.75rem; }
+
+  &__section {
+    padding: 1rem 0.9rem 0.35rem;
+  }
+
+  &__section-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bx-sidenav-section-label);
+  }
+
+  &__item {
+    position: relative;
+  }
+
+  // ---- Link (shared by leaf and group-toggle) ----
+  &__link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    color: var(--bx-sidenav-fg);
+    background: transparent;
+    border: 0;
+    border-radius: var(--bx-radius-sm);
+    text-decoration: none;
+    text-align: left;
+    font-size: 0.86rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background var(--bx-transition-fast), color var(--bx-transition-fast);
+
+    &:hover {
+      background: color-mix(in srgb, var(--bx-surface-3) 80%, transparent);
+      color: var(--bx-sidenav-fg-hover);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--bx-focus-ring);
+      outline-offset: -2px;
+    }
+
+    // Active (current page) / group-open
+    &.is-active,
+    &[aria-current="page"] {
+      color: var(--bx-sidenav-active-fg);
+      background: var(--bx-sidenav-active-bg);
+    }
+  }
+
+  &__link--toggle {
+    &[aria-expanded="true"] {
+      color: var(--bx-sidenav-active-fg);
+    }
+    &[aria-expanded="true"] .bx-menu__chevron {
+      transform: rotate(90deg);
+    }
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: currentColor;
+
+    svg, i { width: 18px; height: 18px; }
+  }
+
+  &__bullet {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin: 0 7px 0 6px;
+    background: currentColor;
+    border-radius: 50%;
+    opacity: 0.35;
+    flex-shrink: 0;
+  }
+
+  &__label {
+    flex: 1 1 auto;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__badge {
+    flex-shrink: 0;
+    padding: 2px 7px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border-radius: var(--bx-radius-pill);
+    color: var(--bx-text-on-primary);
+    background: var(--bx-brand-primary);
+
+    &--info      { background: var(--bx-info); color: #fff; }
+    &--warning   { background: var(--bx-warning); color: #3a2a00; }
+    &--danger    { background: var(--bx-danger); color: #fff; }
+    &--brand     { background: var(--bx-brand-secondary); color: #fff; }
+    &--secondary { background: var(--bx-surface-3); color: var(--bx-text); }
+  }
+
+  &__chevron {
+    display: inline-flex;
+    width: 14px;
+    height: 14px;
+    color: var(--bx-sidenav-fg-muted);
+    transition: transform var(--bx-transition);
+    flex-shrink: 0;
+  }
+
+  // ---- Collapsible group content ----
+  &__subwrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--bx-transition);
+    overflow: hidden;
+
+    > .bx-menu {
+      min-height: 0;      // required for grid collapse animation
+      overflow: hidden;
+      padding-top: 2px;
+      padding-bottom: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    &[data-bx-open="true"] {
+      grid-template-rows: 1fr;
+    }
+  }
+}

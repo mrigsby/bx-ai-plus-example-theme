@@ -1,0 +1,260 @@
+// ---------------------------------------------------------------------------
+// components/_cards.scss — Bootstrap card + BX-AI+ widget card variants.
+// ---------------------------------------------------------------------------
+
+.card {
+  --bs-card-bg: var(--bx-surface-1);
+  --bs-card-color: var(--bx-text);
+  --bs-card-border-color: var(--bx-border);
+  --bs-card-border-radius: var(--bx-radius);
+  --bs-card-cap-bg: transparent;
+  --bs-card-cap-padding-x: 1.1rem;
+  --bs-card-cap-padding-y: 0.85rem;
+  --bs-card-spacer-x: 1.1rem;
+  --bs-card-spacer-y: 1.1rem;
+  box-shadow: var(--bx-shadow-xs);
+
+  .card-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--bx-text-heading);
+    letter-spacing: -0.005em;
+  }
+  .card-text {
+    color: var(--bx-text);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// BX-AI+ widget card — generic container used across dashboard widgets.
+// ---------------------------------------------------------------------------
+.bx-widget {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--bx-surface-1);
+  border: 1px solid var(--bx-border);
+  border-radius: var(--bx-radius);
+  padding: 1rem 1.1rem 1.1rem;
+  box-shadow: var(--bx-shadow-xs);
+  transition: border-color var(--bx-transition-fast), box-shadow var(--bx-transition-fast);
+
+  &--full-height { height: 100%; }
+
+  &:hover {
+    border-color: var(--bx-border-strong);
+    .bx-widget-menu__trigger { opacity: 1; }
+  }
+
+  &__head {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.65rem;
+  }
+
+  &__title-wrap { flex: 1; min-width: 0; }
+
+  &__title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--bx-text-heading);
+    letter-spacing: -0.005em;
+    line-height: 1.25;
+    margin: 0;
+  }
+
+  &__subtitle {
+    margin: 2px 0 0;
+    font-size: 0.74rem;
+    color: var(--bx-text-muted);
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  &__footer {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--bx-divider);
+    font-size: 0.76rem;
+    color: var(--bx-text-muted);
+  }
+}
+
+.bx-widget-menu {
+  position: relative;
+  margin-left: auto;
+
+  &__trigger {
+    width: 28px;
+    height: 28px;
+    opacity: 0.4;
+    transition: opacity var(--bx-transition-fast), background var(--bx-transition-fast);
+
+    i, svg { width: 14px; height: 14px; }
+
+    &:hover,
+    &[aria-expanded="true"] { opacity: 1 !important; }
+  }
+
+  .dropdown-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.82rem;
+
+    i, svg { width: 14px; height: 14px; opacity: 0.8; }
+
+    &:hover i, &:hover svg { opacity: 1; }
+  }
+}
+.bx-text-danger { color: var(--bx-danger) !important; }
+
+// ---------------------------------------------------------------------------
+// Stat card
+// ---------------------------------------------------------------------------
+.bx-stat-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem 1.1rem 1.1rem;
+  background: var(--bx-surface-1);
+  border: 1px solid var(--bx-border);
+  border-radius: var(--bx-radius);
+  box-shadow: var(--bx-shadow-xs);
+  overflow: hidden;
+  transition: border-color var(--bx-transition-fast), transform var(--bx-transition-fast), box-shadow var(--bx-transition-fast);
+
+  &:hover {
+    border-color: var(--bx-border-strong);
+    transform: translateY(-1px);
+    box-shadow: var(--bx-shadow-sm);
+    .bx-widget-menu__trigger { opacity: 1; }
+  }
+
+  .bx-widget-menu {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--bx-radius-sm);
+    background: color-mix(in srgb, var(--bx-brand-primary) 15%, var(--bx-surface-3));
+    color: var(--bx-brand-primary-text);
+    flex-shrink: 0;
+
+    i, svg { width: 16px; height: 16px; }
+  }
+
+  &__label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--bx-text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  &__value-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+  }
+  &__value {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--bx-text-heading);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    transition: color 200ms ease;
+
+    &.is-pulsing {
+      animation: bx-stat-pulse 500ms ease-out;
+    }
+  }
+  &__unit {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--bx-text-muted);
+  }
+
+  &__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  &__delta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.74rem;
+    font-weight: 500;
+    color: var(--bx-text-muted);
+
+    i, svg { width: 13px; height: 13px; }
+    &-period { color: var(--bx-text-muted); opacity: 0.8; }
+  }
+
+  &--trend-up {
+    .bx-stat-card__delta { color: var(--bx-brand-primary-text); }
+    .bx-stat-card__delta-period { color: var(--bx-text-muted); }
+  }
+  &--trend-down-good {
+    // e.g. latency dropping — down is good
+    .bx-stat-card__delta { color: var(--bx-brand-primary-text); }
+  }
+  &--trend-down {
+    .bx-stat-card__delta { color: var(--bx-danger); }
+  }
+
+  &__spark {
+    flex: 1;
+    max-width: 160px;
+    height: 36px;
+    display: inline-flex;
+    justify-content: flex-end;
+    > div { width: 100%; }
+  }
+
+  &__pulse {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--bx-ai-gradient);
+    transform: scaleX(0);
+    transform-origin: left center;
+    opacity: 0;
+
+    &.is-pulsing { animation: bx-stat-pulse-bar 600ms ease-out; }
+  }
+}
+
+@keyframes bx-stat-pulse {
+  0%   { color: var(--bx-brand-primary-text); }
+  100% { color: var(--bx-text-heading); }
+}
+@keyframes bx-stat-pulse-bar {
+  0%   { transform: scaleX(0); opacity: 1; }
+  80%  { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}

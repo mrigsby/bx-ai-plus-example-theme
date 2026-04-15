@@ -1,0 +1,120 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/topbar.njk — Phase 4.
+  Chat bar pill opens command palette. Mic triggers voice toast.
+  Notifications + account are real Bootstrap dropdowns.
+  ----------------------------------------------------------------------------
+#}
+{% seamBegin "TOPBAR" %}
+<header class="bx-topbar" id="bx-topbar">
+  <div class="bx-topbar__inner">
+
+    {# Left: sidenav toggle + quick actions + brand #}
+    <div class="bx-topbar__start">
+      <button type="button"
+              class="bx-btn-icon bx-topbar__sidenav-toggle"
+              data-bx-sidenav-toggle
+              aria-label="Toggle sidebar"
+              title="Toggle sidebar">
+        <i data-lucide="menu"></i>
+      </button>
+
+      <button type="button"
+              class="bx-btn-icon"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#bx-offcanvas-left"
+              aria-label="Quick actions"
+              title="Quick actions">
+        <i data-lucide="zap"></i>
+      </button>
+
+      <a class="bx-topbar__brand" href="/">
+        <img src="/assets/images/brand/bx-ai-icon-full.svg" alt="" width="28" height="28">
+        <span class="bx-topbar__brand-text">{{ site.name }}</span>
+      </a>
+    </div>
+
+    {# Center: AI chat bar pill (opens command palette) #}
+    <div class="bx-topbar__center">
+      <button type="button"
+              class="bx-chat-bar"
+              data-bx-chat-command-open
+              aria-haspopup="dialog"
+              aria-label="Ask BX-AI — opens command palette">
+        <span class="bx-chat-bar__icon" aria-hidden="true">
+          <i data-lucide="sparkles"></i>
+        </span>
+        <span class="bx-chat-bar__text">Ask BX-AI anything…</span>
+        <kbd class="bx-chat-bar__kbd">⌘K</kbd>
+      </button>
+    </div>
+
+    {# Right: mic, notifications, theme, customizer, account #}
+    <div class="bx-topbar__end">
+
+      {# Voice trigger #}
+      <button type="button"
+              class="bx-btn-icon"
+              data-bx-voice-trigger
+              aria-label="Voice to AI"
+              title="Voice to AI">
+        <i data-lucide="mic"></i>
+      </button>
+
+      {# Notifications dropdown #}
+      <div class="dropdown bx-topbar__dropdown">
+        <button type="button"
+                class="bx-btn-icon bx-topbar__notifications"
+                id="bx-notifications-trigger"
+                data-bs-toggle="dropdown"
+                data-bs-auto-close="outside"
+                aria-expanded="false"
+                aria-label="Notifications"
+                title="Notifications">
+          <i data-lucide="bell"></i>
+          <span class="bx-topbar__badge" data-bx-notifications-count>{{ notifications.unreadCount }}</span>
+        </button>
+        {% include "partials/notifications-dropdown.njk" %}
+      </div>
+
+      {# Theme toggle #}
+      <button type="button"
+              class="bx-btn-icon"
+              data-bx-theme-toggle
+              aria-label="Switch theme"
+              title="Switch theme">
+        <i class="bx-icon-sun"  data-lucide="sun"></i>
+        <i class="bx-icon-moon" data-lucide="moon"></i>
+      </button>
+
+      {# Customizer trigger #}
+      <button type="button"
+              class="bx-btn-icon"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#bx-customizer"
+              aria-label="Customize"
+              title="Customize">
+        <i data-lucide="sliders-horizontal"></i>
+      </button>
+
+      {# Account dropdown #}
+      <div class="dropdown bx-topbar__dropdown">
+        <button type="button"
+                class="bx-topbar__account"
+                id="bx-account-trigger"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                aria-label="Account"
+                title="Account">
+          <span class="bx-avatar bx-avatar--sm">
+            <span class="bx-avatar__initials">{{ user.initials }}</span>
+          </span>
+        </button>
+        {% include "partials/account-dropdown.njk" %}
+      </div>
+
+    </div>
+
+  </div>
+</header>
+{% seamEnd "TOPBAR" %}

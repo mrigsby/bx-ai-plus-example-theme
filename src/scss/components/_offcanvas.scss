@@ -1,0 +1,152 @@
+// ---------------------------------------------------------------------------
+// components/_offcanvas.scss — Bootstrap offcanvas theming + BX-AI+ variants.
+// ---------------------------------------------------------------------------
+
+.offcanvas {
+  --bs-offcanvas-bg: var(--bx-surface-1);
+  --bs-offcanvas-color: var(--bx-text);
+  --bs-offcanvas-border-color: var(--bx-border-strong);
+  --bs-offcanvas-box-shadow: var(--bx-shadow-lg);
+
+  .btn-close {
+    filter: invert(0.92);
+  }
+}
+
+[data-bs-theme="light"] .offcanvas .btn-close {
+  filter: none;
+}
+
+// ---------------------------------------------------------------------------
+// Left offcanvas — quick actions
+// ---------------------------------------------------------------------------
+.bx-offcanvas-left {
+  --bs-offcanvas-width: 360px;
+
+  &__body {
+    padding: 0 0 1rem;
+  }
+
+  &__section {
+    padding: 0.75rem 1rem 1rem;
+
+    + .bx-offcanvas-left__section { border-top: 1px solid var(--bx-divider); }
+  }
+
+  &__section-label {
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bx-text-muted);
+    margin-bottom: 0.5rem;
+  }
+}
+
+.bx-shortcut-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.bx-shortcut {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  background: var(--bx-surface-2);
+  border: 1px solid var(--bx-border);
+  border-radius: var(--bx-radius);
+  color: var(--bx-text);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--bx-transition-fast),
+              background var(--bx-transition-fast),
+              transform var(--bx-transition-fast);
+
+  &:hover {
+    border-color: var(--bx-brand-primary);
+    background: color-mix(in srgb, var(--bx-brand-primary) 7%, var(--bx-surface-2));
+    transform: translateY(-1px);
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--bx-radius-sm);
+    background: color-mix(in srgb, var(--bx-brand-primary) 12%, var(--bx-surface-3));
+    color: var(--bx-brand-primary-text);
+    margin-bottom: 0.25rem;
+
+    i, svg { width: 16px; height: 16px; }
+  }
+
+  &__label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--bx-text-heading);
+    line-height: 1.2;
+  }
+
+  &__hint {
+    font-size: 0.68rem;
+    color: var(--bx-text-muted);
+    line-height: 1.25;
+  }
+}
+
+.bx-recent-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    width: 100%;
+    padding: 0.45rem 0.5rem;
+    background: transparent;
+    border: 0;
+    border-radius: var(--bx-radius-sm);
+    color: var(--bx-text);
+    text-align: left;
+    cursor: pointer;
+    transition: background var(--bx-transition-fast);
+
+    &:hover { background: var(--bx-surface-2); }
+  }
+
+  &__icon {
+    display: inline-flex;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    color: var(--bx-text-muted);
+    flex-shrink: 0;
+    i, svg { width: 14px; height: 14px; }
+  }
+
+  &__label {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__time {
+    font-size: 0.7rem;
+    color: var(--bx-text-muted);
+    flex-shrink: 0;
+  }
+}

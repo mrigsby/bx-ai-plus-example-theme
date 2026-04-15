@@ -1,0 +1,27 @@
+{
+  "stats": [
+    { "label": "Storage used",     "value": "184 GB", "icon": "hard-drive", "of": "of 500 GB" },
+    { "label": "Files",            "value":  "12,482", "icon": "file" },
+    { "label": "Folders",          "value":     "184", "icon": "folder" },
+    { "label": "Shared with you",  "value":      "27", "icon": "users" }
+  ],
+  "tree": [
+    { "id": "f-root-1", "type": "folder", "name": "Workspaces",      "items":  84, "size": "62 GB",  "modified": "2 min" },
+    { "id": "f-root-2", "type": "folder", "name": "Customers",       "items": 312, "size": "41 GB",  "modified": "1 hr" },
+    { "id": "f-root-3", "type": "folder", "name": "Engineering",     "items": 928, "size": "58 GB",  "modified": "3 hr" },
+    { "id": "f-root-4", "type": "folder", "name": "Design system",   "items":  44, "size":  "8 GB",  "modified": "Yesterday" },
+    { "id": "f-root-5", "type": "folder", "name": "Marketing",       "items": 124, "size": "15 GB",  "modified": "Yesterday" }
+  ],
+  "items": [
+    { "id": "fi-01", "type": "folder", "name": "BX-AI+ launch",          "icon": "folder",      "owner": "Marketing", "size": "—",      "modified": "2 min ago",     "shared": 4 },
+    { "id": "fi-02", "type": "folder", "name": "Q1 board prep",          "icon": "folder",      "owner": "Leadership","size": "—",      "modified": "14 min ago",    "shared": 6 },
+    { "id": "fi-03", "type": "doc",    "name": "Anomaly runbook.md",    "icon": "file-text",   "owner": "Marcus Reed","size": "12 KB",  "modified": "1 hr ago",      "shared": 8 },
+    { "id": "fi-04", "type": "image",  "name": "Customizer-final.png",  "icon": "image",       "owner": "Theo Kim",   "size": "1.2 MB", "modified": "2 hr ago",      "shared": 3 },
+    { "id": "fi-05", "type": "doc",    "name": "Pricing announcement.md","icon": "file-text",  "owner": "Avery Liu",  "size":  "8 KB",  "modified": "3 hr ago",      "shared": 2 },
+    { "id": "fi-06", "type": "video",  "name": "Demo-scribe-bx.mp4",    "icon": "video",       "owner": "Priya Shah", "size": "84 MB",  "modified": "Yesterday",     "shared": 12},
+    { "id": "fi-07", "type": "doc",    "name": "Helix Labs onboarding.pdf","icon": "file-text","owner": "Sasha Volkov","size":"412 KB", "modified": "Yesterday",     "shared": 4 },
+    { "id": "fi-08", "type": "spreadsheet","name": "Token-budget-Q1.xlsx","icon": "table",     "owner": "Theo Kim",   "size": "240 KB", "modified": "2 days ago",    "shared": 5 },
+    { "id": "fi-09", "type": "doc",    "name": "Architecture notes.md", "icon": "file-text",   "owner": "Marcus Reed","size":  "32 KB", "modified": "3 days ago",    "shared": 9 },
+    { "id": "fi-10", "type": "archive","name": "Old-prompts-2024.zip",  "icon": "archive",     "owner": "Avery Liu",  "size": "12 MB",  "modified": "1 week ago",    "shared": 1 }
+  ]
+}

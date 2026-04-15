@@ -1,0 +1,34 @@
+// ---------------------------------------------------------------------------
+// plugins/_nouislider.scss — noUiSlider theming.
+// ---------------------------------------------------------------------------
+
+.noUi-target {
+  background: var(--bx-surface-3);
+  border: 0;
+  box-shadow: none;
+  height: 6px;
+  border-radius: var(--bx-radius-pill);
+}
+.noUi-connect { background: var(--bx-brand-primary); }
+.noUi-handle {
+  background: var(--bx-surface-1);
+  border: 2px solid var(--bx-brand-primary);
+  border-radius: 50%;
+  box-shadow: var(--bx-shadow-xs);
+  width: 20px !important;
+  height: 20px !important;
+  top: -8px !important;
+  right: -10px !important;
+  cursor: grab;
+
+  &::before, &::after { display: none; }
+  &.noUi-active { cursor: grabbing; transform: scale(1.1); }
+}
+.noUi-tooltip {
+  background: var(--bx-surface-2);
+  border: 1px solid var(--bx-border-strong);
+  border-radius: var(--bx-radius-sm);
+  color: var(--bx-text);
+  font-size: 0.72rem;
+  padding: 2px 6px;
+}

@@ -1,0 +1,22 @@
+// ===========================================================================
+// config/_maps.scss
+// Extend Bootstrap's $theme-colors / $utilities maps where useful.
+// Kept minimal in Phase 2; grows in Phase 3+.
+// ===========================================================================
+
+// Add brand colors to Bootstrap's theme-colors map (creates .text-brand,
+// .bg-brand, .btn-brand utilities automatically via Bootstrap's utility API).
+$theme-colors: (
+  "primary":   $primary,
+  "secondary": $secondary,
+  "success":   $success,
+  "info":      $info,
+  "warning":   $warning,
+  "danger":    $danger,
+  "light":     $light,
+  "dark":      $dark,
+  "brand":     $bx-teal-bright,
+  "brand-2":   $bx-teal-medium,
+  "brand-3":   $bx-blue-purple,
+  "brand-4":   $bx-purple-dark
+);

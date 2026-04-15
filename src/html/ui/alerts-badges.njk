@@ -1,0 +1,85 @@
+---
+layout: vertical.njk
+title: Alerts & badges
+pageTitle: Alerts & badges
+pageSubtitle: Inline alerts, dismissible alerts, and badge variants.
+permalink: /ui/alerts-badges/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "UI" }
+  - { label: "Alerts & badges" }
+---
+
+<div class="row g-3">
+
+  <div class="col-12 col-xl-7">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Alerts</h3></div></div>
+      <div class="bx-widget__body">
+        <div class="alert alert-primary">Primary — metric is trending up.</div>
+        <div class="alert alert-success">Success — deployment complete.</div>
+        <div class="alert alert-warning">Warning — token usage approaching limit.</div>
+        <div class="alert alert-danger">Danger — anomaly detected on /api/agents.</div>
+        <div class="alert alert-info">Info — AI agent generated 3 suggestions.</div>
+        <div class="alert alert-secondary">Secondary — quiet, non-critical update.</div>
+
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+          <strong>Dismissible.</strong> Click the X to close.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="alert alert-warning d-flex align-items-start gap-2">
+          <i data-lucide="alert-triangle" style="width:18px;height:18px;flex-shrink:0;margin-top:2px;"></i>
+          <div>
+            <strong>With icon.</strong> Pair an alert with a Lucide icon for emphasis.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-5">
+    <div class="bx-widget mb-3">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Badges</h3></div></div>
+      <div class="bx-widget__body">
+        <div class="d-flex flex-wrap gap-2 mb-3 align-items-center">
+          <span class="badge text-bg-primary">Primary</span>
+          <span class="badge text-bg-secondary">Secondary</span>
+          <span class="badge text-bg-success">Success</span>
+          <span class="badge text-bg-info">Info</span>
+          <span class="badge text-bg-warning">Warning</span>
+          <span class="badge text-bg-danger">Danger</span>
+          <span class="badge text-bg-light">Light</span>
+          <span class="badge text-bg-dark">Dark</span>
+        </div>
+        <div class="d-flex flex-wrap gap-2 mb-3 align-items-center">
+          <span class="badge rounded-pill text-bg-primary">Pill</span>
+          <span class="badge rounded-pill text-bg-success">Pill</span>
+          <span class="badge rounded-pill text-bg-warning">Pill</span>
+          <span class="badge rounded-pill text-bg-danger">Pill</span>
+        </div>
+        <div class="d-flex flex-wrap gap-2 align-items-center">
+          <button class="btn btn-outline-secondary position-relative">
+            Inbox
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-danger">14</span>
+          </button>
+          <button class="btn btn-outline-secondary position-relative">
+            Notifications
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-primary">4</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Status pills</h3></div></div>
+      <div class="bx-widget__body d-flex flex-wrap gap-2">
+        <span class="bx-top-agents__status bx-top-agents__status--healthy">Healthy</span>
+        <span class="bx-top-agents__status bx-top-agents__status--degraded">Degraded</span>
+        <span class="bx-top-agents__status bx-top-agents__status--errored">Errored</span>
+        <span class="bx-top-agents__status bx-top-agents__status--paused">Paused</span>
+      </div>
+    </div>
+  </div>
+
+</div>

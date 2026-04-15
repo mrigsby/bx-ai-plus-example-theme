@@ -1,0 +1,26 @@
+// ---------------------------------------------------------------------------
+// ai/_waveform.scss
+// DOM-based waveform — 28 bars, scaleY driven by --bx-bar-amp set by JS.
+// ---------------------------------------------------------------------------
+
+.bx-waveform {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 44px;
+  width: 100%;
+  padding: 0 0.25rem;
+
+  &__bar {
+    display: inline-block;
+    width: 3px;
+    height: 100%;
+    background: var(--bx-ai-gradient);
+    border-radius: 2px;
+    transform: scaleY(var(--bx-bar-amp, 0.15));
+    transform-origin: center;
+    transition: transform 80ms linear;
+    opacity: 0.9;
+  }
+}

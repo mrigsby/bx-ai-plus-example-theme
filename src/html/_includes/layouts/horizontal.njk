@@ -1,0 +1,39 @@
+---
+layout: base.njk
+layoutVariant: horizontal
+---
+{#
+  ----------------------------------------------------------------------------
+  layouts/horizontal.njk — chrome with a top bar AND horizontal nav bar.
+  Pages mirrored under src/html/horizontal/ use this layout.
+  Same overlays as vertical: customizer, AI panels, voice toast, offcanvas.
+  ----------------------------------------------------------------------------
+#}
+{% seamBegin "APP_WRAPPER" %}
+<div class="bx-wrapper bx-wrapper--horizontal" id="bx-wrapper">
+
+  {% include "partials/topbar.njk" %}
+  {% include "partials/horizontal-nav.njk" %}
+
+  {% seamBegin "PAGE_WRAPPER" %}
+  <main class="bx-page" id="bx-page">
+    {% include "partials/page-title.njk" %}
+
+    <div class="bx-content">
+      {% seamBegin "PAGE_CONTENT" %}
+      {{ content | safe }}
+      {% seamEnd "PAGE_CONTENT" %}
+    </div>
+
+    {% include "partials/footer.njk" %}
+  </main>
+  {% seamEnd "PAGE_WRAPPER" %}
+
+</div>
+{% seamEnd "APP_WRAPPER" %}
+
+{% include "partials/customizer.njk" %}
+{% include "partials/offcanvas-left.njk" %}
+{% include "partials/chat-panel.njk" %}
+{% include "partials/chat-command.njk" %}
+{% include "partials/voice-toast.njk" %}

@@ -1,0 +1,48 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/sidenav.njk — vertical sidebar.
+  Sizes (controlled via <html data-sidenav-size=…>):
+    default   — 248px, icons + labels
+    compact   — 72px, icons only (labels on hover tooltip in Phase 4)
+    hover     — 72px collapsed, expands to 248px on hover
+    offcanvas — off-screen, toggled via .bx-topbar__sidenav-toggle (mobile)
+  ----------------------------------------------------------------------------
+#}
+{% from "partials/sidenav-menu.njk" import renderMenu %}
+
+{% seamBegin "SIDENAV" %}
+<aside class="bx-sidenav" id="bx-sidenav" aria-label="Primary navigation">
+
+  <div class="bx-sidenav__header">
+    <a class="bx-sidenav__brand" href="/">
+      <img class="bx-sidenav__mark" src="/assets/images/brand/bx-ai-icon-full.svg" alt="" width="32" height="32">
+      <span class="bx-sidenav__brand-text">{{ site.name }}</span>
+    </a>
+    <button type="button"
+            class="bx-sidenav__close"
+            data-bx-sidenav-close
+            aria-label="Close sidebar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <nav class="bx-sidenav__nav" data-simplebar>
+    {{ renderMenu(menu) }}
+  </nav>
+
+  <div class="bx-sidenav__footer">
+    <div class="bx-sidenav__user">
+      <span class="bx-avatar bx-avatar--sm">
+        <span class="bx-avatar__initials">MR</span>
+      </span>
+      <div class="bx-sidenav__user-info">
+        <span class="bx-sidenav__user-name">M. Rigsby</span>
+        <span class="bx-sidenav__user-role">Admin</span>
+      </div>
+    </div>
+  </div>
+
+</aside>
+{% seamEnd "SIDENAV" %}

@@ -1,0 +1,71 @@
+---
+layout: vertical.njk
+title: Tables · Basic
+pageTitle: Basic tables
+pageSubtitle: Bootstrap table styles with BX-AI+ tokens applied.
+permalink: /tables/basic/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Tables" }
+  - { label: "Basic" }
+---
+
+<div class="row g-3">
+
+  <div class="col-12">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Default</h3></div></div>
+      <div class="bx-widget__body">
+        <table class="table table-hover">
+          <thead><tr><th>Agent</th><th>Status</th><th class="num">Requests</th><th class="num">p95 ms</th><th class="num">Spend (k)</th></tr></thead>
+          <tbody>
+            {% for a in dashboard.topAgents %}
+            <tr>
+              <td>{{ a.name }}</td>
+              <td><span class="bx-top-agents__status bx-top-agents__status--{{ a.status }}">{{ a.status }}</span></td>
+              <td class="num">{{ a.requests }}</td>
+              <td class="num">{{ a.latency }}</td>
+              <td class="num">{{ a.spend }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-6">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Striped + bordered</h3></div></div>
+      <div class="bx-widget__body">
+        <table class="table table-striped table-bordered">
+          <thead><tr><th>#</th><th>Name</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Avery Liu</td><td>Engineering Lead</td></tr>
+            <tr><td>2</td><td>Marcus Reed</td><td>SRE</td></tr>
+            <tr><td>3</td><td>Priya Shah</td><td>ML Engineer</td></tr>
+            <tr><td>4</td><td>Theo Kim</td><td>Designer</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-6">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Compact</h3></div></div>
+      <div class="bx-widget__body">
+        <table class="table table-sm">
+          <thead><tr><th>Service</th><th>Region</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>api-edge</td><td>us-east-1</td><td><span class="bx-top-agents__status bx-top-agents__status--healthy">healthy</span></td></tr>
+            <tr><td>api-edge</td><td>eu-west-1</td><td><span class="bx-top-agents__status bx-top-agents__status--healthy">healthy</span></td></tr>
+            <tr><td>cache</td><td>us-east-1</td><td><span class="bx-top-agents__status bx-top-agents__status--degraded">degraded</span></td></tr>
+            <tr><td>queue</td><td>us-east-1</td><td><span class="bx-top-agents__status bx-top-agents__status--paused">paused</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>

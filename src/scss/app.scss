@@ -1,0 +1,608 @@
+// ===========================================================================
+// BX-AI+ — main SCSS entry
+//
+// Import order (must NOT be reordered):
+//   1. Config functions   — SCSS helpers (bx-tint, bx-shade, bx-alpha)
+//   2. Custom tokens      — palette SCSS vars + CSS custom props on :root
+//   3. Bootstrap overrides — $primary, $body-bg, etc. via our tokens
+//   4. Maps                — $theme-colors extensions
+//   5. Bootstrap 5        — imported from node_modules/bootstrap/scss
+//   6. Dark-theme vars    — pass-through for [data-bs-theme="dark"]
+//   7. Theme-mode pivot   — light-theme token overrides
+//   8. Structure          — topbar, sidenav, content, footer, customizer
+//   9. Components         — Bootstrap component overrides
+//  10. AI                 — chat bar, voice toast, insight cards
+//  11. Plugins            — third-party library skinning
+//  12. Pages              — page-specific styles
+//  13. Utilities          — shadows, gradients, hover effects (LAST so they win)
+//  14. Phase-1 hello card — transitional; deleted in Phase 3
+// ===========================================================================
+
+// ------ 1. Config functions ------
+@import "config/functions";
+
+// ------ 2. Custom tokens ------
+@import "config/variables-custom";
+
+// ------ 3. Bootstrap overrides ------
+@import "config/variables";
+
+// ------ 4. Maps ------
+@import "config/maps";
+
+// ------ 5. Bootstrap 5 (from node_modules — resolved via loadPaths) ------
+@import "bootstrap/scss/bootstrap";
+
+// ------ 6. Dark-theme pass-through ------
+@import "config/variables-dark";
+
+// ------ 7. Theme-mode (light pivot) ------
+@import "config/theme-mode";
+
+// ------ 8. Structure ------
+@import "structure/layout";
+@import "structure/topbar";
+@import "structure/sidenav";
+@import "structure/sidenav-menu";
+@import "structure/horizontal-nav";
+@import "structure/content";
+@import "structure/footer";
+@import "structure/page-title";
+@import "structure/customizer";
+
+// ------ 9. Components ------
+@import "components/accordion";
+@import "components/alerts";
+@import "components/avatars";
+@import "components/badges";
+@import "components/breadcrumbs";
+@import "components/buttons";
+@import "components/cards";
+@import "components/dropdowns";
+@import "components/forms";
+@import "components/icons";
+@import "components/list-group";
+@import "components/modal";
+@import "components/navs";
+@import "components/offcanvas";
+@import "components/pagination";
+@import "components/popovers";
+@import "components/progress";
+@import "components/tables";
+@import "components/toasts";
+@import "components/tooltips";
+
+// ------ 10. AI ------
+@import "ai/chat-bar";
+@import "ai/chat-panel";
+@import "ai/voice-toast";
+@import "ai/waveform";
+@import "ai/ai-glow";
+@import "ai/ai-insight-card";
+@import "ai/ai-inline-prompt";
+
+// ------ 11. Plugins ------
+@import "plugins/apexcharts";
+@import "plugins/simple-datatables";
+@import "plugins/gridjs";
+@import "plugins/flatpickr";
+@import "plugins/choices";
+@import "plugins/quill";
+@import "plugins/simplebar";
+@import "plugins/sweetalert2";
+@import "plugins/dropzone";
+@import "plugins/fullcalendar";
+@import "plugins/nouislider";
+
+// ------ 12. Pages ------
+@import "pages/auth";
+@import "pages/error";
+@import "pages/dashboard";
+@import "pages/ai-chat";
+@import "pages/profile";
+@import "pages/pricing";
+@import "pages/invoice";
+@import "pages/kanban";
+@import "pages/chat";
+@import "pages/email";
+@import "pages/calendar";
+@import "pages/files";
+@import "pages/projects";
+@import "pages/documentation";
+
+// ------ 13. Utilities (must be last so they win the cascade) ------
+@import "utilities/animations";
+@import "utilities/shadows";
+@import "utilities/gradients";
+@import "utilities/hover-effects";
+@import "utilities/text";
+@import "utilities/backgrounds";
+@import "utilities/borders";
+
+// ===========================================================================
+// Phase 8 — Form wizard
+// ===========================================================================
+.bx-wizard {
+  &__steps {
+    list-style: none;
+    margin: 0 0 1.5rem;
+    padding: 0 0 1.25rem;
+    border-bottom: 1px solid var(--bx-divider);
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.4rem 0.65rem;
+      border-radius: var(--bx-radius);
+      flex: 1;
+      min-width: 160px;
+      color: var(--bx-text-muted);
+      transition: background var(--bx-transition-fast), color var(--bx-transition-fast);
+
+      &.is-active {
+        background: var(--bx-sidenav-active-bg);
+        color: var(--bx-sidenav-active-fg);
+      }
+      &.is-done .bx-wizard__step-num {
+        background: var(--bx-brand-primary);
+        color: var(--bx-text-on-primary);
+      }
+    }
+  }
+  &__step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--bx-surface-3);
+    color: var(--bx-text);
+    font-weight: 600;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    i, svg { width: 14px; height: 14px; }
+  }
+  &__step-label { font-size: 0.85rem; font-weight: 500; color: var(--bx-text); line-height: 1.2; }
+  &__step-hint  { font-size: 0.7rem; color: var(--bx-text-muted); }
+
+  &__pane {
+    display: none;
+    h4 { margin: 0 0 1rem; font-size: 1rem; font-weight: 600; color: var(--bx-text-heading); }
+    &.is-active { display: block; }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--bx-divider);
+
+    .btn { display: inline-flex; align-items: center; gap: 0.35rem; }
+  }
+}
+
+// ===========================================================================
+// Phase 8 — Documentation page chrome
+// ===========================================================================
+.bx-docs {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2rem;
+  align-items: start;
+
+  @media (max-width: 991.98px) { grid-template-columns: 1fr; }
+
+  &__nav {
+    position: sticky;
+    top: calc(var(--bx-topbar-height) + 1rem);
+
+    h6 {
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bx-text-muted);
+      margin: 1rem 0 0.4rem;
+
+      &:first-child { margin-top: 0; }
+    }
+    a {
+      display: block;
+      padding: 0.3rem 0.55rem;
+      font-size: 0.82rem;
+      color: var(--bx-text-muted);
+      text-decoration: none;
+      border-radius: var(--bx-radius-sm);
+
+      &:hover { background: var(--bx-surface-2); color: var(--bx-brand-primary-text); }
+    }
+
+    @media (max-width: 991.98px) { position: static; }
+  }
+
+  &__article {
+    max-width: 760px;
+    color: var(--bx-text);
+    line-height: 1.65;
+
+    > section + section {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--bx-divider);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--bx-text-heading);
+      letter-spacing: -0.01em;
+      margin: 0 0 0.5rem;
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--bx-text-heading);
+      margin: 1.5rem 0 0.5rem;
+    }
+    p { color: var(--bx-text-muted); }
+
+    pre {
+      background: var(--bx-surface-2);
+      border: 1px solid var(--bx-border);
+      border-radius: var(--bx-radius-sm);
+      padding: 1rem;
+      font-size: 0.82rem;
+      overflow: auto;
+      color: var(--bx-text);
+    }
+    code {
+      font-family: var(--bs-font-monospace);
+      font-size: 0.86em;
+      color: var(--bx-brand-primary-text);
+      background: color-mix(in srgb, var(--bx-brand-primary) 10%, transparent);
+      padding: 1px 6px;
+      border-radius: var(--bx-radius-xs);
+    }
+    pre code { color: var(--bx-text); background: transparent; padding: 0; }
+
+    table { width: 100%; }
+    table th, table td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--bx-divider);
+      font-size: 0.85rem;
+    }
+    table th { color: var(--bx-text-muted); font-weight: 500; text-align: left; }
+  }
+}
+
+// ===========================================================================
+// Phase 6 stub + showcase styles (used by /layouts/* and /horizontal/* stubs)
+// ===========================================================================
+
+.bx-stub {
+  position: relative;
+  padding: 1.75rem 2rem;
+  background: var(--bx-surface-1);
+  border: 1px solid var(--bx-border);
+  border-radius: var(--bx-radius-lg);
+  box-shadow: var(--bx-shadow-xs);
+  overflow: hidden;
+
+  &__bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--bx-ai-gradient);
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: var(--bx-radius-pill);
+    background: var(--bx-ai-gradient);
+    color: var(--bx-text-on-primary);
+    flex-shrink: 0;
+
+    i, svg { width: 20px; height: 20px; }
+  }
+
+  &__eyebrow {
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bx-text-muted);
+  }
+
+  &__title {
+    margin: 0.1rem 0 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--bx-text-heading);
+    letter-spacing: -0.01em;
+  }
+
+  &__text {
+    margin: 0 0 1.25rem;
+    color: var(--bx-text-muted);
+    max-width: 65ch;
+    line-height: 1.55;
+  }
+
+  &__hints {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    padding: 0.75rem;
+    background: var(--bx-surface-2);
+    border: 1px solid var(--bx-border);
+    border-radius: var(--bx-radius);
+  }
+
+  &__hint {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--bx-text);
+
+    i, svg { width: 16px; height: 16px; color: var(--bx-brand-primary-text); flex-shrink: 0; }
+    kbd {
+      font-family: $font-family-monospace;
+      font-size: 0.7rem;
+      padding: 1px 5px;
+      border: 1px solid var(--bx-border-strong);
+      border-radius: var(--bx-radius-xs);
+      background: var(--bx-surface-1);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Layout showcase card (/layouts/* pages)
+// ---------------------------------------------------------------------------
+.bx-showcase {
+  position: relative;
+  padding: 1.75rem 2rem 1.5rem;
+  background: var(--bx-surface-1);
+  border: 1px solid var(--bx-border);
+  border-radius: var(--bx-radius-lg);
+  box-shadow: var(--bx-shadow-xs);
+  overflow: hidden;
+
+  &__bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--bx-brand-primary);
+  }
+
+  &__eyebrow {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bx-text-muted);
+    margin-bottom: 0.25rem;
+  }
+
+  &__title {
+    margin: 0 0 0.25rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--bx-text-heading);
+    letter-spacing: -0.01em;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.88rem;
+      color: var(--bx-text);
+      line-height: 1.45;
+    }
+  }
+
+  &__check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--bx-brand-primary) 18%, var(--bx-surface-3));
+    color: var(--bx-brand-primary-text);
+    flex-shrink: 0;
+    margin-top: 1px;
+
+    i, svg { width: 13px; height: 13px; }
+  }
+
+  &__diagram {
+    height: 180px;
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--bx-brand-primary) 18%, var(--bx-surface-3)) 0%, color-mix(in srgb, var(--bx-brand-accent-1) 18%, var(--bx-surface-3)) 100%);
+    border: 1px dashed var(--bx-border-strong);
+    border-radius: var(--bx-radius);
+    position: relative;
+
+    // Faux layout sketch via gradients/lines
+    &::before, &::after {
+      content: "";
+      position: absolute;
+      background: var(--bx-surface-1);
+      border-radius: var(--bx-radius-sm);
+      box-shadow: var(--bx-shadow-xs);
+    }
+    &::before { top: 8px; left: 8px; right: 8px; height: 18px; }
+    &::after  { top: 32px; left: 8px; bottom: 8px; width: 60px; }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+
+    .btn { display: inline-flex; align-items: center; gap: 0.4rem; }
+    i, svg { width: 14px; height: 14px; }
+  }
+}
+
+// ===========================================================================
+// Phase 2 preview-page styles (internal dev pages — __tokens, __components).
+// Removed when those preview pages are deleted.
+// ===========================================================================
+
+// ---- Phase 2 preview-page chrome ----
+.bx-preview {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+  color: var(--bx-text);
+
+  header.bx-preview-header {
+    position: sticky; top: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 1.5rem; margin: -2rem -1.5rem 2rem;
+    background: color-mix(in srgb, var(--bx-body-bg) 85%, transparent);
+    backdrop-filter: saturate(140%) blur(8px);
+    border-bottom: 1px solid var(--bx-border);
+    z-index: 10;
+
+    h1 {
+      font-size: 1rem; font-weight: 600;
+      letter-spacing: 0.02em; text-transform: uppercase;
+      color: var(--bx-text-muted); margin: 0;
+      span { color: var(--bx-brand-primary-text); }
+    }
+    .bx-preview-toggle { display: flex; gap: 0.5rem; }
+  }
+
+  h2.bx-preview-section {
+    margin: 3rem 0 1rem; font-size: 1.1rem; font-weight: 600;
+    color: var(--bx-text-heading); letter-spacing: -0.01em;
+    &:first-of-type { margin-top: 1rem; }
+  }
+  p.bx-preview-lede { color: var(--bx-text-muted); max-width: 60ch; margin: 0.25rem 0 1rem; }
+}
+
+.bx-swatch-grid {
+  display: grid; gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+.bx-swatch {
+  position: relative;
+  display: flex; flex-direction: column; gap: 0.25rem;
+  padding: 0.75rem; min-height: 120px;
+  background: var(--bx-surface-1);
+  border: 1px solid var(--bx-border);
+  border-radius: var(--bx-radius);
+  overflow: hidden;
+
+  &__chip {
+    flex: 1;
+    border-radius: var(--bx-radius-sm);
+    border: 1px solid var(--bx-border);
+    background: var(--_swatch-color, #000);
+    margin-bottom: 0.5rem;
+  }
+  &__name { font-size: 0.78rem; font-weight: 600; color: var(--bx-text); }
+  &__hex  { font-family: $font-family-monospace; font-size: 0.72rem; color: var(--bx-text-muted); }
+  &__label { font-size: 0.7rem; color: var(--bx-text-muted); }
+}
+
+.bx-surface-grid {
+  display: grid; gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+.bx-surface-tile {
+  padding: 1.25rem;
+  border: 1px solid var(--bx-border);
+  border-radius: var(--bx-radius);
+  &__label { font-size: 0.78rem; font-weight: 600; color: var(--bx-text-heading); }
+  &__token { font-family: $font-family-monospace; font-size: 0.72rem; color: var(--bx-text-muted); }
+  &__sample-text { margin-top: 0.5rem; font-size: 0.85rem; color: var(--bx-text); }
+  &__sample-muted { margin-top: 0.25rem; font-size: 0.78rem; color: var(--bx-text-muted); }
+}
+
+.bx-scale-row {
+  display: grid; gap: 0.5rem;
+  grid-template-columns: 140px 1fr 120px;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--bx-divider);
+  font-size: 0.85rem;
+  &:last-child { border-bottom: 0; }
+  &__label { color: var(--bx-text); font-weight: 500; }
+  &__sample {
+    height: 24px; border-radius: var(--bx-radius-sm);
+    background: var(--_scale-color, var(--bx-surface-3));
+    border: 1px solid var(--bx-border);
+  }
+  &__token { font-family: $font-family-monospace; font-size: 0.72rem; color: var(--bx-text-muted); text-align: right; }
+}
+
+.bx-components-grid {
+  display: grid; gap: 1rem;
+  grid-template-columns: 1fr;
+  @media (min-width: 960px) { grid-template-columns: 1fr 1fr; }
+}
+.bx-components-block {
+  padding: 1.25rem;
+  background: var(--bx-surface-1);
+  border: 1px solid var(--bx-border);
+  border-radius: var(--bx-radius);
+  &__title {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--bx-text-muted); margin: 0 0 0.75rem;
+  }
+  > * + * { margin-top: 0.5rem; }
+}
+
+// Theme-toggle button (used on preview pages — moves into topbar in Phase 3)
+.bx-theme-toggle {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.78rem; font-weight: 500;
+  color: var(--bx-text);
+  background: var(--bx-surface-2);
+  border: 1px solid var(--bx-border-strong);
+  border-radius: var(--bx-radius-pill);
+  cursor: pointer;
+  transition: background var(--bx-transition-fast), color var(--bx-transition-fast), border-color var(--bx-transition-fast);
+  &:hover { background: var(--bx-surface-3); color: var(--bx-brand-primary-text); border-color: var(--bx-brand-primary); }
+  &:focus-visible { outline: 2px solid var(--bx-focus-ring); outline-offset: 2px; }
+}

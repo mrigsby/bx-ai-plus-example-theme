@@ -1,0 +1,22 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/widgets/ai-inline-prompt.njk — macro: inlinePrompt(context, placeholder)
+  ----------------------------------------------------------------------------
+#}
+{% macro inlinePrompt(context, placeholder) %}
+<form class="bx-ai-inline-prompt"
+      data-bx-ai-inline
+      data-ai-context="{{ context }}"
+      autocomplete="off">
+  <span class="bx-ai-inline-prompt__icon" aria-hidden="true">
+    <i data-lucide="sparkles"></i>
+  </span>
+  <input type="text"
+         class="bx-ai-inline-prompt__input"
+         placeholder="{{ placeholder | default('Ask about this widget…') }}"
+         aria-label="Ask AI about this widget">
+  <button type="submit" class="bx-ai-inline-prompt__send" aria-label="Send to AI">
+    <i data-lucide="arrow-up"></i>
+  </button>
+</form>
+{% endmacro %}

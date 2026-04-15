@@ -1,0 +1,56 @@
+---
+layout: vertical.njk
+title: History
+pageTitle: Conversation history
+pageSubtitle: Every conversation you've had with BX-AI, grouped by recency.
+permalink: /ai/history/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "AI" }
+  - { label: "History" }
+---
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <div class="bx-ai-page__search" style="max-width:320px;flex:1;">
+    <i data-lucide="search" aria-hidden="true"></i>
+    <input type="search" placeholder="Search conversations…" aria-label="Search conversations">
+  </div>
+  <div class="d-flex gap-2">
+    <button type="button" class="btn btn-outline-secondary btn-sm">
+      <i data-lucide="download" style="width:14px;height:14px;"></i> Export
+    </button>
+    <button type="button" class="btn btn-outline-secondary btn-sm">
+      <i data-lucide="trash-2" style="width:14px;height:14px;"></i> Clear all
+    </button>
+  </div>
+</div>
+
+<div class="bx-widget">
+  <div class="bx-widget__body" style="padding:0;">
+    {% for group in aiHistory.groups %}
+    <div class="bx-ai-page__group-label" style="padding-left:1.1rem;">{{ group.label }}</div>
+    {% for h in group.items %}
+    <div class="d-flex align-items-start gap-3 px-3 py-3" style="border-bottom:1px solid var(--bx-divider);">
+      <span class="bx-ai-page__convo-icon" aria-hidden="true"><i data-lucide="{{ h.icon }}"></i></span>
+      <div style="flex:1;min-width:0;">
+        <div class="d-flex align-items-center gap-2 mb-1">
+          <span style="font-weight:600;color:var(--bx-text-heading);font-size:.88rem;">{{ h.title }}</span>
+          {% if h.starred %}<i data-lucide="star" style="width:13px;height:13px;color:var(--bx-warning);"></i>{% endif %}
+          <span style="font-size:.7rem;color:var(--bx-text-muted);">· {{ h.msgs }} messages · {{ h.time }}</span>
+        </div>
+        <div style="font-size:.82rem;color:var(--bx-text-muted);line-height:1.4;">{{ h.snippet }}</div>
+      </div>
+      <div class="d-flex gap-1">
+        <button type="button" class="btn btn-sm btn-primary bx-ai-ask-btn"
+                data-bx-ai-ask
+                data-ai-context="history-{{ h.id }}"
+                data-ai-prompt="Recap this conversation: {{ h.title }}">
+          <i data-lucide="play" style="width:13px;height:13px;"></i> Resume
+        </button>
+        <button type="button" class="bx-btn-icon" aria-label="More"><i data-lucide="more-horizontal"></i></button>
+      </div>
+    </div>
+    {% endfor %}
+    {% endfor %}
+  </div>
+</div>

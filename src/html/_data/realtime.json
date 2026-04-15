@@ -1,0 +1,13 @@
+{
+  "stats": [
+    { "id": "rt-rps",      "label": "Requests / sec",    "icon": "activity",    "value": 124, "unit": "", "seed": 120, "drift": { "min": 100, "max": 180, "stepMax": 6 } },
+    { "id": "rt-cache",    "label": "Cache hit rate",    "icon": "database",    "value": 92,  "unit": "%","seed": 92,  "drift": { "min": 88, "max": 96, "stepMax": 1 } },
+    { "id": "rt-errors",   "label": "Error rate",        "icon": "alert-circle","value": 0.4, "unit": "%","seed": 0.4, "drift": { "min": 0.2, "max": 1.2, "stepMax": 0.1 } },
+    { "id": "rt-inflight", "label": "In-flight agents",  "icon": "sparkles",    "value": 18,  "unit": "", "seed": 18,  "drift": { "min": 12, "max": 28, "stepMax": 2 } }
+  ],
+  "liveChart": {
+    "title": "Live throughput",
+    "subtitle": "Requests / sec, rolling 60 seconds",
+    "points": 60
+  }
+}

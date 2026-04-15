@@ -1,0 +1,53 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/offcanvas-left.njk — quick actions drawer (left-side Bootstrap offcanvas).
+  Triggered from the topbar (Phase 4: will add a "lightning" quick-actions button).
+  ----------------------------------------------------------------------------
+#}
+{% seamBegin "OFFCANVAS_LEFT" %}
+<div class="offcanvas offcanvas-start bx-offcanvas-left"
+     tabindex="-1"
+     id="bx-offcanvas-left"
+     aria-labelledby="bx-offcanvas-left-title">
+
+  <div class="offcanvas-header">
+    <div>
+      <h5 class="offcanvas-title mb-0" id="bx-offcanvas-left-title">Quick actions</h5>
+      <small class="text-secondary">Shortcuts &amp; recent activity</small>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body bx-offcanvas-left__body">
+
+    <section class="bx-offcanvas-left__section">
+      <div class="bx-offcanvas-left__section-label">Shortcuts</div>
+      <div class="bx-shortcut-grid">
+        {% for s in quickActions.shortcuts %}
+        <button type="button" class="bx-shortcut">
+          <span class="bx-shortcut__icon"><i data-lucide="{{ s.icon }}"></i></span>
+          <span class="bx-shortcut__label">{{ s.label }}</span>
+          <span class="bx-shortcut__hint">{{ s.hint }}</span>
+        </button>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="bx-offcanvas-left__section">
+      <div class="bx-offcanvas-left__section-label">Recent</div>
+      <ul class="bx-recent-list">
+        {% for r in quickActions.recent %}
+        <li>
+          <button type="button" class="bx-recent-list__item">
+            <span class="bx-recent-list__icon"><i data-lucide="{{ r.icon }}"></i></span>
+            <span class="bx-recent-list__label">{{ r.label }}</span>
+            <span class="bx-recent-list__time">{{ r.time }}</span>
+          </button>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+  </div>
+</div>
+{% seamEnd "OFFCANVAS_LEFT" %}

@@ -1,0 +1,12 @@
+{
+  "agents": [
+    { "id": "summarizer-v3", "name": "summarizer-v3", "role": "Summarization", "description": "Distills long documents into concise briefs.", "model": "claude-sonnet-4.6", "status": "healthy",  "owner": "Avery Liu",   "lastRun": "2 min ago",  "p95": 128, "spend": 412, "icon": "file-text",     "tone": "primary" },
+    { "id": "planner-alpha", "name": "planner-alpha", "role": "Planning",      "description": "Multi-step task decomposition and routing.",     "model": "claude-opus-4.6",  "status": "degraded", "owner": "Marcus Reed", "lastRun": "14 min ago", "p95": 612, "spend": 680, "icon": "brain",         "tone": "warning" },
+    { "id": "retriever-xl",  "name": "retriever-xl",  "role": "Retrieval",     "description": "Semantic search across the knowledge corpus.",   "model": "haiku-4.5",        "status": "healthy",  "owner": "Priya Shah",  "lastRun": "1 min ago",  "p95": 174, "spend": 190, "icon": "search",        "tone": "primary" },
+    { "id": "classifier-m",  "name": "classifier-m",  "role": "Classification","description": "Tags inbound messages with topic + sentiment.",  "model": "haiku-4.5",        "status": "healthy",  "owner": "Theo Kim",    "lastRun": "3 min ago",  "p95":  98, "spend": 110, "icon": "tag",           "tone": "primary" },
+    { "id": "rewriter-lg",   "name": "rewriter-lg",   "role": "Rewriting",     "description": "Polishes copy in your brand voice.",             "model": "claude-sonnet-4.6","status": "healthy",  "owner": "Sasha Volkov","lastRun": "8 min ago",  "p95": 205, "spend":  90, "icon": "pen-tool",      "tone": "primary" },
+    { "id": "router-s",      "name": "router-s",      "role": "Routing",       "description": "Decides which downstream agent handles a request.","model": "haiku-4.5",      "status": "paused",   "owner": "Avery Liu",   "lastRun": "Yesterday",  "p95":  71, "spend":  28, "icon": "git-fork",      "tone": "muted" },
+    { "id": "guardrails",    "name": "guardrails",    "role": "Safety",        "description": "Blocks unsafe input/output, PII, jailbreaks.",   "model": "claude-sonnet-4.6","status": "healthy",  "owner": "Marcus Reed", "lastRun": "5 min ago",  "p95":  62, "spend":  40, "icon": "shield-check",  "tone": "primary" },
+    { "id": "scribe-bx",     "name": "scribe-bx",     "role": "Transcription", "description": "Voice → text + diarization.",                    "model": "haiku-4.5",        "status": "errored",  "owner": "Priya Shah",  "lastRun": "1 hr ago",   "p95":   0, "spend":  18, "icon": "mic",           "tone": "danger" }
+  ]
+}

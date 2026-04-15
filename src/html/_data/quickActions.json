@@ -1,0 +1,16 @@
+{
+  "shortcuts": [
+    { "id": "sc-new-agent",    "icon": "sparkles",      "label": "New agent",          "hint": "Launch blank agent template" },
+    { "id": "sc-new-prompt",   "icon": "file-plus",     "label": "New prompt",         "hint": "Save into prompt library" },
+    { "id": "sc-run-query",    "icon": "zap",           "label": "Run natural-language query", "hint": "Ask BX-AI inline" },
+    { "id": "sc-invite-user",  "icon": "user-plus",     "label": "Invite teammate",    "hint": "Email invite" },
+    { "id": "sc-export-data",  "icon": "download",      "label": "Export data",        "hint": "CSV / JSON" },
+    { "id": "sc-schedule",     "icon": "calendar-plus", "label": "Schedule job",       "hint": "Recurring workflow" }
+  ],
+  "recent": [
+    { "id": "r-01", "icon": "history", "label": "Investigate anomaly on /api/agents", "time": "2m" },
+    { "id": "r-02", "icon": "history", "label": "Summarize yesterday's activity",     "time": "1h" },
+    { "id": "r-03", "icon": "history", "label": "Compare planner-alpha vs v2",        "time": "3h" },
+    { "id": "r-04", "icon": "history", "label": "Export Q4 billing to CSV",           "time": "Yesterday" }
+  ]
+}

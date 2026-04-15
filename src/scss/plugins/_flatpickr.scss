@@ -1,0 +1,91 @@
+// ---------------------------------------------------------------------------
+// plugins/_flatpickr.scss — Flatpickr theming.
+// ---------------------------------------------------------------------------
+
+.flatpickr-calendar {
+  background: var(--bx-surface-1);
+  border: 1px solid var(--bx-border-strong);
+  box-shadow: var(--bx-shadow);
+  border-radius: var(--bx-radius);
+  color: var(--bx-text);
+  font-family: inherit;
+
+  .flatpickr-months .flatpickr-month {
+    background: transparent;
+    color: var(--bx-text);
+  }
+  .flatpickr-current-month input.cur-year { color: var(--bx-text); }
+  .flatpickr-current-month .flatpickr-monthDropdown-months { color: var(--bx-text); background: transparent; }
+
+  .flatpickr-weekdays { background: transparent; }
+  .flatpickr-weekday { color: var(--bx-text-muted); }
+
+  .flatpickr-day {
+    color: var(--bx-text);
+    border-color: transparent;
+
+    &.today { border-color: var(--bx-brand-primary); }
+    &.selected, &.startRange, &.endRange,
+    &.selected:hover, &.startRange:hover, &.endRange:hover {
+      background: var(--bx-brand-primary);
+      border-color: var(--bx-brand-primary);
+      color: var(--bx-text-on-primary);
+    }
+    &:hover { background: var(--bx-surface-3); border-color: var(--bx-surface-3); }
+    &.inRange {
+      background: color-mix(in srgb, var(--bx-brand-primary) 18%, var(--bx-surface-3));
+      border-color: transparent;
+      box-shadow: -5px 0 0 color-mix(in srgb, var(--bx-brand-primary) 18%, var(--bx-surface-3)),
+                   5px 0 0 color-mix(in srgb, var(--bx-brand-primary) 18%, var(--bx-surface-3));
+    }
+    &.flatpickr-disabled, &.prevMonthDay, &.nextMonthDay { color: var(--bx-text-muted); opacity: 0.55; }
+  }
+
+  .flatpickr-prev-month, .flatpickr-next-month { fill: var(--bx-text); color: var(--bx-text); }
+
+  // ---- Time picker (enableTime + noCalendar) ----
+  .flatpickr-time {
+    background: var(--bx-surface-2);
+    border-top: 1px solid var(--bx-divider);
+
+    // Hour / minute numeric inputs.
+    input {
+      color: var(--bx-text) !important;
+      background: transparent !important;
+      font-weight: 600;
+      font-size: 1rem;
+
+      &:hover, &:focus {
+        background: color-mix(in srgb, var(--bx-brand-primary) 12%, transparent) !important;
+      }
+    }
+
+    // Colon separator between HH : MM.
+    .flatpickr-time-separator { color: var(--bx-text); }
+
+    // AM / PM toggle — library default is faded grey, unreadable on our surfaces.
+    .flatpickr-am-pm {
+      color: var(--bx-text) !important;
+      font-weight: 600;
+      &:hover, &:focus {
+        background: color-mix(in srgb, var(--bx-brand-primary) 12%, transparent) !important;
+      }
+    }
+  }
+
+  // Up / down arrows on every numeric input (hours, minutes, year). The
+  // library renders them as absolutely-positioned <span class="arrowUp|arrowDown">
+  // with CSS-triangle borders hardcoded at #fff / rgba(0,0,0). Color them
+  // against our theme.
+  .numInputWrapper span {
+    border-color: var(--bx-border) !important;
+    opacity: 0.9 !important;
+
+    &:hover {
+      background: color-mix(in srgb, var(--bx-brand-primary) 14%, transparent) !important;
+    }
+    // The actual chevron is ::after with border-top/border-bottom tricks.
+    &.arrowUp::after   { border-bottom-color: var(--bx-text) !important; }
+    &.arrowDown::after { border-top-color:    var(--bx-text) !important; }
+  }
+}

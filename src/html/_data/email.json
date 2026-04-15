@@ -1,0 +1,50 @@
+{
+  "folders": [
+    { "id": "inbox",     "label": "Inbox",     "icon": "inbox",     "count": 14 },
+    { "id": "starred",   "label": "Starred",   "icon": "star",      "count":  3 },
+    { "id": "sent",      "label": "Sent",      "icon": "send",      "count":  0 },
+    { "id": "drafts",    "label": "Drafts",    "icon": "file-edit", "count":  2 },
+    { "id": "archive",   "label": "Archive",   "icon": "archive",   "count":  0 },
+    { "id": "spam",      "label": "Spam",      "icon": "shield",    "count":  1 },
+    { "id": "trash",     "label": "Trash",     "icon": "trash-2",   "count":  0 }
+  ],
+  "labels": [
+    { "id": "ops",      "label": "Ops",      "color": "#EF476F" },
+    { "id": "customer", "label": "Customer", "color": "#0DD3A8" },
+    { "id": "design",   "label": "Design",   "color": "#6173A0" },
+    { "id": "growth",   "label": "Growth",   "color": "#F6B93B" }
+  ],
+  "messages": [
+    { "id": "m-01", "from": { "name": "Sarah Chen",   "initials": "SC" }, "subject": "RE: Anomaly on /api/agents",     "snippet": "Looped in the on-call team. Logs are attached and the suspect window is 14:18-14:24 UTC.",          "time": "2 min", "unread": true,  "starred": true,  "label": "ops" },
+    { "id": "m-02", "from": { "name": "Avery Liu",    "initials": "AL" }, "subject": "Pricing announcement draft",     "snippet": "First pass at the announcement copy — pulled the BX-AI hook from the morning brief.",              "time": "14 min","unread": true,  "starred": false, "label": "growth" },
+    { "id": "m-03", "from": { "name": "Helix Labs",   "initials": "HL" }, "subject": "Welcome to BX-AI+",              "snippet": "Helix Labs has been provisioned. Your onboarding CSM, Sasha, will reach out tomorrow.",            "time": "1 hr",  "unread": true,  "starred": false, "label": "customer" },
+    { "id": "m-04", "from": { "name": "Marcus Reed",  "initials": "MR" }, "subject": "Token budget — planner-alpha",   "snippet": "Heads up: planner-alpha tracking 14% over weekly budget. Mitigations attached.",                  "time": "2 hr",  "unread": true,  "starred": false, "label": "ops" },
+    { "id": "m-05", "from": { "name": "Theo Kim",     "initials": "TK" }, "subject": "Customizer crit — open Q's",     "snippet": "Three open questions on the customizer drawer — would love your read before tomorrow's design crit.","time": "3 hr",  "unread": false, "starred": false, "label": "design" },
+    { "id": "m-06", "from": { "name": "Priya Shah",   "initials": "PS" }, "subject": "retriever-xl v1.2 deployed",     "snippet": "Deployed at 11:14 UTC. Loss is down 12% on eval. Watching p95 closely.",                          "time": "5 hr",  "unread": false, "starred": true,  "label": "ops" },
+    { "id": "m-07", "from": { "name": "Wattage Co.",  "initials": "WC" }, "subject": "SOC2 timeline question",          "snippet": "Following up on our call — could you share the rough timeline for SOC2 attestation?",              "time": "Yesterday","unread": false,"starred": false,"label": "customer" },
+    { "id": "m-08", "from": { "name": "Sasha Volkov", "initials": "SV" }, "subject": "Outbound sequence — 3 variants",  "snippet": "Drafted three openers for the BoxLang launch outreach. Want your gut read on which lands.",        "time": "Yesterday","unread": false,"starred": false,"label": "growth" }
+  ],
+  "selected": {
+    "id": "m-01",
+    "from": { "name": "Sarah Chen", "email": "schen@example.com", "initials": "SC" },
+    "to":   "M. Rigsby",
+    "subject": "RE: Anomaly on /api/agents",
+    "time": "Today, 14:24",
+    "label": "ops",
+    "body": [
+      "Hi —",
+      "Looping in the on-call team. We're seeing the same spike on our side. Suspect window is 14:18–14:24 UTC.",
+      "From the logs, planner-alpha did a cache flush at 14:20 and the latency jumped immediately after. Likely the cause but want to confirm with another data point before rolling back.",
+      "Notes:",
+      "  • p95 went from 380ms → 1,240ms (+226%)",
+      "  • error rate held at baseline — no 5xx surge",
+      "  • only /api/agents was affected; /api/chat was clean",
+      "Going to mute the alert for an hour while we dig in. Will follow up here when we have a fix.",
+      "Sarah"
+    ],
+    "attachments": [
+      { "name": "agents-trace-1422.log", "size": "240 KB", "icon": "file-text" },
+      { "name": "planner-alpha-cache.png","size": "186 KB", "icon": "image" }
+    ]
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "brief": {
+    "headline": "AI morning brief",
+    "subhead": "Here's what happened overnight.",
+    "bullets": [
+      "Fleet is green except planner-alpha (degraded since 02:14 UTC).",
+      "Token spend tracked 9% below the weekly budget.",
+      "Two fine-tune jobs completed — retriever-xl v1.2 promoted."
+    ],
+    "time": "Generated 7 min ago"
+  },
+  "stats": [
+    {
+      "id": "stat-agents",
+      "flavor": "ai",
+      "label": "Active agents",
+      "icon": "sparkles",
+      "value": 28,
+      "unit": "",
+      "delta": 3,
+      "deltaPct": 12,
+      "trend": "up",
+      "aiContext": "active-agents-count",
+      "sparkSeries": [18, 20, 19, 22, 24, 23, 26, 25, 27, 28],
+      "drift": { "min": 26, "max": 32, "stepMax": 1 }
+    },
+    {
+      "id": "stat-revenue",
+      "flavor": "generic",
+      "label": "Revenue (MTD)",
+      "icon": "dollar-sign",
+      "value": 148200,
+      "format": "currency",
+      "delta": 6.4,
+      "deltaPct": 6.4,
+      "trend": "up",
+      "aiContext": "revenue-month-to-date",
+      "sparkSeries": [92000, 98000, 102000, 109000, 118000, 124000, 131000, 139000, 144000, 148200],
+      "drift": { "min": 147000, "max": 150000, "stepMax": 120 }
+    },
+    {
+      "id": "stat-latency",
+      "flavor": "ai",
+      "label": "Avg model latency",
+      "icon": "gauge",
+      "value": 192,
+      "unit": "ms",
+      "delta": -12,
+      "deltaPct": -5.9,
+      "trend": "down-good",
+      "aiContext": "avg-model-latency",
+      "sparkSeries": [220, 234, 225, 210, 205, 198, 196, 201, 194, 192],
+      "drift": { "min": 170, "max": 260, "stepMax": 8 }
+    },
+    {
+      "id": "stat-customers",
+      "flavor": "generic",
+      "label": "Active customers",
+      "icon": "users",
+      "value": 1482,
+      "unit": "",
+      "delta": 24,
+      "deltaPct": 1.6,
+      "trend": "up",
+      "aiContext": "active-customers-count",
+      "sparkSeries": [1410, 1420, 1425, 1432, 1445, 1458, 1463, 1470, 1478, 1482],
+      "drift": { "min": 1480, "max": 1488, "stepMax": 2 }
+    }
+  ],
+  "revenueChart": {
+    "title": "Revenue & token cost",
+    "subtitle": "Last 30 days — revenue (teal) vs. inference cost (blue-purple)",
+    "aiContext": "revenue-vs-inference-cost",
+    "categories": [
+      "Mar 17","Mar 18","Mar 19","Mar 20","Mar 21","Mar 22","Mar 23",
+      "Mar 24","Mar 25","Mar 26","Mar 27","Mar 28","Mar 29","Mar 30",
+      "Mar 31","Apr 1","Apr 2","Apr 3","Apr 4","Apr 5","Apr 6","Apr 7",
+      "Apr 8","Apr 9","Apr 10","Apr 11","Apr 12","Apr 13","Apr 14"
+    ],
+    "series": [
+      { "name": "Revenue",      "data": [3200,3450,3380,3620,3810,3750,3920,4020,4180,4100,4260,4420,4350,4580,4620,4710,4830,4910,5020,5180,5100,5270,5390,5440,5510,5620,5710,5830,5980] },
+      { "name": "Inference cost","data": [ 420, 440, 430, 460, 480, 475, 490, 510, 520, 515, 535, 550, 545, 565, 580, 590, 605, 615, 628, 645, 640, 655, 672, 680, 690, 702, 715, 730, 745] }
+    ]
+  },
+  "agentStatus": {
+    "title": "Agent fleet",
+    "subtitle": "Status distribution · 28 active",
+    "aiContext": "agent-fleet-status",
+    "legend": [
+      { "label": "Healthy",   "value": 21, "variant": "success" },
+      { "label": "Degraded",  "value": 4,  "variant": "warning" },
+      { "label": "Errored",   "value": 2,  "variant": "danger"  },
+      { "label": "Paused",    "value": 1,  "variant": "muted"   }
+    ]
+  },
+  "tokenUsage": {
+    "title": "Token spend by agent",
+    "subtitle": "Past 7 days — thousands of tokens",
+    "aiContext": "token-spend-by-agent",
+    "categories": ["summarizer-v3","planner-alpha","retriever-xl","classifier-m","rewriter-lg","router-s","guardrails"],
+    "series": [
+      { "name": "Prompt",     "data": [280, 420, 140, 110,  90,  60,  40] },
+      { "name": "Completion", "data": [132, 260,  50,  44,  28,  18,  12] }
+    ]
+  },
+  "insights": [
+    {
+      "variant": "anomaly",
+      "icon": "triangle-alert",
+      "eyebrow": "Anomaly",
+      "title": "/api/agents p95 latency spike",
+      "body": "Latency climbed to 1.24s at 14:22 UTC — 226% above the 480ms threshold. Correlated with the planner-alpha cache flush at 14:20.",
+      "primaryCta": { "label": "Investigate", "prompt": "Investigate the anomaly on /api/agents at 14:22 UTC and suggest remediations." },
+      "secondaryCta": { "label": "Mute for 1h" },
+      "aiContext": "anomaly-api-agents-1422"
+    },
+    {
+      "variant": "suggestion",
+      "icon": "sparkles",
+      "eyebrow": "Suggestion",
+      "title": "Pricing page traffic up 32%",
+      "body": "Pricing sees a weekly spike. Want a short draft announcement highlighting new tiers, ready to send to #growth?",
+      "primaryCta": { "label": "Draft it", "prompt": "Draft a short announcement for #growth highlighting the new pricing tiers." },
+      "secondaryCta": { "label": "Not now" },
+      "aiContext": "suggestion-pricing-traffic"
+    },
+    {
+      "variant": "query",
+      "icon": "message-circle-question",
+      "eyebrow": "Last query",
+      "title": "\"Compare planner-alpha vs v2\"",
+      "body": "v2 is 38% faster at p95 (220ms vs 350ms) and 0.4 pp better on quality eval, at an ~11% higher token cost. v2 looks like the right default on latency-sensitive paths.",
+      "primaryCta": { "label": "Open in chat", "prompt": "Compare planner-alpha vs v2 in detail with latency and cost curves." },
+      "secondaryCta": { "label": "Save as doc" },
+      "aiContext": "query-compare-planner"
+    }
+  ],
+  "activity": [
+    { "id": "act-01", "icon": "git-commit",    "text": "Deployment retriever-xl:1.2 promoted to production",        "actor": "ci-bot",         "time": "2m",  "variant": "success" },
+    { "id": "act-02", "icon": "triangle-alert","text": "Anomaly detected on /api/agents · p95 1.24s",              "actor": "BX-AI",          "time": "14m", "variant": "danger"  },
+    { "id": "act-03", "icon": "user-plus",     "text": "New customer: Helix Labs · Enterprise plan",               "actor": "billing",        "time": "1h",  "variant": "info"    },
+    { "id": "act-04", "icon": "check",         "text": "Fine-tune job finished · loss 0.184 (−12%)",               "actor": "training",       "time": "2h",  "variant": "success" },
+    { "id": "act-05", "icon": "gauge",         "text": "Token budget 78% consumed for planner-alpha",              "actor": "BX-AI",          "time": "3h",  "variant": "warning" },
+    { "id": "act-06", "icon": "message-circle","text": "Sarah Chen mentioned you in #platform",                    "actor": "Slack",          "time": "4h",  "variant": "secondary" },
+    { "id": "act-07", "icon": "sparkles",      "text": "Generated weekly brief · ready to review",                 "actor": "BX-AI",          "time": "5h",  "variant": "primary" }
+  ],
+  "topAgents": [
+    { "name": "summarizer-v3",  "status": "healthy",  "requests": 24810, "latency": 128, "spend": 412 },
+    { "name": "planner-alpha",  "status": "degraded", "requests": 18740, "latency": 612, "spend": 680 },
+    { "name": "retriever-xl",   "status": "healthy",  "requests": 16290, "latency": 174, "spend": 190 },
+    { "name": "classifier-m",   "status": "healthy",  "requests": 12050, "latency":  98, "spend": 110 },
+    { "name": "rewriter-lg",    "status": "healthy",  "requests":  8960, "latency": 205, "spend":  90 },
+    { "name": "router-s",       "status": "paused",   "requests":  3420, "latency":  71, "spend":  28 }
+  ]
+}

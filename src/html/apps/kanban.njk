@@ -1,0 +1,54 @@
+---
+layout: vertical.njk
+title: Kanban
+pageTitle: Kanban board
+pageSubtitle: Drag cards between columns. Backed by Dragula.
+page_module: kanban
+permalink: /apps/kanban/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Apps" }
+  - { label: "Kanban" }
+---
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <div class="d-flex gap-2 align-items-center">
+    <span class="text-secondary small">{{ kanban.columns | length }} columns</span>
+  </div>
+  <div class="d-flex gap-2">
+    <button type="button" class="btn btn-outline-secondary btn-sm">
+      <i data-lucide="filter" style="width:14px;height:14px;"></i> Filter
+    </button>
+    <button type="button" class="btn btn-primary btn-sm">
+      <i data-lucide="plus" style="width:14px;height:14px;"></i> New card
+    </button>
+  </div>
+</div>
+
+<div class="bx-kanban" data-bx-kanban>
+  {% for col in kanban.columns %}
+  <div class="bx-kanban__col bx-kanban__col--{{ col.tone }}" data-bx-kanban-col="{{ col.id }}">
+    <div class="bx-kanban__col-head">
+      <span class="bx-kanban__col-title">{{ col.label }}</span>
+      <span class="bx-kanban__col-count">{{ col.cards | length }}</span>
+      <button type="button" class="bx-kanban__col-add" aria-label="Add card"><i data-lucide="plus"></i></button>
+    </div>
+    <div class="bx-kanban__cards" data-bx-kanban-list>
+      {% for card in col.cards %}
+      <div class="bx-kcard bx-kcard--priority-{{ card.priority }}" data-bx-kanban-card="{{ card.id }}">
+        <h4 class="bx-kcard__title">{{ card.title }}</h4>
+        {% if card.tags %}
+        <div class="bx-kcard__tags">
+          {% for t in card.tags %}<span class="bx-kcard__tag">{{ t }}</span>{% endfor %}
+        </div>
+        {% endif %}
+        <div class="bx-kcard__foot">
+          <span><i data-lucide="calendar" style="width:12px;height:12px;"></i> {{ card.due }}</span>
+          <span class="bx-avatar" title="{{ card.owner }}"><span class="bx-avatar__initials">{{ card.ownerInitials }}</span></span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>

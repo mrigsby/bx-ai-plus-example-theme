@@ -1,0 +1,115 @@
+---
+layout: vertical.njk
+title: Modals & offcanvas
+pageTitle: Modals & offcanvas
+pageSubtitle: Bootstrap dialogs and slide-out panels.
+permalink: /ui/modals-offcanvas/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "UI" }
+  - { label: "Modals & offcanvas" }
+---
+
+<div class="row g-3">
+  <div class="col-12 col-xl-6">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Modals</h3></div></div>
+      <div class="bx-widget__body d-flex flex-wrap gap-2">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bxModalDefault">Default</button>
+        <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#bxModalScroll">Scrollable</button>
+        <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#bxModalCenter">Centered</button>
+        <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#bxModalLg">Large</button>
+        <button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#bxModalConfirm">Confirm action</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-6">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Offcanvas</h3></div></div>
+      <div class="bx-widget__body d-flex flex-wrap gap-2">
+        <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#bx-offcanvas-left">Left (Quick actions)</button>
+        <button class="btn btn-outline-secondary" data-bs-toggle="offcanvas" data-bs-target="#bx-chat-panel">Right (AI chat)</button>
+        <button class="btn btn-outline-secondary" data-bs-toggle="offcanvas" data-bs-target="#bx-customizer">Right (Customizer)</button>
+        <button class="btn btn-outline-secondary" data-bs-toggle="offcanvas" data-bs-target="#bxOffcanvasTop">Top</button>
+        <button class="btn btn-outline-secondary" data-bs-toggle="offcanvas" data-bs-target="#bxOffcanvasBottom">Bottom</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# ---- Modals ---- #}
+<div class="modal fade" id="bxModalDefault" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Default modal</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>Standard Bootstrap modal styled with BX-AI+ tokens.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <button class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="bxModalScroll" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Scrollable modal</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body">
+        {% for i in [1,2,3,4,5,6,7,8,9,10] %}<p>Scrollable paragraph {{ i }} — keeps the modal height bounded.</p>{% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="bxModalCenter" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Centered modal</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body"><p>Vertically centered.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="bxModalLg" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Large modal</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body"><p>Large dialog — useful for forms or detailed previews.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="bxModalConfirm" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center pt-4">
+        <div class="bx-error__icon mb-3" style="background:color-mix(in srgb, var(--bx-danger) 18%, var(--bx-surface-3));color:#ff6b8b;width:48px;height:48px;">
+          <i data-lucide="alert-triangle" style="width:24px;height:24px;"></i>
+        </div>
+        <h5>Delete this conversation?</h5>
+        <p class="text-secondary small mb-0">This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer border-0 justify-content-center">
+        <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{# ---- Offcanvas top + bottom ---- #}
+<div class="offcanvas offcanvas-top" tabindex="-1" id="bxOffcanvasTop" style="height:240px;">
+  <div class="offcanvas-header"><h5 class="offcanvas-title">Top offcanvas</h5><button class="btn-close" data-bs-dismiss="offcanvas"></button></div>
+  <div class="offcanvas-body"><p>Slides down from the top — useful for global announcements.</p></div>
+</div>
+<div class="offcanvas offcanvas-bottom" tabindex="-1" id="bxOffcanvasBottom" style="height:300px;">
+  <div class="offcanvas-header"><h5 class="offcanvas-title">Bottom offcanvas</h5><button class="btn-close" data-bs-dismiss="offcanvas"></button></div>
+  <div class="offcanvas-body"><p>Slides up from the bottom — feels like a mobile sheet.</p></div>
+</div>

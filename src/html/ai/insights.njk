@@ -1,0 +1,32 @@
+---
+layout: vertical.njk
+title: Insights
+pageTitle: AI insights
+pageSubtitle: Anomalies, suggestions, and your last NL queries — all in one feed.
+permalink: /ai/insights/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "AI" }
+  - { label: "Insights" }
+---
+{% from "partials/widgets/ai-insight-card.njk" import insightCard %}
+
+<div class="bx-prompt-filters" data-bx-insight-filters>
+  {% for f in aiInsightsFeed.filters %}
+  <button type="button"
+          data-bx-insight-filter="{{ f.id }}"
+          {% if f.id == "all" %}class="is-active"{% endif %}>
+    {{ f.label }}
+    <span class="bx-prompt-filters__count">{{ f.count }}</span>
+  </button>
+  {% endfor %}
+</div>
+
+<div class="row g-3" data-bx-insight-grid>
+  {% for item in aiInsightsFeed.items %}
+  <div class="col-12 col-lg-6 col-xxl-4"
+       data-bx-insight-variant="{{ item.variant }}">
+    {{ insightCard(item) }}
+  </div>
+  {% endfor %}
+</div>

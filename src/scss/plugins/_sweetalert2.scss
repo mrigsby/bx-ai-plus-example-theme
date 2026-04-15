@@ -1,0 +1,19 @@
+// ---------------------------------------------------------------------------
+// plugins/_sweetalert2.scss — SweetAlert2 theming.
+// ---------------------------------------------------------------------------
+
+.bx-swal {
+  background: var(--bx-surface-1) !important;
+  color: var(--bx-text) !important;
+  border: 1px solid var(--bx-border-strong);
+  border-radius: var(--bx-radius-lg) !important;
+  box-shadow: var(--bx-shadow-lg) !important;
+
+  .swal2-title  { color: var(--bx-text-heading) !important; font-weight: 600; font-size: 1.1rem; }
+  .swal2-html-container { color: var(--bx-text-muted) !important; font-size: 0.88rem; }
+  .swal2-actions { gap: 0.5rem; }
+}
+
+.swal2-container {
+  backdrop-filter: blur(2px);
+}

@@ -1,0 +1,96 @@
+// ---------------------------------------------------------------------------
+// plugins/_choices.scss — Choices.js theming.
+// ---------------------------------------------------------------------------
+
+.choices {
+  font-size: 0.85rem;
+
+  &__inner {
+    background: var(--bx-surface-2);
+    border: 1px solid var(--bx-border-strong);
+    border-radius: var(--bx-radius-sm);
+    color: var(--bx-text);
+    min-height: 38px;
+    padding: 5px 8px 2px;
+  }
+  &.is-focused &__inner,
+  &.is-open &__inner {
+    border-color: var(--bx-brand-primary);
+    box-shadow: 0 0 0 3px var(--bx-focus-ring);
+  }
+
+  &__list--dropdown,
+  &__list[aria-expanded] {
+    background: var(--bx-surface-1);
+    border: 1px solid var(--bx-border-strong);
+    border-radius: var(--bx-radius-sm);
+    color: var(--bx-text);
+    margin-top: 4px;
+  }
+
+  // Default (idle) state for EVERY item in the open dropdown, regardless of
+  // the modifier classes the library applies (--choice, --selectable,
+  // --placeholder, --disabled). The library's defaults set low opacity or
+  // near-transparent greys that disappear on our surfaces — force readable
+  // text on a transparent row so only .is-highlighted shows a background.
+  &__list--dropdown .choices__item,
+  &__list--dropdown .choices__item--choice,
+  &__list--dropdown .choices__item--selectable,
+  &__list--dropdown .choices__item--placeholder,
+  &__list--dropdown .choices__item--disabled {
+    padding: 0.45rem 0.75rem;
+    color: var(--bx-text) !important;
+    background: transparent !important;
+    opacity: 1 !important;
+  }
+
+  // Highlighted (hover + keyboard nav) — teal-tinted row.
+  &__list--dropdown .choices__item.is-highlighted,
+  &__list--dropdown .choices__item--choice.is-highlighted,
+  &__list--dropdown .choices__item--selectable.is-highlighted,
+  &__list--dropdown .choices__item--placeholder.is-highlighted {
+    background: var(--bx-sidenav-active-bg) !important;
+    color: var(--bx-sidenav-active-fg) !important;
+    font-style: normal;
+  }
+
+  // Placeholder row — italic muted text when idle.
+  &__list--dropdown .choices__item--placeholder:not(.is-highlighted) {
+    color: var(--bx-text-muted) !important;
+    font-style: italic;
+  }
+  // Placeholder inside the input chip (single-select collapsed view).
+  &__placeholder { color: var(--bx-text-muted); opacity: 1; }
+
+  // Truly-disabled rows (rare in our forms) — lower contrast on purpose.
+  &__list--dropdown .choices__item--disabled:not(.is-highlighted) {
+    color: var(--bx-text-muted) !important;
+    opacity: 0.6 !important;
+    cursor: not-allowed;
+  }
+
+  &__list--multiple .choices__item {
+    background: color-mix(in srgb, var(--bx-brand-primary) 20%, var(--bx-surface-3));
+    color: var(--bx-text-heading);
+    border: 0;
+    border-radius: var(--bx-radius-pill);
+    padding: 2px 8px;
+    font-size: 0.78rem;
+    margin-right: 4px;
+  }
+  &__list--multiple .choices__item.is-highlighted {
+    background: color-mix(in srgb, var(--bx-brand-primary) 32%, var(--bx-surface-3));
+  }
+  .choices__button {
+    border-left: 1px solid color-mix(in srgb, var(--bx-text) 22%, transparent);
+    margin: 0 0 0 8px;
+    padding-left: 12px;
+  }
+
+  &__input {
+    background: transparent;
+    color: var(--bx-text);
+    font-size: 0.85rem;
+    &::placeholder { color: var(--bx-text-muted); }
+  }
+}

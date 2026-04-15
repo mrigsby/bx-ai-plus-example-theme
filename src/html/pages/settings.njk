@@ -1,0 +1,97 @@
+---
+layout: vertical.njk
+title: Settings
+pageTitle: Settings
+pageSubtitle: Workspace, AI, notification, and security preferences.
+permalink: /pages/settings/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Pages" }
+  - { label: "Settings" }
+---
+
+<div class="row g-3">
+
+  <div class="col-12 col-xl-3">
+    <div class="bx-widget" style="padding:0.5rem;">
+      <div class="nav flex-column" role="tablist">
+        <button class="nav-link active text-start d-flex align-items-center gap-2" data-bs-toggle="pill" data-bs-target="#set-general"><i data-lucide="settings" style="width:14px;height:14px;"></i> General</button>
+        <button class="nav-link text-start d-flex align-items-center gap-2" data-bs-toggle="pill" data-bs-target="#set-ai"><i data-lucide="sparkles" style="width:14px;height:14px;"></i> AI defaults</button>
+        <button class="nav-link text-start d-flex align-items-center gap-2" data-bs-toggle="pill" data-bs-target="#set-notif"><i data-lucide="bell" style="width:14px;height:14px;"></i> Notifications</button>
+        <button class="nav-link text-start d-flex align-items-center gap-2" data-bs-toggle="pill" data-bs-target="#set-team"><i data-lucide="users" style="width:14px;height:14px;"></i> Team</button>
+        <button class="nav-link text-start d-flex align-items-center gap-2" data-bs-toggle="pill" data-bs-target="#set-billing"><i data-lucide="dollar-sign" style="width:14px;height:14px;"></i> Billing</button>
+        <button class="nav-link text-start d-flex align-items-center gap-2" data-bs-toggle="pill" data-bs-target="#set-security"><i data-lucide="shield-check" style="width:14px;height:14px;"></i> Security</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-9">
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="set-general">
+        <div class="bx-widget">
+          <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">General</h3><p class="bx-widget__subtitle">Workspace name, branding, defaults.</p></div></div>
+          <div class="bx-widget__body">
+            <div class="row g-3">
+              <div class="col-md-6"><label class="form-label">Workspace name</label><input type="text" class="form-control" value="Ortus Solutions"></div>
+              <div class="col-md-6"><label class="form-label">Subdomain</label><div class="input-group"><input type="text" class="form-control" value="ortus"><span class="input-group-text">.bx-ai.io</span></div></div>
+              <div class="col-md-6"><label class="form-label">Default theme</label><select class="form-select"><option selected>Dark</option><option>Light</option><option>Match system</option></select></div>
+              <div class="col-md-6"><label class="form-label">Locale</label><select class="form-select"><option>en-US</option><option>en-GB</option><option>de-DE</option><option>ja-JP</option></select></div>
+            </div>
+          </div>
+          <div class="bx-widget__footer d-flex gap-2"><button class="btn btn-primary">Save</button><button class="btn btn-outline-secondary">Cancel</button></div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="set-ai">
+        <div class="bx-widget">
+          <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">AI defaults</h3><p class="bx-widget__subtitle">Models, guardrails, fall-back behaviour.</p></div></div>
+          <div class="bx-widget__body">
+            <div class="row g-3">
+              <div class="col-md-6"><label class="form-label">Primary chat model</label><select class="form-select"><option>claude-sonnet-4.6</option><option>claude-opus-4.6</option></select></div>
+              <div class="col-md-6"><label class="form-label">Routing model</label><select class="form-select"><option>haiku-4.5</option></select></div>
+              <div class="col-12">
+                <div class="form-check form-switch"><input class="form-check-input" type="checkbox" role="switch" id="set-fb" checked><label class="form-check-label" for="set-fb">Allow fall-back to a smaller model on quota</label></div>
+                <div class="form-check form-switch"><input class="form-check-input" type="checkbox" role="switch" id="set-gd" checked><label class="form-check-label" for="set-gd">Run guardrails on every output</label></div>
+                <div class="form-check form-switch"><input class="form-check-input" type="checkbox" role="switch" id="set-tx"><label class="form-check-label" for="set-tx">Auto-summarize long conversations</label></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="set-notif">
+        <div class="bx-widget">
+          <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Notifications</h3></div></div>
+          <div class="bx-widget__body">
+            <table class="table table-borderless">
+              <thead><tr><th></th><th class="text-center">Email</th><th class="text-center">Slack</th><th class="text-center">In-app</th></tr></thead>
+              <tbody>
+                {% for n in ["Anomaly alerts","Budget overrun","Mentions","Daily summary","Weekly report"] %}
+                <tr>
+                  <td>{{ n }}</td>
+                  <td class="text-center"><div class="form-check form-switch d-inline-block"><input class="form-check-input" type="checkbox" role="switch" {% if loop.index <= 3 %}checked{% endif %}></div></td>
+                  <td class="text-center"><div class="form-check form-switch d-inline-block"><input class="form-check-input" type="checkbox" role="switch" {% if loop.index == 1 or loop.index == 3 %}checked{% endif %}></div></td>
+                  <td class="text-center"><div class="form-check form-switch d-inline-block"><input class="form-check-input" type="checkbox" role="switch" checked></div></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="set-team">
+        <div class="bx-widget"><div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Team members</h3></div></div><div class="bx-widget__body"><p class="text-secondary">Manage roles and seats from the Apps → Projects view.</p></div></div>
+      </div>
+
+      <div class="tab-pane fade" id="set-billing">
+        <div class="bx-widget"><div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Billing</h3></div></div><div class="bx-widget__body"><p class="text-secondary">Plan: <strong>Enterprise</strong> · Renewal Apr 30, 2026 · 14 seats.</p></div></div>
+      </div>
+
+      <div class="tab-pane fade" id="set-security">
+        <div class="bx-widget"><div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Security</h3></div></div><div class="bx-widget__body"><div class="form-check form-switch mb-2"><input type="checkbox" class="form-check-input" role="switch" id="sec-2fa" checked><label class="form-check-label" for="sec-2fa">Require 2FA for every member</label></div><div class="form-check form-switch mb-2"><input type="checkbox" class="form-check-input" role="switch" id="sec-sso" checked><label class="form-check-label" for="sec-sso">SSO via SAML</label></div><div class="form-check form-switch"><input type="checkbox" class="form-check-input" role="switch" id="sec-audit" checked><label class="form-check-label" for="sec-audit">Audit logging</label></div></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>

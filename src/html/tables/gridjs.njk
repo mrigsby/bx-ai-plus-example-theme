@@ -1,0 +1,28 @@
+---
+layout: vertical.njk
+title: Tables · GridJS
+pageTitle: GridJS table
+pageSubtitle: Modern table library with built-in search, sort, and pagination.
+page_module: tables-gridjs
+pageVendorCss:
+  - gridjs
+permalink: /tables/gridjs/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Tables" }
+  - { label: "GridJS" }
+---
+
+<div class="bx-widget">
+  <div class="bx-widget__head">
+    <div class="bx-widget__title-wrap">
+      <h3 class="bx-widget__title">Top pages</h3>
+      <p class="bx-widget__subtitle">Pageviews + engagement, search and sort enabled.</p>
+    </div>
+  </div>
+  <div class="bx-widget__body">
+    <div id="bx-gridjs"
+         data-bx-gridjs
+         data-bx-gridjs-data='{{ analytics.topPages | dump }}'></div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+---
+layout: vertical.njk
+title: Team chat
+pageTitle: Team chat
+pageSubtitle: Slack-style channels and DMs with BX-AI in the loop.
+permalink: /apps/chat/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Apps" }
+  - { label: "Chat" }
+---
+
+<div class="bx-chat-app">
+
+  <aside class="bx-chat-app__sidebar">
+    <div class="bx-chat-app__group">
+      <div class="bx-chat-app__group-title">Channels</div>
+      {% for c in chatApp.channels %}
+      <a href="#" class="bx-chat-app__item {% if c.id == chatApp.active.id %}is-active{% endif %}">
+        <span class="bx-chat-app__item-icon"><i data-lucide="{{ c.icon }}"></i></span>
+        <span class="bx-chat-app__item-label">{{ c.label }}</span>
+        {% if c.unread > 0 %}<span class="bx-chat-app__item-badge">{{ c.unread }}</span>{% endif %}
+      </a>
+      {% endfor %}
+    </div>
+
+    <div class="bx-chat-app__group">
+      <div class="bx-chat-app__group-title">Direct messages</div>
+      {% for d in chatApp.dms %}
+      <a href="#" class="bx-chat-app__item">
+        <span class="bx-chat-app__item-icon"><span class="bx-presence bx-presence--{{ d.presence }}"></span></span>
+        <span class="bx-chat-app__item-label">{{ d.name }}</span>
+        {% if d.unread > 0 %}<span class="bx-chat-app__item-badge">{{ d.unread }}</span>{% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </aside>
+
+  <section class="bx-chat-app__main">
+    <header class="bx-chat-app__head">
+      <h2 class="bx-chat-app__head-title"># {{ chatApp.active.title }}</h2>
+      <p class="bx-chat-app__head-sub">{{ chatApp.active.subtitle }}</p>
+    </header>
+
+    <div class="bx-chat-app__messages" data-simplebar>
+      {% for m in chatApp.active.messages %}
+      <div class="bx-chat-app__msg {% if m.tone %}bx-chat-app__msg--{{ m.tone }}{% endif %} {% if m.self %}bx-chat-app__msg--self{% endif %}">
+        <span class="bx-avatar"><span class="bx-avatar__initials">{{ m.initials }}</span></span>
+        <div class="bx-chat-app__msg-body">
+          <div class="bx-chat-app__msg-meta">
+            <span class="bx-chat-app__msg-author">{{ m.author }}</span>
+            <span>{{ m.time }}</span>
+          </div>
+          <p class="bx-chat-app__msg-text">{{ m.body }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="bx-chat-app__composer">
+      <form class="bx-ai-page__composer-form" autocomplete="off" onsubmit="event.preventDefault();this.querySelector('textarea').value='';">
+        <textarea class="bx-ai-page__composer-input"
+                  rows="1"
+                  placeholder="Message #{{ chatApp.active.title }}…"></textarea>
+        <div class="bx-ai-page__composer-actions">
+          <button type="button" class="bx-btn-icon" aria-label="Attach"><i data-lucide="paperclip"></i></button>
+          <button type="button" class="bx-btn-icon" aria-label="Emoji"><i data-lucide="smile"></i></button>
+          <button type="button" class="bx-btn-icon bx-ai-ask-btn"
+                  data-bx-ai-ask
+                  data-ai-context="channel-{{ chatApp.active.id }}"
+                  data-ai-prompt="Summarize the recent discussion in this channel and surface any decisions."
+                  aria-label="Ask AI" title="Ask AI">
+            <i data-lucide="sparkles"></i>
+          </button>
+          <span style="flex:1"></span>
+          <button type="submit" class="btn btn-primary btn-sm d-inline-flex align-items-center gap-1">
+            <span>Send</span>
+            <i data-lucide="arrow-up" style="width:13px;height:13px;"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</div>

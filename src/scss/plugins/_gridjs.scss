@@ -1,0 +1,124 @@
+// ---------------------------------------------------------------------------
+// plugins/_gridjs.scss — GridJS theming.
+//
+// The mermaid theme hardcodes #fff / #000 / #f9fafb / #e5e7eb directly on
+// elements (not via CSS vars), so we override with specific selectors scoped
+// under our container class. All pages that render a GridJS table should
+// wrap it in .bx-gridjs-container.
+// ---------------------------------------------------------------------------
+
+.bx-gridjs-container {
+  font-size: 0.85rem;
+  color: var(--bx-text);
+
+  // ---- Wrapper (rounded + shadow) ----
+  .gridjs-wrapper {
+    background: var(--bx-surface-1);
+    border-color: var(--bx-border);
+    box-shadow: none;
+  }
+
+  // ---- Table body ----
+  .gridjs-table       { background: transparent; }
+  .gridjs-tbody,
+  td.gridjs-td        { background: var(--bx-surface-1); color: var(--bx-text); border-color: var(--bx-divider); }
+  td.gridjs-td        { padding: 0.6rem 0.85rem; }
+  .gridjs-tr:hover td { background: var(--bx-surface-2); }
+  .gridjs-tr-selected td { background: var(--bx-sidenav-active-bg); }
+
+  // ---- Header row ----
+  th.gridjs-th {
+    background: color-mix(in srgb, var(--bx-surface-2) 60%, transparent);
+    color: var(--bx-text-muted);
+    border-color: var(--bx-divider);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.7rem 0.85rem;
+  }
+  th.gridjs-th-sort:hover,
+  th.gridjs-th-sort:focus {
+    background: var(--bx-surface-3);
+    color: var(--bx-text);
+  }
+  th.gridjs-th-fixed { box-shadow: 0 1px 0 0 var(--bx-divider); }
+
+  // Sort icons are embedded SVG backgrounds — tint them via filter so they
+  // read on dark surfaces. Unset the filter in light theme.
+  button.gridjs-sort {
+    filter: invert(0.65);
+    opacity: 0.7;
+  }
+  button.gridjs-sort:hover { opacity: 1; }
+
+  // ---- Footer + pagination ----
+  .gridjs-footer {
+    background: color-mix(in srgb, var(--bx-surface-2) 60%, transparent);
+    border-color: var(--bx-border);
+    box-shadow: none;
+    color: var(--bx-text-muted);
+  }
+  .gridjs-pagination            { color: var(--bx-text-muted); }
+  .gridjs-pagination .gridjs-summary { color: var(--bx-text-muted); }
+  .gridjs-pagination .gridjs-pages button {
+    background: var(--bx-surface-2);
+    color: var(--bx-text);
+    border-color: var(--bx-border-strong);
+  }
+  .gridjs-pagination .gridjs-pages button:hover:not([disabled]):not(.gridjs-currentPage) {
+    background: var(--bx-surface-3);
+    color: var(--bx-brand-primary-text);
+    border-color: var(--bx-brand-primary);
+  }
+  .gridjs-pagination .gridjs-pages button.gridjs-currentPage {
+    background: var(--bx-brand-primary);
+    color: var(--bx-text-on-primary);
+    border-color: var(--bx-brand-primary);
+    font-weight: 600;
+  }
+  .gridjs-pagination .gridjs-pages button[disabled],
+  .gridjs-pagination .gridjs-pages button:disabled {
+    background: var(--bx-surface-2);
+    color: color-mix(in srgb, var(--bx-text-muted) 50%, transparent);
+  }
+
+  // ---- Search input ----
+  input.gridjs-input,
+  .gridjs-search-input {
+    background: var(--bx-surface-2);
+    border-color: var(--bx-border-strong);
+    color: var(--bx-text);
+    border-radius: var(--bx-radius-sm);
+    padding: 0.45rem 0.75rem;
+    font-size: 0.82rem;
+
+    &::placeholder { color: var(--bx-text-muted); }
+    &:focus {
+      border-color: var(--bx-brand-primary);
+      box-shadow: 0 0 0 3px var(--bx-focus-ring);
+    }
+  }
+
+  // ---- Loading bar ----
+  .gridjs-loading-bar { background: color-mix(in srgb, var(--bx-surface-1) 80%, transparent); }
+
+  // ---- Resizable col handle ----
+  .gridjs-resizable:hover { background: var(--bx-brand-primary); }
+
+  // ---- Code cells (paths are wrapped in <code> via the GridJS formatter) ----
+  code {
+    font-family: var(--bs-font-monospace);
+    font-size: 0.82rem;
+    color: var(--bx-brand-primary-text);
+    background: color-mix(in srgb, var(--bx-brand-primary) 10%, transparent);
+    padding: 1px 6px;
+    border-radius: var(--bx-radius-xs);
+  }
+}
+
+// Sort-icon filter only in dark theme (the `invert()` hack above messes
+// with light-theme readability).
+[data-bs-theme="light"] .bx-gridjs-container button.gridjs-sort {
+  filter: none;
+}

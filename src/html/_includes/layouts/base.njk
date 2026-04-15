@@ -1,0 +1,52 @@
+{#
+  ----------------------------------------------------------------------------
+  layouts/base.njk — outermost HTML shell.
+  vertical.njk, horizontal.njk, auth.njk, blank.njk all extend from this.
+  Do NOT render chrome (topbar/sidenav) here — those belong in the sub-layouts.
+  ----------------------------------------------------------------------------
+#}<!DOCTYPE html>
+<html lang="en"
+      data-bs-theme="dark"
+      data-layout="{{ layoutVariant | default('vertical') }}"
+      data-sidenav-size="default"
+      data-sidenav-color="dark"
+      data-topbar-color="dark"
+      data-layout-width="fluid">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="{{ site.tagline }}">
+  <title>{% if title %}{{ title }} · {% endif %}{{ site.name }}</title>
+  <link rel="icon" type="image/png" href="/assets/images/brand/bx-ai-icon-full.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+  {# Per-page vendor CSS FIRST so our app.css overrides win on equal
+     specificity without needing !important. Opt in via front-matter:
+     `pageVendorCss: [choices, flatpickr, …]` #}
+  {% for v in pageVendorCss %}
+  <link rel="stylesheet" href="/assets/vendor/{{ v }}.css">
+  {% endfor %}
+
+  <link rel="stylesheet" href="/assets/css/app.css">
+
+  {# Early theme-flicker guard — restores saved theme before paint. #}
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("bx.theme");
+        if (t === "light" || t === "dark") document.documentElement.setAttribute("data-bs-theme", t);
+        var sz = sessionStorage.getItem("bx.sidenav.size");
+        if (sz) document.documentElement.setAttribute("data-sidenav-size", sz);
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
+</head>
+<body{% if page_module %} data-bx-page="{{ page_module }}"{% endif %}>
+
+  {{ content | safe }}
+
+  <script src="/assets/js/app.js"></script>
+</body>
+</html>

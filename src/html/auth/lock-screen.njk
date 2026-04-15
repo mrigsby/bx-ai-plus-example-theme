@@ -1,0 +1,23 @@
+---
+layout: auth.njk
+title: Locked
+permalink: /auth/lock-screen/index.html
+authVariant: lock
+---
+<div style="text-align:center;">
+  <span class="bx-avatar"><span class="bx-avatar__initials">{{ user.initials }}</span></span>
+  <h1>Welcome back, {{ user.name | replace(' ', '&nbsp;') | safe }}</h1>
+  <p class="bx-auth__lede">Your session is locked. Enter your password to continue.</p>
+</div>
+
+<form>
+  <div class="mb-3">
+    <label class="form-label" for="bx-auth-pw">Password</label>
+    <input type="password" class="form-control" id="bx-auth-pw" placeholder="••••••••" autocomplete="current-password" autofocus>
+  </div>
+  <button class="btn btn-primary" type="submit">Unlock</button>
+</form>
+
+<p class="bx-auth__alt">
+  Not you? <a href="/auth/sign-in/">Sign in as someone else</a>
+</p>

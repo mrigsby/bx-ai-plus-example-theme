@@ -1,0 +1,137 @@
+// ===========================================================================
+// config/_variables-custom.scss
+// BX-AI+ design tokens — palette, CSS custom properties, sizing, motion.
+//
+// Strategy:
+//   1. Brand palette stays in SCSS vars (compile-time) so we can tint/shade.
+//   2. Runtime-skinnable tokens are emitted as CSS custom properties under
+//      :root (dark theme — our default) and overridden inside
+//      config/_theme-mode.scss for [data-bs-theme="light"].
+//   3. Bootstrap overrides (config/_variables.scss) reference these tokens.
+// ===========================================================================
+
+// ---------------------------------------------------------------------------
+// Brand palette — stable, weighted by user spec
+// ---------------------------------------------------------------------------
+$bx-teal-deep:    #092221;  // color 1 — dark teal, page bg (dark theme)
+$bx-teal-bright:  #0DD3A8;  // color 2 — primary accent
+$bx-gray-light:   #D7DDE0;  // color 3 — borders/dividers/muted
+$bx-teal-medium:  #227762;  // color 4 — secondary, chart
+$bx-blue-purple:  #6173A0;  // color 5 — info, chart
+$bx-purple-dark:  #4B4265;  // color 6 — deep accent, chart
+
+// Darker/lighter derivatives (not emitted as vars — used where static)
+$bx-teal-bright-darker: #0B9D7C;  // teal-bright darkened for text-on-light
+$bx-teal-deep-lift-1:   #0E2D2B;  // surface 1 (dark)
+$bx-teal-deep-lift-2:   #143936;  // surface 2 (dark)
+$bx-teal-deep-lift-3:   #1B4743;  // surface 3 (dark)
+
+// Semantic (shared across modes)
+$bx-warning: #F6B93B;
+$bx-danger:  #EF476F;
+
+// ---------------------------------------------------------------------------
+// Dark-theme token set (default)
+// ---------------------------------------------------------------------------
+:root {
+  // Brand
+  --bx-brand-primary:          #{$bx-teal-bright};
+  --bx-brand-primary-text:     #{$bx-teal-bright};   // color to use on dark surfaces
+  --bx-brand-primary-hover:    #{bx-tint($bx-teal-bright, 10%)};
+  --bx-brand-secondary:        #{$bx-teal-medium};
+  --bx-brand-accent-1:         #{$bx-blue-purple};
+  --bx-brand-accent-2:         #{$bx-purple-dark};
+
+  // Surfaces
+  --bx-body-bg:                #{$bx-teal-deep};
+  --bx-surface-1:              #{$bx-teal-deep-lift-1};
+  --bx-surface-2:              #{$bx-teal-deep-lift-2};
+  --bx-surface-3:              #{$bx-teal-deep-lift-3};
+  --bx-surface-elev:           rgba(255, 255, 255, 0.02);
+
+  // Borders
+  --bx-border:                 #{rgba($bx-gray-light, 0.08)};
+  --bx-border-strong:          #{rgba($bx-gray-light, 0.16)};
+  --bx-divider:                #{rgba($bx-gray-light, 0.06)};
+
+  // Text
+  --bx-text:                   #E6ECEF;
+  --bx-text-muted:             #8A9AA0;
+  --bx-text-heading:           #FFFFFF;
+  --bx-text-on-primary:        #041310;
+  --bx-text-on-dark:           #E6ECEF;
+
+  // Semantic
+  --bx-warning:                #{$bx-warning};
+  --bx-danger:                 #{$bx-danger};
+  --bx-success:                #{$bx-teal-bright};
+  --bx-info:                   #{$bx-blue-purple};
+
+  // Topbar
+  --bx-topbar-bg:              #0B2A28;
+  --bx-topbar-fg:              #E6ECEF;
+  --bx-topbar-border:          #{rgba($bx-gray-light, 0.08)};
+
+  // Sidenav
+  --bx-sidenav-bg:             #0B2A28;
+  --bx-sidenav-fg:             #C9D4D6;
+  --bx-sidenav-fg-muted:       #8A9AA0;
+  --bx-sidenav-fg-hover:       #{$bx-teal-bright};
+  --bx-sidenav-active-bg:      #{rgba($bx-teal-bright, 0.12)};
+  --bx-sidenav-active-fg:      #{$bx-teal-bright};
+  --bx-sidenav-section-label:  #6B7A7E;
+
+  // Focus ring
+  --bx-focus-ring:             #{rgba($bx-teal-bright, 0.35)};
+
+  // AI accents
+  --bx-ai-glow:                0 0 0 0 rgba(13, 211, 168, 0);
+  --bx-ai-glow-active:         0 0 0 4px rgba(13, 211, 168, 0.25);
+  --bx-ai-gradient:            linear-gradient(135deg, #{$bx-teal-bright} 0%, #{$bx-blue-purple} 55%, #{$bx-purple-dark} 100%);
+  --bx-ai-gradient-soft:       linear-gradient(135deg, #{rgba($bx-teal-bright, 0.15)} 0%, #{rgba($bx-blue-purple, 0.15)} 55%, #{rgba($bx-purple-dark, 0.15)} 100%);
+
+  // Chart palette
+  --bx-chart-1: #{$bx-teal-bright};
+  --bx-chart-2: #{$bx-teal-medium};
+  --bx-chart-3: #{$bx-blue-purple};
+  --bx-chart-4: #{$bx-purple-dark};
+  --bx-chart-5: #{bx-tint($bx-teal-bright, 40%)};
+  --bx-chart-6: #{$bx-gray-light};
+
+  // ------ Layout sizing ------
+  --bx-sidenav-width:          248px;
+  --bx-sidenav-width-compact:  72px;
+  --bx-topbar-height:          64px;
+  --bx-horizontal-menu-height: 52px;
+  --bx-footer-height:          48px;
+  --bx-content-max-width:      1600px;
+  --bx-content-gutter:         1.25rem;
+
+  // ------ Radii ------
+  --bx-radius-xs:  4px;
+  --bx-radius-sm:  8px;
+  --bx-radius:     12px;
+  --bx-radius-lg:  16px;
+  --bx-radius-xl:  24px;
+  --bx-radius-pill: 999px;
+
+  // ------ Shadow ------
+  --bx-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --bx-shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.35);
+  --bx-shadow:    0 8px 24px -8px rgba(0, 0, 0, 0.45);
+  --bx-shadow-lg: 0 20px 60px -20px rgba(0, 0, 0, 0.6);
+  --bx-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+  // ------ Motion ------
+  --bx-transition-fast: 120ms ease;
+  --bx-transition:      200ms ease;
+  --bx-transition-slow: 360ms ease;
+  --bx-ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  // ------ Z-index scale ------
+  --bx-z-sidenav:      1020;
+  --bx-z-topbar:       1030;
+  --bx-z-customizer:   1050;
+  --bx-z-voice-toast:  1085;
+  --bx-z-chat-command: 1090;
+}

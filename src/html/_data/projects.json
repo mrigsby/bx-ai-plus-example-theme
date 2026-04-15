@@ -1,0 +1,19 @@
+{
+  "stats": [
+    { "label": "Active projects", "value": 14, "icon": "kanban" },
+    { "label": "On track",        "value":  9, "icon": "check-circle" },
+    { "label": "At risk",         "value":  3, "icon": "alert-triangle" },
+    { "label": "Completed Q1",    "value": 22, "icon": "trophy" }
+  ],
+  "projects": [
+    { "id": "pj-01", "name": "BX-AI+ launch",         "category": "growth",  "status": "on-track", "progress": 78, "due": "Apr 28", "owner": "Avery Liu",   "members": ["AL","MR","SV"],      "tasks": { "done": 32, "total": 41 }, "tone": "success" },
+    { "id": "pj-02", "name": "scribe-bx error fix",   "category": "ops",     "status": "at-risk",  "progress": 22, "due": "Apr 16", "owner": "Marcus Reed", "members": ["MR","PS"],           "tasks": { "done":  4, "total": 18 }, "tone": "danger"  },
+    { "id": "pj-03", "name": "Customizer redesign",   "category": "design",  "status": "on-track", "progress": 64, "due": "Apr 22", "owner": "Theo Kim",    "members": ["TK","SV"],           "tasks": { "done": 14, "total": 22 }, "tone": "success" },
+    { "id": "pj-04", "name": "Helix Labs onboarding", "category": "customer","status": "on-track", "progress": 92, "due": "Apr 15", "owner": "Sasha Volkov","members": ["SV","AL"],           "tasks": { "done": 11, "total": 12 }, "tone": "success" },
+    { "id": "pj-05", "name": "planner-alpha v2 GA",   "category": "ai",      "status": "on-track", "progress": 48, "due": "May 06", "owner": "Marcus Reed", "members": ["MR","PS","TK"],      "tasks": { "done":  9, "total": 19 }, "tone": "success" },
+    { "id": "pj-06", "name": "Pricing experiment",    "category": "growth",  "status": "at-risk",  "progress": 32, "due": "Apr 19", "owner": "Avery Liu",   "members": ["AL"],                "tasks": { "done":  6, "total": 18 }, "tone": "danger"  },
+    { "id": "pj-07", "name": "DataTables migration",  "category": "infra",   "status": "on-track", "progress": 72, "due": "Apr 25", "owner": "Theo Kim",    "members": ["TK"],                "tasks": { "done": 13, "total": 18 }, "tone": "success" },
+    { "id": "pj-08", "name": "SOC2 readiness",        "category": "ops",     "status": "blocked",  "progress": 18, "due": "Jun 30", "owner": "Marcus Reed", "members": ["MR","SV","AL"],      "tasks": { "done":  4, "total": 22 }, "tone": "warning" },
+    { "id": "pj-09", "name": "Q2 OKR planning",       "category": "leadership","status": "on-track","progress": 55,"due": "Apr 30", "owner": "M. Rigsby",   "members": ["MR-self","AL","MR","TK","SV","PS"], "tasks":{ "done": 11, "total": 20 }, "tone": "success" }
+  ]
+}

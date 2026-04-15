@@ -1,0 +1,252 @@
+// ---------------------------------------------------------------------------
+// structure/_horizontal-nav.scss
+// Mega-menu rendered below the topbar in horizontal-layout pages.
+// ---------------------------------------------------------------------------
+
+.bx-hnav {
+  position: fixed;
+  top: var(--bx-topbar-height);
+  left: 0;
+  right: 0;
+  height: var(--bx-horizontal-menu-height);
+  background: var(--bx-topbar-bg);
+  border-bottom: 1px solid var(--bx-border);
+  z-index: calc(var(--bx-z-topbar) - 1);
+
+  &__inner {
+    display: flex;
+    align-items: stretch;
+    height: 100%;
+    max-width: var(--bx-content-max-width);
+    margin: 0 auto;
+    padding: 0 1rem;
+    // overflow MUST stay visible so absolute-positioned submenus can escape.
+    overflow: visible;
+  }
+}
+
+// Horizontal layouts shift content down to make room for the nav bar.
+[data-layout="horizontal"] .bx-wrapper {
+  padding-top: calc(var(--bx-topbar-height) + var(--bx-horizontal-menu-height));
+  padding-left: 0 !important;
+}
+[data-layout="horizontal"] .bx-sidenav,
+[data-layout="horizontal"] .bx-sidenav-backdrop {
+  display: none;
+}
+
+// ---------------------------------------------------------------------------
+// .bx-hmenu — horizontal menu items
+// ---------------------------------------------------------------------------
+.bx-hmenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+
+  &--level-0 {
+    align-items: stretch;
+    gap: 2px;
+  }
+
+  &__item {
+    position: relative;
+
+    // ---- Hover open at root + click-to-keep-open ----
+    &--has-children:hover > .bx-hmenu__sub,
+    &--has-children:focus-within > .bx-hmenu__sub,
+    &--has-children > .bx-hmenu__link[aria-expanded="true"] + .bx-hmenu__sub {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+  }
+
+  &__link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 100%;
+    padding: 0 0.85rem;
+    color: var(--bx-topbar-fg);
+    text-decoration: none;
+    font-size: 0.84rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: color var(--bx-transition-fast), background var(--bx-transition-fast);
+
+    &:hover {
+      color: var(--bx-brand-primary-text);
+      background: color-mix(in srgb, var(--bx-surface-2) 60%, transparent);
+    }
+
+    &.is-active,
+    &[aria-current="page"] {
+      color: var(--bx-brand-primary-text);
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0.85rem;
+        right: 0.85rem;
+        bottom: 0;
+        height: 2px;
+        background: var(--bx-brand-primary);
+      }
+    }
+
+    &--toggle .bx-hmenu__chevron {
+      transition: transform var(--bx-transition-fast);
+    }
+
+    &[aria-expanded="true"] .bx-hmenu__chevron,
+    .bx-hmenu__item--has-children:hover > &--toggle .bx-hmenu__chevron {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__icon {
+    display: inline-flex;
+    color: currentColor;
+    i, svg { width: 16px; height: 16px; }
+  }
+
+  &__chevron {
+    display: inline-flex;
+    color: var(--bx-text-muted);
+  }
+
+  &__badge {
+    padding: 1px 6px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border-radius: var(--bx-radius-pill);
+    color: var(--bx-text-on-primary);
+    background: var(--bx-brand-primary);
+
+    &--info      { background: var(--bx-info); color: #fff; }
+    &--warning   { background: var(--bx-warning); color: #3a2a00; }
+    &--danger    { background: var(--bx-danger); color: #fff; }
+    &--brand     { background: var(--bx-brand-secondary); color: #fff; }
+    &--secondary { background: var(--bx-surface-3); color: var(--bx-text); }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Submenus (level >= 1) — floating dropdowns
+  // ---------------------------------------------------------------------------
+  &__sub {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    max-width: 320px;
+    margin-top: 0;
+    padding: 0.4rem;
+    background: var(--bx-surface-1);
+    border: 1px solid var(--bx-border-strong);
+    border-radius: var(--bx-radius);
+    box-shadow: var(--bx-shadow);
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity var(--bx-transition-fast), transform var(--bx-transition-fast);
+    // Lift above page content, sit below the topbar (z 1030).
+    z-index: 1029;
+  }
+
+  // Level >=1 — items are stacked, chevrons rotate
+  &--level-1,
+  &--level-2,
+  &--level-3 {
+    flex-direction: column;
+    gap: 1px;
+
+    .bx-hmenu__item--has-children > .bx-hmenu__sub {
+      top: -0.4rem;
+      left: 100%;
+      margin-left: 0.4rem;
+    }
+
+    .bx-hmenu__link {
+      display: flex;
+      width: 100%;
+      height: auto;
+      padding: 0.45rem 0.7rem;
+      border-radius: var(--bx-radius-sm);
+      color: var(--bx-text);
+
+      &:hover {
+        background: var(--bx-surface-3);
+        color: var(--bx-brand-primary-text);
+      }
+
+      // No underline-on-active in submenus
+      &.is-active::after,
+      &[aria-current="page"]::after { display: none; }
+
+      .bx-hmenu__label { flex: 1; }
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Mobile collapse — below 992px the horizontal nav becomes a stacked drawer.
+// We re-use the topbar hamburger via [data-bx-sidenav-toggle] on horizontal
+// pages too — adding body.bx-sidenav-open shows the menu as a vertical drawer.
+// ---------------------------------------------------------------------------
+@media (max-width: 991.98px) {
+  [data-layout="horizontal"] .bx-hnav {
+    position: fixed;
+    top: var(--bx-topbar-height);
+    height: auto;
+    max-height: calc(100vh - var(--bx-topbar-height));
+    overflow-y: auto;
+    transform: translateY(-110%);
+    transition: transform var(--bx-transition);
+    box-shadow: var(--bx-shadow-lg);
+  }
+  [data-layout="horizontal"] body.bx-sidenav-open .bx-hnav {
+    transform: translateY(0);
+  }
+  [data-layout="horizontal"] .bx-wrapper {
+    padding-top: var(--bx-topbar-height);
+  }
+
+  .bx-hnav__inner {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.5rem;
+  }
+  .bx-hmenu--level-0 {
+    flex-direction: column;
+    gap: 2px;
+  }
+  // On mobile, sub menus expand inline rather than floating.
+  .bx-hmenu--level-0 .bx-hmenu__item--has-children > .bx-hmenu__sub {
+    position: static;
+    margin-top: 0.25rem;
+    margin-left: 0;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    box-shadow: none;
+    border: 0;
+    border-left: 2px solid var(--bx-border);
+    border-radius: 0;
+    background: transparent;
+    padding-left: 0.5rem;
+    display: none;
+  }
+  .bx-hmenu--level-0 .bx-hmenu__item--has-children.is-open > .bx-hmenu__sub {
+    display: block;
+  }
+  .bx-hmenu__link {
+    width: 100%;
+    height: auto;
+    padding: 0.55rem 0.7rem;
+    border-radius: var(--bx-radius-sm);
+
+    &.is-active::after { display: none; }
+  }
+}

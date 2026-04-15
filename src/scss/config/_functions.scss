@@ -1,0 +1,22 @@
+// ===========================================================================
+// config/_functions.scss — tiny helpers used by other config partials.
+// Must be @imported BEFORE _variables-custom.scss and Bootstrap.
+// ===========================================================================
+
+@use "sass:color";
+@use "sass:math";
+
+// tint($color, $weight)  — mix toward white
+@function bx-tint($color, $weight) {
+  @return color.mix(white, $color, $weight);
+}
+
+// shade($color, $weight) — mix toward black
+@function bx-shade($color, $weight) {
+  @return color.mix(black, $color, $weight);
+}
+
+// alpha($color, $alpha)  — set a specific alpha
+@function bx-alpha($color, $alpha) {
+  @return rgba($color, $alpha);
+}

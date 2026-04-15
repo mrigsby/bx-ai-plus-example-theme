@@ -1,0 +1,111 @@
+---
+layout: vertical.njk
+title: Sales
+pageTitle: Sales
+pageSubtitle: Pipeline, won deals, and rep performance.
+page_module: sales
+permalink: /dashboards/sales/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Dashboards" }
+  - { label: "Sales" }
+---
+{% from "partials/widgets/widget-menu.njk"      import widgetMenu %}
+{% from "partials/widgets/stat-card.njk"        import statCard %}
+{% from "partials/widgets/ai-inline-prompt.njk" import inlinePrompt %}
+
+<div class="row g-3 mb-3">
+  {% for s in sales.stats %}
+  <div class="col-12 col-sm-6 col-xl-3">{{ statCard(s) }}</div>
+  {% endfor %}
+</div>
+
+<div class="row g-3 mb-3">
+  <div class="col-12 col-xl-8">
+    <div class="bx-widget bx-widget--full-height">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">{{ sales.salesTrendChart.title }}</h3>
+          <p class="bx-widget__subtitle">{{ sales.salesTrendChart.subtitle }}</p>
+        </div>
+        {{ widgetMenu(sales.salesTrendChart.aiContext, "How is closed-won pacing against forecast over the last 12 months?") }}
+      </div>
+      <div class="bx-widget__body">
+        <div data-bx-chart-sales-trend
+             data-bx-chart-data='{{ sales.salesTrendChart | dump }}'
+             style="min-height:320px"></div>
+      </div>
+      <div class="bx-widget__footer">
+        {{ inlinePrompt(sales.salesTrendChart.aiContext, "Ask about sales pacing…") }}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-4">
+    <div class="bx-widget bx-widget--full-height">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">{{ sales.stagePipeline.title }}</h3>
+          <p class="bx-widget__subtitle">{{ sales.stagePipeline.subtitle }}</p>
+        </div>
+        {{ widgetMenu(sales.stagePipeline.aiContext, "Which deal stage has the most stuck inventory and what should we do about it?") }}
+      </div>
+      <div class="bx-widget__body">
+        <div data-bx-chart-stages
+             data-bx-chart-data='{{ sales.stagePipeline | dump }}'
+             style="min-height:240px"></div>
+        <ul class="bx-donut-legend">
+          {% for l in sales.stagePipeline.legend %}
+          <li class="bx-donut-legend__item bx-donut-legend__item--{{ l.variant }}">
+            <span class="bx-donut-legend__item-dot" aria-hidden="true"></span>
+            <span class="bx-donut-legend__item-label">{{ l.label }}</span>
+            <span class="bx-donut-legend__item-value">${{ (l.value / 1000) | round }}k</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-12">
+    <div class="bx-widget">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">Sales leaderboard</h3>
+          <p class="bx-widget__subtitle">Reps ranked by closed-won revenue this quarter</p>
+        </div>
+        {{ widgetMenu("sales-leaderboard", "Highlight the standout reps and any who need coaching.") }}
+      </div>
+      <div class="bx-widget__body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Rep</th>
+              <th class="num">Open</th>
+              <th class="num">Won</th>
+              <th class="num">Revenue</th>
+              <th class="num">Trend</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in sales.leaderboard %}
+            <tr>
+              <td>{{ r.name }}</td>
+              <td class="num">{{ r.deals }}</td>
+              <td class="num">{{ r.won }}</td>
+              <td class="num">${{ (r.revenue / 1000) | round }}k</td>
+              <td class="num">
+                {% if r.trend == "up" %}<span class="bx-top-agents__status bx-top-agents__status--healthy">↑</span>
+                {% elif r.trend == "down" %}<span class="bx-top-agents__status bx-top-agents__status--errored">↓</span>
+                {% else %}<span class="bx-top-agents__status bx-top-agents__status--paused">→</span>{% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

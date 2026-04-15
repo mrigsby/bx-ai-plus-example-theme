@@ -1,0 +1,33 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/page-title.njk
+  Pages may override via front-matter `pageTitle` / `pageSubtitle` / `breadcrumbs`.
+  Silently hidden when all are absent.
+  ----------------------------------------------------------------------------
+#}
+{% if pageTitle or pageSubtitle or breadcrumbs %}
+{% seamBegin "PAGE_TITLE" %}
+<header class="bx-page-title">
+  <div class="bx-page-title__text">
+    {% if pageTitle %}<h1 class="bx-page-title__heading">{{ pageTitle }}</h1>{% endif %}
+    {% if pageSubtitle %}<p class="bx-page-title__subtitle">{{ pageSubtitle }}</p>{% endif %}
+  </div>
+
+  {% if breadcrumbs %}
+  <nav class="bx-breadcrumbs" aria-label="Breadcrumb">
+    <ol>
+      {% for crumb in breadcrumbs %}
+      <li class="bx-breadcrumbs__item{% if loop.last %} bx-breadcrumbs__item--active{% endif %}">
+        {% if crumb.href and not loop.last %}
+          <a href="{{ crumb.href }}">{{ crumb.label }}</a>
+        {% else %}
+          <span>{{ crumb.label }}</span>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  </nav>
+  {% endif %}
+</header>
+{% seamEnd "PAGE_TITLE" %}
+{% endif %}

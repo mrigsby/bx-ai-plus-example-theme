@@ -1,0 +1,132 @@
+// ---------------------------------------------------------------------------
+// structure/_layout.scss
+// Top-level app frame: .bx-wrapper contains the topbar, sidenav, and .bx-page.
+// Layout shifts are driven entirely by <html data-*> attributes and CSS vars.
+// ---------------------------------------------------------------------------
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bx-body-bg);
+  color: var(--bx-text);
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+// ---- Reusable icon button ----
+.bx-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  color: var(--bx-text);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--bx-radius-sm);
+  cursor: pointer;
+  transition: background var(--bx-transition-fast),
+              color var(--bx-transition-fast),
+              border-color var(--bx-transition-fast);
+
+  &:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--bx-surface-2) 70%, transparent);
+    color: var(--bx-brand-primary-text);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--bx-focus-ring);
+    outline-offset: 2px;
+  }
+  &:disabled { opacity: 0.45; cursor: not-allowed; }
+}
+
+// ---- Avatar ----
+.bx-avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--bx-ai-gradient);
+  color: var(--bx-text-on-primary);
+  border-radius: var(--bx-radius-pill);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  overflow: hidden;
+
+  &--sm { width: 30px; height: 30px; font-size: 0.68rem; }
+  &--lg { width: 44px; height: 44px; font-size: 0.8rem; }
+
+  &__initials {
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// App frame
+// ---------------------------------------------------------------------------
+.bx-wrapper {
+  min-height: 100vh;
+  // The sidenav is position:fixed — .bx-page shifts via padding-left on wrapper.
+  padding-top: var(--bx-topbar-height);
+  padding-left: 0;
+  transition: padding-left var(--bx-transition);
+}
+
+@media (min-width: 992px) {
+  // Default (vertical) layout — make room for the fixed sidenav.
+  [data-layout="vertical"] .bx-wrapper {
+    padding-left: var(--bx-sidenav-width);
+  }
+  [data-layout="vertical"][data-sidenav-size="compact"] .bx-wrapper,
+  [data-layout="vertical"][data-sidenav-size="hover"]   .bx-wrapper {
+    padding-left: var(--bx-sidenav-width-compact);
+  }
+  [data-layout="vertical"][data-sidenav-size="offcanvas"] .bx-wrapper {
+    padding-left: 0;
+  }
+}
+
+.bx-page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--bx-topbar-height));
+}
+
+.bx-content {
+  // Full-width edge-to-edge inside .bx-page. Matches .bx-page-title so
+  // both line up regardless of viewport. The gutter padding provides
+  // breathing room. (--bx-content-max-width is kept available as a token
+  // for any individual widget that wants to constrain itself.)
+  flex: 1 1 auto;
+  width: 100%;
+  padding: 1.5rem var(--bx-content-gutter) 2rem;
+}
+
+// ---- Sidenav backdrop (offcanvas / mobile) ----
+.bx-sidenav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--bx-transition);
+  z-index: calc(var(--bx-z-sidenav) - 1);
+
+  body.bx-sidenav-open & {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

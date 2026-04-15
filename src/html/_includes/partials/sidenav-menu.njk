@@ -1,0 +1,68 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/sidenav-menu.njk — recursive menu renderer (Nunjucks macro).
+  Renders any menu.json tree to any depth.
+
+  Macro: renderMenu(items, level=0)
+  ----------------------------------------------------------------------------
+#}
+
+{% macro renderMenu(items, level=0) %}
+  <ul class="bx-menu bx-menu--level-{{ level }}"{% if level == 0 %} data-bx-menu="root"{% endif %}>
+    {%- for item in items -%}
+
+      {# ---- Section label (non-interactive separator) ---- #}
+      {% if item.type == "section" %}
+        <li class="bx-menu__section">
+          <span class="bx-menu__section-label">{{ item.label }}</span>
+        </li>
+
+      {# ---- Group (has children — collapsible) ---- #}
+      {% elif item.children %}
+        <li class="bx-menu__item bx-menu__item--group"
+            data-bx-menu-item="{{ item.id }}">
+          <button type="button"
+                  class="bx-menu__link bx-menu__link--toggle collapsed"
+                  aria-expanded="false"
+                  data-bx-menu-toggle="{{ item.id }}">
+            {% if item.icon %}
+              <span class="bx-menu__icon" aria-hidden="true">
+                <i data-lucide="{{ item.icon }}"></i>
+              </span>
+            {% endif %}
+            <span class="bx-menu__label">{{ item.label }}</span>
+            {% if item.badge %}
+              <span class="bx-menu__badge bx-menu__badge--{{ item.badge.variant | default('primary') }}">{{ item.badge.text }}</span>
+            {% endif %}
+            <span class="bx-menu__chevron" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+          </button>
+          <div class="bx-menu__subwrap" data-bx-menu-subwrap="{{ item.id }}">
+            {{ renderMenu(item.children, level + 1) }}
+          </div>
+        </li>
+
+      {# ---- Leaf (link) ---- #}
+      {% else %}
+        <li class="bx-menu__item bx-menu__item--leaf"
+            data-bx-menu-item="{{ item.id }}">
+          <a class="bx-menu__link" href="{{ item.href }}">
+            {% if item.icon %}
+              <span class="bx-menu__icon" aria-hidden="true">
+                <i data-lucide="{{ item.icon }}"></i>
+              </span>
+            {% elif level > 0 %}
+              <span class="bx-menu__bullet" aria-hidden="true"></span>
+            {% endif %}
+            <span class="bx-menu__label">{{ item.label }}</span>
+            {% if item.badge %}
+              <span class="bx-menu__badge bx-menu__badge--{{ item.badge.variant | default('primary') }}">{{ item.badge.text }}</span>
+            {% endif %}
+          </a>
+        </li>
+      {% endif %}
+
+    {%- endfor -%}
+  </ul>
+{% endmacro %}

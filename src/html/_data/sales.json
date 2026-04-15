@@ -1,0 +1,36 @@
+{
+  "stats": [
+    { "id": "sa-revenue",   "label": "Revenue MTD",  "icon": "dollar-sign", "value": 148200, "format": "currency", "deltaPct": 6.4,  "trend": "up", "aiContext": "revenue-mtd",   "sparkSeries": [92000,98000,102000,109000,118000,124000,131000,139000,144000,148200], "drift": { "min": 147000, "max": 150000, "stepMax": 120 } },
+    { "id": "sa-deals",     "label": "Open deals",   "icon": "briefcase",   "value": 184,    "unit": "",          "deltaPct": 3.5,  "trend": "up", "aiContext": "deals-open",    "sparkSeries": [160,162,166,168,170,172,176,178,180,184], "drift": { "min": 180, "max": 188, "stepMax": 1 } },
+    { "id": "sa-won",       "label": "Won this month","icon": "check-circle","value": 42,    "unit": "",          "deltaPct": 14.0, "trend": "up", "aiContext": "deals-won",     "sparkSeries": [22,24,26,28,30,33,35,38,40,42], "drift": { "min": 41, "max": 44, "stepMax": 1 } },
+    { "id": "sa-pipeline",  "label": "Pipeline",     "icon": "trending-up", "value": 1240000,"format": "currency","deltaPct": 9.8,  "trend": "up", "aiContext": "pipeline-value","sparkSeries": [820000,860000,900000,950000,990000,1030000,1080000,1130000,1190000,1240000], "drift": { "min": 1230000, "max": 1255000, "stepMax": 600 } }
+  ],
+  "salesTrendChart": {
+    "title": "Closed-won revenue",
+    "subtitle": "Last 12 months · USD",
+    "aiContext": "closed-won-trend",
+    "categories": ["May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr"],
+    "series": [
+      { "name": "Closed-won",  "data": [ 82000, 88000, 92000, 86000, 94000,108000,124000,138000,142000,156000,164000,148200] },
+      { "name": "Forecast",    "data": [ 80000, 85000, 90000, 95000,100000,110000,120000,135000,145000,155000,165000,170000] }
+    ]
+  },
+  "stagePipeline": {
+    "title": "Pipeline by stage",
+    "subtitle": "Sum of open deals · USD",
+    "aiContext": "pipeline-stages",
+    "legend": [
+      { "label": "Lead",      "value": 320000, "variant": "muted"   },
+      { "label": "Qualified", "value": 280000, "variant": "warning" },
+      { "label": "Proposal",  "value": 410000, "variant": "warning" },
+      { "label": "Negotiation","value": 230000,"variant": "success" }
+    ]
+  },
+  "leaderboard": [
+    { "name": "Avery Liu",      "deals": 14, "won": 9,  "revenue": 312000, "trend": "up"   },
+    { "name": "Marcus Reed",    "deals": 11, "won": 6,  "revenue": 248000, "trend": "up"   },
+    { "name": "Priya Shah",     "deals": 10, "won": 5,  "revenue": 196000, "trend": "flat" },
+    { "name": "Theo Kim",       "deals":  8, "won": 4,  "revenue": 154000, "trend": "up"   },
+    { "name": "Sasha Volkov",   "deals":  6, "won": 2,  "revenue":  98000, "trend": "down" }
+  ]
+}

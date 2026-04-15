@@ -1,0 +1,136 @@
+---
+layout: vertical.njk
+title: Forms · Advanced
+pageTitle: Advanced forms
+pageSubtitle: Choices.js · Flatpickr · Inputmask · noUiSlider · Quill · Dropzone · SweetAlert2.
+page_module: forms-advanced
+pageVendorCss:
+  - choices
+  - flatpickr
+  - nouislider
+  - quill.snow
+  - dropzone
+  - sweetalert2
+permalink: /forms/advanced/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Forms" }
+  - { label: "Advanced" }
+---
+
+<div class="row g-3">
+
+  <div class="col-12 col-xl-6">
+    <div class="bx-widget mb-3">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Choices.js — selects</h3></div></div>
+      <div class="bx-widget__body">
+        <label class="form-label">Single-select</label>
+        <select class="form-select mb-3" data-bx-choices>
+          <option value="">Pick a model…</option>
+          <option>claude-sonnet-4.6</option>
+          <option>claude-opus-4.6</option>
+          <option>haiku-4.5</option>
+        </select>
+
+        <label class="form-label">Multi-select with tagging</label>
+        <select class="form-select" data-bx-choices-multi multiple>
+          <option selected>summarizer-v3</option>
+          <option selected>retriever-xl</option>
+          <option>planner-alpha</option>
+          <option>classifier-m</option>
+          <option>rewriter-lg</option>
+          <option>guardrails</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="bx-widget mb-3">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Flatpickr — date / time</h3></div></div>
+      <div class="bx-widget__body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Date</label>
+            <input class="form-control" type="text" data-bx-flatpickr placeholder="Pick a date">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Date + time</label>
+            <input class="form-control" type="text" data-bx-flatpickr-datetime placeholder="Pick a date & time">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Range</label>
+            <input class="form-control" type="text" data-bx-flatpickr-range placeholder="Start → end">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Time only</label>
+            <input class="form-control" type="text" data-bx-flatpickr-time placeholder="HH:MM">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Inputmask</h3></div></div>
+      <div class="bx-widget__body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Phone (US)</label>
+            <input class="form-control" type="text" data-bx-mask="(999) 999-9999" placeholder="(555) 123-4567">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Credit card</label>
+            <input class="form-control" type="text" data-bx-mask="9999 9999 9999 9999" placeholder="4242 4242 4242 4242">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Date (YYYY-MM-DD)</label>
+            <input class="form-control" type="text" data-bx-mask="9999-99-99" placeholder="2026-04-14">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">SSN</label>
+            <input class="form-control" type="text" data-bx-mask="999-99-9999" placeholder="123-45-6789">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-6">
+    <div class="bx-widget mb-3">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">noUiSlider — ranges</h3></div></div>
+      <div class="bx-widget__body">
+        <label class="form-label">Token budget (k)</label>
+        <div data-bx-slider style="margin: 1.25rem 0.5rem;"></div>
+      </div>
+    </div>
+
+    <div class="bx-widget mb-3">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Quill — rich text</h3></div></div>
+      <div class="bx-widget__body">
+        <div data-bx-quill style="min-height:180px;"></div>
+      </div>
+    </div>
+
+    <div class="bx-widget mb-3">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Dropzone — file upload</h3></div></div>
+      <div class="bx-widget__body">
+        <form data-bx-dropzone class="dropzone bx-dropzone" action="#" enctype="multipart/form-data">
+          <div class="dz-message">
+            <i data-lucide="upload-cloud" style="width:28px;height:28px;color:var(--bx-brand-primary-text);"></i>
+            <p class="mb-1 mt-2"><strong>Drop files here</strong> or click to browse</p>
+            <p class="text-secondary small mb-0">PNG, PDF, MP4 — up to 50 MB each</p>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">SweetAlert2 — alert dialogs</h3></div></div>
+      <div class="bx-widget__body d-flex flex-wrap gap-2">
+        <button class="btn btn-primary" data-bx-swal="info">Info</button>
+        <button class="btn btn-success" data-bx-swal="success">Success</button>
+        <button class="btn btn-warning" data-bx-swal="warning">Warning</button>
+        <button class="btn btn-danger" data-bx-swal="confirm">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+</div>

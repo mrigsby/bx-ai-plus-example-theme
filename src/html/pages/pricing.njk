@@ -1,0 +1,71 @@
+---
+layout: vertical.njk
+title: Pricing
+pageTitle: Pricing
+pageSubtitle: Flexible plans for teams shipping AI features.
+permalink: /pages/pricing/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Pages" }
+  - { label: "Pricing" }
+---
+
+<div class="d-flex justify-content-center mb-4">
+  <div class="btn-group" role="group" aria-label="Billing period">
+    <input type="radio" class="btn-check" name="bxprc" id="bxprc-m" autocomplete="off">
+    <label class="btn btn-outline-secondary" for="bxprc-m">Monthly</label>
+    <input type="radio" class="btn-check" name="bxprc" id="bxprc-y" autocomplete="off" checked>
+    <label class="btn btn-outline-secondary" for="bxprc-y">Yearly · save 20%</label>
+  </div>
+</div>
+
+<div class="row g-3 align-items-stretch">
+  {% for plan in [
+    { name: "Starter",    price: 0,   subtitle: "For solo developers exploring BX-AI+",     featured: false, cta: "Get started",  features: ["1 workspace","Up to 3 agents","2k requests/day","Community support","Standard models"] },
+    { name: "Team",       price: 49,  subtitle: "Best for small product teams",            featured: true,  cta: "Start free trial", features: ["Up to 10 workspaces","Unlimited agents","100k requests/day","Email + chat support","All models including Opus","Token budgets + alerts","Voice & chat affordances"] },
+    { name: "Business",   price: 149, subtitle: "For mature engineering orgs",             featured: false, cta: "Contact sales",  features: ["Unlimited workspaces","Unlimited agents","1M requests/day","Priority support","SSO + SCIM","Custom guardrails","Audit logs"] },
+    { name: "Enterprise", price: null,subtitle: "Custom volume + on-prem options",         featured: false, cta: "Talk to us",     features: ["Dedicated infra","99.99% SLA","Private models","Solutions architect","Custom contracts"] }
+  ] %}
+  <div class="col-12 col-md-6 col-xl-3">
+    <div class="bx-widget" style="height:100%;{% if plan.featured %}border-color:var(--bx-brand-primary);box-shadow:0 0 0 4px var(--bx-focus-ring), var(--bx-shadow-sm);{% endif %}">
+      {% if plan.featured %}<span class="bx-stat-card__icon" style="position:absolute;top:-12px;right:1rem;background:var(--bx-ai-gradient);color:var(--bx-text-on-primary);font-size:0.66rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:var(--bx-radius-pill);padding:4px 10px;width:auto;height:auto;">Most popular</span>{% endif %}
+      <h3 class="bx-widget__title" style="margin-bottom:0.25rem;">{{ plan.name }}</h3>
+      <p class="text-secondary small mb-3">{{ plan.subtitle }}</p>
+
+      <div style="margin:0.5rem 0 1rem;">
+        {% if plan.price == null %}
+        <span style="font-size:1.6rem;font-weight:700;color:var(--bx-text-heading);">Custom</span>
+        {% elif plan.price == 0 %}
+        <span style="font-size:2rem;font-weight:700;color:var(--bx-text-heading);">$0</span>
+        <span class="text-secondary">/ forever</span>
+        {% else %}
+        <span style="font-size:2rem;font-weight:700;color:var(--bx-text-heading);">${{ plan.price }}</span>
+        <span class="text-secondary">/ user / month</span>
+        {% endif %}
+      </div>
+
+      <button class="btn btn-{% if plan.featured %}primary{% else %}outline-secondary{% endif %} w-100 mb-3">{{ plan.cta }}</button>
+
+      <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.45rem;">
+        {% for f in plan.features %}
+        <li style="display:flex;align-items:flex-start;gap:0.5rem;font-size:0.84rem;color:var(--bx-text);">
+          <i data-lucide="check" style="width:14px;height:14px;color:var(--bx-brand-primary-text);flex-shrink:0;margin-top:3px;"></i>
+          <span>{{ f }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="bx-widget mt-4">
+  <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Frequently asked</h3></div></div>
+  <div class="bx-widget__body">
+    <div class="accordion" id="bxPriceAcc">
+      <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#fa1">Can I switch plans later?</button></h2><div id="fa1" class="accordion-collapse collapse show" data-bs-parent="#bxPriceAcc"><div class="accordion-body">Yes — change plans at any time and we'll prorate the difference.</div></div></div>
+      <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#fa2">Do you offer non-profit pricing?</button></h2><div id="fa2" class="accordion-collapse collapse" data-bs-parent="#bxPriceAcc"><div class="accordion-body">We do — get in touch for a 50% discount across all paid plans.</div></div></div>
+      <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#fa3">What models are included?</button></h2><div id="fa3" class="accordion-collapse collapse" data-bs-parent="#bxPriceAcc"><div class="accordion-body">All Anthropic Claude models. On Team and above you also get Opus.</div></div></div>
+    </div>
+  </div>
+</div>

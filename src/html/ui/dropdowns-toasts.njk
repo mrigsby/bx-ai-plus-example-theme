@@ -1,0 +1,105 @@
+---
+layout: vertical.njk
+title: Dropdowns & toasts
+pageTitle: Dropdowns & toasts
+pageSubtitle: Bootstrap dropdowns, tooltips, popovers, and toast notifications.
+permalink: /ui/dropdowns-toasts/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "UI" }
+  - { label: "Dropdowns & toasts" }
+---
+
+<div class="row g-3">
+
+  <div class="col-12 col-xl-6">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Dropdowns</h3></div></div>
+      <div class="bx-widget__body d-flex flex-wrap gap-2">
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Default</button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Separated link</a></li>
+          </ul>
+        </div>
+        <div class="dropdown">
+          <button class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">With icons</button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="user" style="width:14px;height:14px;"></i> Profile</a></li>
+            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="settings" style="width:14px;height:14px;"></i> Settings</a></li>
+            <li><a class="dropdown-item d-flex align-items-center gap-2" href="#"><i data-lucide="log-out" style="width:14px;height:14px;"></i> Sign out</a></li>
+          </ul>
+        </div>
+        <div class="dropdown">
+          <button class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">With header</button>
+          <ul class="dropdown-menu">
+            <li><h6 class="dropdown-header">Section</h6></li>
+            <li><a class="dropdown-item" href="#">Item one</a></li>
+            <li><a class="dropdown-item" href="#">Item two</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-6">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Tooltips & popovers</h3></div></div>
+      <div class="bx-widget__body d-flex flex-wrap gap-2">
+        <button class="btn btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Top tooltip">Top</button>
+        <button class="btn btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="right" title="Right tooltip">Right</button>
+        <button class="btn btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Bottom tooltip">Bottom</button>
+        <button class="btn btn-outline-secondary" data-bs-toggle="popover" data-bs-trigger="focus" title="Popover" data-bs-content="Click anywhere to dismiss this popover.">Popover</button>
+      </div>
+      <p class="text-secondary small mb-0 mt-2">Tooltips/popovers auto-init via Bootstrap's data-attribute API on this page.</p>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Toasts</h3></div></div>
+      <div class="bx-widget__body d-flex flex-wrap gap-2">
+        <button class="btn btn-primary" data-bx-toast="primary">Show primary toast</button>
+        <button class="btn btn-success" data-bx-toast="success">Show success toast</button>
+        <button class="btn btn-warning" data-bx-toast="warning">Show warning toast</button>
+        <button class="btn btn-danger" data-bx-toast="danger">Show danger toast</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{# ---- Toast container ---- #}
+<div class="toast-container position-fixed bottom-0 end-0 p-3" id="bx-toast-container" style="z-index: 1090;"></div>
+
+<script>
+// Tooltips & popovers are auto-initialized globally by core/tooltips.js.
+// We only need the click handler for the toast demo — `window.bootstrap` is
+// available by the time the user clicks (app.js loads at the end of <body>).
+(function () {
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-bx-toast]");
+    if (!btn) return;
+    const variant = btn.getAttribute("data-bx-toast");
+    const titles = { primary: "Notice", success: "Saved", warning: "Heads up", danger: "Failed" };
+    const bgs    = { primary: "primary", success: "success", warning: "warning", danger: "danger" };
+    const root = document.getElementById("bx-toast-container");
+    const t = document.createElement("div");
+    t.className = `toast text-bg-${bgs[variant]}`;
+    t.role = "alert";
+    t.innerHTML = `
+      <div class="toast-header text-bg-${bgs[variant]}" style="border:0;">
+        <strong class="me-auto">${titles[variant]}</strong>
+        <small>now</small>
+        <button type="button" class="btn-close ms-2" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">This is a ${variant} toast — ${variant === "danger" ? "something went wrong" : "all good"}.</div>`;
+    root.appendChild(t);
+    new bootstrap.Toast(t, { delay: 4000 }).show();
+    t.addEventListener("hidden.bs.toast", () => t.remove());
+  });
+})();
+</script>

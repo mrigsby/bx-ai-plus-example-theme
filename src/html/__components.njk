@@ -1,0 +1,214 @@
+---
+layout: base.njk
+title: Components · Design System
+permalink: /__components/index.html
+eleventyExcludeFromCollections: true
+---
+{#
+  ----------------------------------------------------------------------------
+  __components.njk — Phase 2 Bootstrap-components dump.
+  Internal dev page — not part of final theme inventory.
+  Every Bootstrap 5 component rendered with default/BX-AI+ token styling.
+  Toggling the theme flips the whole sheet.
+  ----------------------------------------------------------------------------
+#}
+<section class="bx-preview">
+  <header class="bx-preview-header">
+    <h1><span>BX-AI+</span> · Components</h1>
+    <div class="bx-preview-toggle">
+      <a class="bx-theme-toggle" href="/__tokens/">← Tokens</a>
+      <button class="bx-theme-toggle" type="button" data-bx-theme-toggle>Switch theme</button>
+    </div>
+  </header>
+
+  <p class="bx-preview-lede">
+    Bootstrap 5 components rendered against BX-AI+ tokens. Every surface,
+    text, and border is bound to a CSS custom property — flip the theme to
+    watch each component re-balance.
+  </p>
+
+  <div class="bx-components-grid">
+
+    {# ---- Buttons ---- #}
+    <div class="bx-components-block">
+      <div class="bx-components-block__title">Buttons</div>
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-primary">Primary</button>
+        <button class="btn btn-secondary">Secondary</button>
+        <button class="btn btn-success">Success</button>
+        <button class="btn btn-info">Info</button>
+        <button class="btn btn-warning">Warning</button>
+        <button class="btn btn-danger">Danger</button>
+        <button class="btn btn-light">Light</button>
+        <button class="btn btn-dark">Dark</button>
+      </div>
+      <div class="d-flex flex-wrap gap-2">
+        <button class="btn btn-outline-primary">Outline</button>
+        <button class="btn btn-outline-secondary">Outline</button>
+        <button class="btn btn-outline-success">Outline</button>
+        <button class="btn btn-outline-info">Outline</button>
+        <button class="btn btn-outline-danger">Outline</button>
+      </div>
+      <div class="d-flex flex-wrap align-items-center gap-2">
+        <button class="btn btn-primary btn-sm">Small</button>
+        <button class="btn btn-primary">Default</button>
+        <button class="btn btn-primary btn-lg">Large</button>
+        <button class="btn btn-primary" disabled>Disabled</button>
+      </div>
+    </div>
+
+    {# ---- Alerts ---- #}
+    <div class="bx-components-block">
+      <div class="bx-components-block__title">Alerts</div>
+      <div class="alert alert-primary">Primary — metric is trending up.</div>
+      <div class="alert alert-success">Success — deployment complete.</div>
+      <div class="alert alert-warning">Warning — token usage approaching limit.</div>
+      <div class="alert alert-danger">Danger — anomaly detected on /api/agents.</div>
+      <div class="alert alert-info">Info — AI agent generated 3 suggestions.</div>
+    </div>
+
+    {# ---- Badges ---- #}
+    <div class="bx-components-block">
+      <div class="bx-components-block__title">Badges</div>
+      <div class="d-flex flex-wrap gap-2 align-items-center">
+        <span class="badge text-bg-primary">Primary</span>
+        <span class="badge text-bg-secondary">Secondary</span>
+        <span class="badge text-bg-success">Success</span>
+        <span class="badge text-bg-info">Info</span>
+        <span class="badge text-bg-warning">Warning</span>
+        <span class="badge text-bg-danger">Danger</span>
+        <span class="badge text-bg-light">Light</span>
+        <span class="badge text-bg-dark">Dark</span>
+      </div>
+      <div class="d-flex flex-wrap gap-2 align-items-center">
+        <span class="badge rounded-pill text-bg-primary">Pill</span>
+        <span class="badge rounded-pill text-bg-success">Pill</span>
+        <span class="badge rounded-pill text-bg-danger">Pill</span>
+      </div>
+    </div>
+
+    {# ---- Forms ---- #}
+    <div class="bx-components-block">
+      <div class="bx-components-block__title">Forms</div>
+      <label class="form-label">Text input</label>
+      <input type="text" class="form-control" placeholder="Ask BX-AI anything...">
+      <label class="form-label mt-3">Select</label>
+      <select class="form-select">
+        <option>Production</option>
+        <option>Staging</option>
+        <option>Sandbox</option>
+      </select>
+      <label class="form-label mt-3">Textarea</label>
+      <textarea class="form-control" rows="3" placeholder="Notes..."></textarea>
+      <div class="form-check mt-3">
+        <input type="checkbox" class="form-check-input" id="bx-check-1" checked>
+        <label class="form-check-label" for="bx-check-1">Enable realtime updates</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" id="bx-radio-1" name="bx-radio" checked>
+        <label class="form-check-label" for="bx-radio-1">Primary model</label>
+      </div>
+      <div class="form-check form-switch mt-2">
+        <input type="checkbox" class="form-check-input" role="switch" id="bx-switch-1" checked>
+        <label class="form-check-label" for="bx-switch-1">Dark mode</label>
+      </div>
+    </div>
+
+    {# ---- Cards ---- #}
+    <div class="bx-components-block">
+      <div class="bx-components-block__title">Cards</div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text text-secondary mb-3">Simple card with a short body.</p>
+          <a href="#" class="btn btn-primary btn-sm">Action</a>
+        </div>
+      </div>
+    </div>
+
+    {# ---- Progress / spinners ---- #}
+    <div class="bx-components-block">
+      <div class="bx-components-block__title">Progress &amp; spinners</div>
+      <div class="progress" role="progressbar"><div class="progress-bar" style="width:25%">25%</div></div>
+      <div class="progress"><div class="progress-bar bg-success" style="width:55%">55%</div></div>
+      <div class="progress"><div class="progress-bar bg-info" style="width:80%">80%</div></div>
+      <div class="d-flex gap-2 mt-3">
+        <div class="spinner-border text-primary" role="status"></div>
+        <div class="spinner-border text-success" role="status"></div>
+        <div class="spinner-grow text-info" role="status"></div>
+      </div>
+    </div>
+
+    {# ---- List groups ---- #}
+    <div class="bx-components-block">
+      <div class="bx-components-block__title">List group</div>
+      <ul class="list-group">
+        <li class="list-group-item active">Active row</li>
+        <li class="list-group-item">Model latency · 128ms</li>
+        <li class="list-group-item">Cache hit rate · 92%</li>
+        <li class="list-group-item disabled">Disabled row</li>
+      </ul>
+    </div>
+
+    {# ---- Nav / tabs ---- #}
+    <div class="bx-components-block">
+      <div class="bx-components-block__title">Tabs</div>
+      <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link active" href="#">Overview</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Agents</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Logs</a></li>
+        <li class="nav-item"><a class="nav-link disabled" href="#">Disabled</a></li>
+      </ul>
+    </div>
+
+    {# ---- Tables ---- #}
+    <div class="bx-components-block">
+      <div class="bx-components-block__title">Table</div>
+      <table class="table table-sm">
+        <thead><tr><th>Agent</th><th>Status</th><th>Latency</th></tr></thead>
+        <tbody>
+          <tr><td>summarizer-v3</td><td><span class="badge text-bg-success">Healthy</span></td><td>128ms</td></tr>
+          <tr><td>planner-alpha</td><td><span class="badge text-bg-warning">Degraded</span></td><td>612ms</td></tr>
+          <tr><td>retriever-xl</td><td><span class="badge text-bg-danger">Errored</span></td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    {# ---- Accordion ---- #}
+    <div class="bx-components-block">
+      <div class="bx-components-block__title">Accordion</div>
+      <div class="accordion" id="bxAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#bxAc1">Anomaly triage</button>
+          </h2>
+          <div id="bxAc1" class="accordion-collapse collapse show" data-bs-parent="#bxAccordion">
+            <div class="accordion-body">How BX-AI+ surfaces and resolves runtime anomalies.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bxAc2">Token economy</button>
+          </h2>
+          <div id="bxAc2" class="accordion-collapse collapse" data-bs-parent="#bxAccordion">
+            <div class="accordion-body">Budgeting, per-agent allocations, and alerts.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {# ---- Typography ---- #}
+    <div class="bx-components-block">
+      <div class="bx-components-block__title">Typography</div>
+      <h1>H1 · Headline</h1>
+      <h2>H2 · Section</h2>
+      <h3>H3 · Subsection</h3>
+      <h4>H4 · Group</h4>
+      <p>Body paragraph — readable against surface 1 in both themes.</p>
+      <p class="text-secondary">Secondary paragraph — for supporting detail.</p>
+      <code>inline code</code>
+      <pre class="bg-body-tertiary p-2 rounded-2 mt-2">const agent = await bxai.run();</pre>
+    </div>
+
+  </div>
+</section>

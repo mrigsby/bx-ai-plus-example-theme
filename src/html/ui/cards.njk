@@ -1,0 +1,92 @@
+---
+layout: vertical.njk
+title: Cards
+pageTitle: Cards
+pageSubtitle: Stat cards, AI insight cards, content cards, profile cards.
+permalink: /ui/cards/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "UI" }
+  - { label: "Cards" }
+---
+{% from "partials/widgets/widget-menu.njk"     import widgetMenu %}
+{% from "partials/widgets/ai-insight-card.njk" import insightCard %}
+
+<h4 class="text-secondary text-uppercase small mb-3" style="letter-spacing:.08em;">Stat cards</h4>
+<div class="row g-3 mb-4">
+  <div class="col-12 col-md-6 col-xl-3">
+    <div class="bx-stat-card bx-stat-card--trend-up">
+      <div class="bx-stat-card__head"><span class="bx-stat-card__icon"><i data-lucide="users"></i></span><span class="bx-stat-card__label">Users</span></div>
+      <div class="bx-stat-card__value-row"><span class="bx-stat-card__value">12,482</span></div>
+      <div class="bx-stat-card__foot"><span class="bx-stat-card__delta"><i data-lucide="trending-up"></i><span>+8.4%</span><span class="bx-stat-card__delta-period">vs last week</span></span></div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-3">
+    <div class="bx-stat-card bx-stat-card--trend-up">
+      <div class="bx-stat-card__head"><span class="bx-stat-card__icon"><i data-lucide="dollar-sign"></i></span><span class="bx-stat-card__label">Revenue</span></div>
+      <div class="bx-stat-card__value-row"><span class="bx-stat-card__value">$148,200</span></div>
+      <div class="bx-stat-card__foot"><span class="bx-stat-card__delta"><i data-lucide="trending-up"></i><span>+6.4%</span><span class="bx-stat-card__delta-period">MTD</span></span></div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-3">
+    <div class="bx-stat-card bx-stat-card--trend-down-good">
+      <div class="bx-stat-card__head"><span class="bx-stat-card__icon"><i data-lucide="gauge"></i></span><span class="bx-stat-card__label">Latency</span></div>
+      <div class="bx-stat-card__value-row"><span class="bx-stat-card__value">192</span><span class="bx-stat-card__unit">ms</span></div>
+      <div class="bx-stat-card__foot"><span class="bx-stat-card__delta"><i data-lucide="trending-down"></i><span>−5.9%</span><span class="bx-stat-card__delta-period">vs baseline</span></span></div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-3">
+    <div class="bx-stat-card bx-stat-card--trend-down">
+      <div class="bx-stat-card__head"><span class="bx-stat-card__icon"><i data-lucide="alert-circle"></i></span><span class="bx-stat-card__label">Errors</span></div>
+      <div class="bx-stat-card__value-row"><span class="bx-stat-card__value">14</span></div>
+      <div class="bx-stat-card__foot"><span class="bx-stat-card__delta"><i data-lucide="trending-up"></i><span>+22%</span><span class="bx-stat-card__delta-period">vs yesterday</span></span></div>
+    </div>
+  </div>
+</div>
+
+<h4 class="text-secondary text-uppercase small mb-3" style="letter-spacing:.08em;">AI insight cards</h4>
+<div class="row g-3 mb-4">
+  <div class="col-12 col-lg-4">
+    {{ insightCard({ variant: "anomaly", icon: "triangle-alert", eyebrow: "Anomaly", title: "Latency spike on /api/agents", body: "p95 climbed to 1.24s at 14:22 UTC.", primaryCta: { label: "Investigate", prompt: "Investigate the /api/agents latency spike." }, secondaryCta: { label: "Mute" }, aiContext: "ui-anomaly-demo" }) }}
+  </div>
+  <div class="col-12 col-lg-4">
+    {{ insightCard({ variant: "suggestion", icon: "sparkles", eyebrow: "Suggestion", title: "Pricing traffic up 32%", body: "Want a draft announcement for #growth?", primaryCta: { label: "Draft it", prompt: "Draft a #growth announcement." }, secondaryCta: { label: "Not now" }, aiContext: "ui-suggestion-demo" }) }}
+  </div>
+  <div class="col-12 col-lg-4">
+    {{ insightCard({ variant: "query", icon: "message-circle-question", eyebrow: "Last query", title: "Compare planner-alpha vs v2", body: "v2 is 38% faster, 0.4 pp better, 11% costlier.", primaryCta: { label: "Open in chat", prompt: "Compare planner-alpha and v2." }, aiContext: "ui-query-demo" }) }}
+  </div>
+</div>
+
+<h4 class="text-secondary text-uppercase small mb-3" style="letter-spacing:.08em;">Bootstrap cards</h4>
+<div class="row g-3 mb-4">
+  <div class="col-12 col-md-6 col-xl-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Title-only card</h5>
+        <p class="card-text text-secondary">A quick card with title and text. Useful for callouts.</p>
+        <a href="#" class="btn btn-primary btn-sm">Action</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-4">
+    <div class="card">
+      <div class="card-header">Header</div>
+      <div class="card-body">
+        <p class="card-text text-secondary mb-0">Card with a header strip.</p>
+      </div>
+      <div class="card-footer text-secondary small">Footer · 2m ago</div>
+    </div>
+  </div>
+  <div class="col-12 col-md-6 col-xl-4">
+    <div class="card">
+      <div class="card-body d-flex align-items-start gap-3">
+        <span class="bx-avatar bx-avatar--lg"><span class="bx-avatar__initials">MR</span></span>
+        <div>
+          <h5 class="card-title mb-1">M. Rigsby</h5>
+          <p class="card-text text-secondary small mb-2">Admin · Ortus Solutions</p>
+          <button class="btn btn-outline-secondary btn-sm">View profile</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

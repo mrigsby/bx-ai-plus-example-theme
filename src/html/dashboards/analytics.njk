@@ -1,0 +1,105 @@
+---
+layout: vertical.njk
+title: Analytics
+pageTitle: Analytics
+pageSubtitle: Web traffic, engagement, and conversions across your storefront.
+page_module: analytics
+permalink: /dashboards/analytics/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Dashboards" }
+  - { label: "Analytics" }
+---
+{% from "partials/widgets/widget-menu.njk"      import widgetMenu %}
+{% from "partials/widgets/stat-card.njk"        import statCard %}
+{% from "partials/widgets/ai-inline-prompt.njk" import inlinePrompt %}
+
+<div class="row g-3 mb-3">
+  {% for s in analytics.stats %}
+  <div class="col-12 col-sm-6 col-xl-3">{{ statCard(s) }}</div>
+  {% endfor %}
+</div>
+
+<div class="row g-3 mb-3">
+  <div class="col-12 col-xl-8">
+    <div class="bx-widget bx-widget--full-height">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">{{ analytics.trafficChart.title }}</h3>
+          <p class="bx-widget__subtitle">{{ analytics.trafficChart.subtitle }}</p>
+        </div>
+        {{ widgetMenu(analytics.trafficChart.aiContext, "Break down traffic by channel and explain the recent trend.") }}
+      </div>
+      <div class="bx-widget__body">
+        <div data-bx-chart-traffic
+             data-bx-chart-data='{{ analytics.trafficChart | dump }}'
+             style="min-height:320px"></div>
+      </div>
+      <div class="bx-widget__footer">
+        {{ inlinePrompt(analytics.trafficChart.aiContext, "Ask about traffic patterns…") }}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-4">
+    <div class="bx-widget bx-widget--full-height">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">{{ analytics.deviceMix.title }}</h3>
+          <p class="bx-widget__subtitle">{{ analytics.deviceMix.subtitle }}</p>
+        </div>
+        {{ widgetMenu(analytics.deviceMix.aiContext, "Summarize the device mix and recommend any optimizations.") }}
+      </div>
+      <div class="bx-widget__body">
+        <div data-bx-chart-device
+             data-bx-chart-data='{{ analytics.deviceMix | dump }}'
+             style="min-height:220px"></div>
+        <ul class="bx-donut-legend">
+          {% for l in analytics.deviceMix.legend %}
+          <li class="bx-donut-legend__item bx-donut-legend__item--{{ l.variant }}">
+            <span class="bx-donut-legend__item-dot" aria-hidden="true"></span>
+            <span class="bx-donut-legend__item-label">{{ l.label }}</span>
+            <span class="bx-donut-legend__item-value">{{ l.value }}%</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-12">
+    <div class="bx-widget">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">Top pages</h3>
+          <p class="bx-widget__subtitle">Most-visited URLs in the last 7 days</p>
+        </div>
+        {{ widgetMenu("top-pages-7d", "Which top pages have the worst exit rates and why?") }}
+      </div>
+      <div class="bx-widget__body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th class="num">Pageviews</th>
+              <th class="num">Avg time (s)</th>
+              <th class="num">Exit rate (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in analytics.topPages %}
+            <tr>
+              <td><code>{{ p.path }}</code></td>
+              <td class="num">{{ p.views }}</td>
+              <td class="num">{{ p.avg }}</td>
+              <td class="num">{{ p.exit }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

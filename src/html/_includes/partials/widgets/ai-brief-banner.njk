@@ -1,0 +1,47 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/widgets/ai-brief-banner.njk — AI morning brief banner.
+  Gradient AI strip + summarized bullets + quick actions.
+  ----------------------------------------------------------------------------
+#}
+<div class="bx-ai-brief">
+  <span class="bx-ai-brief__stripe" aria-hidden="true"></span>
+
+  <div class="bx-ai-brief__head">
+    <span class="bx-ai-brief__avatar" aria-hidden="true">
+      <i data-lucide="sparkles"></i>
+    </span>
+    <div class="bx-ai-brief__title-wrap">
+      <h3 class="bx-ai-brief__title">{{ dashboard.brief.headline }}</h3>
+      <p class="bx-ai-brief__subhead">{{ dashboard.brief.subhead }}</p>
+    </div>
+    <span class="bx-ai-brief__time">{{ dashboard.brief.time }}</span>
+  </div>
+
+  <ul class="bx-ai-brief__bullets">
+    {% for b in dashboard.brief.bullets %}
+    <li>
+      <span class="bx-ai-brief__marker" aria-hidden="true"></span>
+      <span>{{ b }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="bx-ai-brief__actions">
+    <button type="button" class="btn btn-sm btn-primary bx-ai-ask-btn"
+            data-bx-ai-ask
+            data-ai-context="morning-brief"
+            data-ai-prompt="Expand the morning brief into a detailed report I can send to the leadership channel.">
+      <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+      <span>Expand to full report</span>
+    </button>
+    <button type="button" class="btn btn-sm btn-outline-secondary">
+      <i data-lucide="refresh-cw" aria-hidden="true"></i>
+      Regenerate
+    </button>
+    <button type="button" class="btn btn-sm btn-outline-secondary">
+      <i data-lucide="send" aria-hidden="true"></i>
+      Share
+    </button>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/account-dropdown.njk — Bootstrap dropdown menu for the user avatar.
+  ----------------------------------------------------------------------------
+#}
+{% seamBegin "ACCOUNT_MENU" %}
+<div class="dropdown-menu dropdown-menu-end bx-account-menu"
+     id="bx-account-menu"
+     aria-labelledby="bx-account-trigger">
+
+  <div class="bx-account-menu__header">
+    <span class="bx-avatar bx-avatar--lg">
+      <span class="bx-avatar__initials">{{ user.initials }}</span>
+    </span>
+    <div class="bx-account-menu__identity">
+      <div class="bx-account-menu__name">{{ user.name }}</div>
+      <div class="bx-account-menu__email">{{ user.email }}</div>
+      <span class="bx-account-menu__role">{{ user.role }}</span>
+    </div>
+  </div>
+
+  <div class="bx-account-menu__section">
+    <a class="bx-account-menu__item" href="/pages/profile/">
+      <i data-lucide="user" aria-hidden="true"></i>
+      <span>My profile</span>
+    </a>
+    <a class="bx-account-menu__item" href="/pages/settings/">
+      <i data-lucide="settings" aria-hidden="true"></i>
+      <span>Settings</span>
+    </a>
+    <a class="bx-account-menu__item" href="/ai/history/">
+      <i data-lucide="history" aria-hidden="true"></i>
+      <span>My activity</span>
+    </a>
+  </div>
+
+  <div class="bx-account-menu__section">
+    <a class="bx-account-menu__item" href="/documentation/">
+      <i data-lucide="book-open" aria-hidden="true"></i>
+      <span>Documentation</span>
+    </a>
+    <a class="bx-account-menu__item" href="#">
+      <i data-lucide="life-buoy" aria-hidden="true"></i>
+      <span>Help &amp; support</span>
+    </a>
+  </div>
+
+  <div class="bx-account-menu__section">
+    <a class="bx-account-menu__item" href="/auth/lock-screen/">
+      <i data-lucide="lock" aria-hidden="true"></i>
+      <span>Lock screen</span>
+    </a>
+    <a class="bx-account-menu__item bx-account-menu__item--danger" href="/auth/sign-in/">
+      <i data-lucide="log-out" aria-hidden="true"></i>
+      <span>Sign out</span>
+    </a>
+  </div>
+</div>
+{% seamEnd "ACCOUNT_MENU" %}

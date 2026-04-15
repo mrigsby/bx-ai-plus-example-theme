@@ -1,0 +1,15 @@
+{
+  "default": [
+    { "id": "s-01", "icon": "sparkles",         "label": "Summarize this page",                    "hint": "TL;DR in 3 bullets" },
+    { "id": "s-02", "icon": "search",           "label": "Find runtime anomalies from today",      "hint": "Cross-check with baseline" },
+    { "id": "s-03", "icon": "gauge",            "label": "Show current token spend by agent",      "hint": "Last 7 days" },
+    { "id": "s-04", "icon": "message-square",   "label": "Draft a weekly status update",           "hint": "Insert into #ops" },
+    { "id": "s-05", "icon": "brain",            "label": "Compare planner-alpha vs v2 latency",    "hint": "Side-by-side" },
+    { "id": "s-06", "icon": "file-text",        "label": "Explain the Revenue metric",             "hint": "Definition + formula" }
+  ],
+  "recent": [
+    { "id": "r-01", "icon": "history", "label": "Investigate anomaly on /api/agents",  "time": "2m ago" },
+    { "id": "r-02", "icon": "history", "label": "Summarize yesterday's activity",      "time": "1h ago" },
+    { "id": "r-03", "icon": "history", "label": "Compare planner-alpha vs v2",         "time": "3h ago" }
+  ]
+}

@@ -1,0 +1,57 @@
+---
+layout: horizontal.njk
+title: Analytics · Horizontal
+pageTitle: Analytics
+pageSubtitle: Horizontal layout — same widgets, different chrome.
+page_module: analytics
+permalink: /horizontal/dashboards/analytics/index.html
+breadcrumbs:
+  - { label: "Horizontal", href: "/horizontal/" }
+  - { label: "Dashboards" }
+  - { label: "Analytics" }
+---
+{% from "partials/widgets/widget-menu.njk"      import widgetMenu %}
+{% from "partials/widgets/stat-card.njk"        import statCard %}
+{% from "partials/widgets/ai-inline-prompt.njk" import inlinePrompt %}
+
+<div class="row g-3 mb-3">
+  {% for s in analytics.stats %}
+  <div class="col-12 col-sm-6 col-xl-3">{{ statCard(s) }}</div>
+  {% endfor %}
+</div>
+
+<div class="row g-3 mb-3">
+  <div class="col-12 col-xl-8">
+    <div class="bx-widget bx-widget--full-height">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">{{ analytics.trafficChart.title }}</h3>
+          <p class="bx-widget__subtitle">{{ analytics.trafficChart.subtitle }}</p>
+        </div>
+        {{ widgetMenu(analytics.trafficChart.aiContext, "Break down traffic by channel and explain the recent trend.") }}
+      </div>
+      <div class="bx-widget__body">
+        <div data-bx-chart-traffic
+             data-bx-chart-data='{{ analytics.trafficChart | dump }}'
+             style="min-height:320px"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-4">
+    <div class="bx-widget bx-widget--full-height">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">{{ analytics.deviceMix.title }}</h3>
+          <p class="bx-widget__subtitle">{{ analytics.deviceMix.subtitle }}</p>
+        </div>
+        {{ widgetMenu(analytics.deviceMix.aiContext, "Summarize the device mix and recommend any optimizations.") }}
+      </div>
+      <div class="bx-widget__body">
+        <div data-bx-chart-device
+             data-bx-chart-data='{{ analytics.deviceMix | dump }}'
+             style="min-height:220px"></div>
+      </div>
+    </div>
+  </div>
+</div>

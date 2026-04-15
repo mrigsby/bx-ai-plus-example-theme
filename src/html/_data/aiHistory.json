@@ -1,0 +1,29 @@
+{
+  "groups": [
+    {
+      "label": "Today",
+      "items": [
+        { "id": "h-01", "title": "Investigate /api/agents anomaly",    "snippet": "p95 hit 1.24s — likely correlated with planner-alpha cache flush at 14:20.",  "msgs":  6, "time": "14:24", "starred": true,  "icon": "triangle-alert", "tone": "danger" },
+        { "id": "h-02", "title": "Compare planner-alpha vs v2",         "snippet": "v2 is 38% faster at p95, 0.4 pp better quality, 11% higher cost.",            "msgs":  4, "time": "13:08", "starred": false, "icon": "git-compare-arrows","tone": "primary" },
+        { "id": "h-03", "title": "Draft weekly status for #ops",        "snippet": "All services green except planner-alpha. Token usage tracking 9% under.",     "msgs":  3, "time": "11:20", "starred": false, "icon": "message-square", "tone": "info" }
+      ]
+    },
+    {
+      "label": "Yesterday",
+      "items": [
+        { "id": "h-04", "title": "Pricing page traffic spike",          "snippet": "Pricing up 32% week-over-week — drafted a #growth announcement.",             "msgs":  5, "time": "Yesterday", "starred": true,  "icon": "trending-up",  "tone": "primary" },
+        { "id": "h-05", "title": "Onboard Helix Labs",                  "snippet": "Drafted welcome email + suggested first-week milestones for the CSM.",       "msgs":  8, "time": "Yesterday", "starred": false, "icon": "user-plus",    "tone": "info" },
+        { "id": "h-06", "title": "Token budget — planner-alpha",        "snippet": "On pace to exceed weekly budget by 14%. Suggested 3 mitigations.",          "msgs":  3, "time": "Yesterday", "starred": false, "icon": "gauge",        "tone": "warning" }
+      ]
+    },
+    {
+      "label": "Last 7 days",
+      "items": [
+        { "id": "h-07", "title": "Q1 churn root-cause",                  "snippet": "Top driver: missing onboarding moment 3. 4 supporting cohorts surfaced.",   "msgs":  9, "time": "Apr 11",  "starred": true,  "icon": "users",         "tone": "warning" },
+        { "id": "h-08", "title": "Release notes from 14 PRs",            "snippet": "Generated changelog and grouped by impact area.",                            "msgs":  2, "time": "Apr 10",  "starred": false, "icon": "git-pull-request","tone": "info" },
+        { "id": "h-09", "title": "Customer call summary — Wattage Co.",  "snippet": "Ask: SOC2 timeline. Blocker: SSO. Follow-up: scheduled for Friday.",         "msgs":  4, "time": "Apr 09",  "starred": false, "icon": "phone",         "tone": "primary" },
+        { "id": "h-10", "title": "Outbound opener variants",             "snippet": "Six A/B variants for the BoxLang launch outreach sequence.",                "msgs":  7, "time": "Apr 08",  "starred": false, "icon": "send",          "tone": "info" }
+      ]
+    }
+  ]
+}

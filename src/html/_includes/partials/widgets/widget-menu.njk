@@ -1,0 +1,34 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/widgets/widget-menu.njk — macro: widgetMenu(context, prompt)
+  ----------------------------------------------------------------------------
+#}
+{% macro widgetMenu(context, prompt) %}
+<div class="dropdown bx-widget-menu">
+  <button class="bx-btn-icon bx-widget-menu__trigger"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          aria-label="Widget actions">
+    <i data-lucide="more-horizontal"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li>
+      <button class="dropdown-item bx-ai-ask-btn"
+              type="button"
+              data-bx-ai-ask
+              data-ai-context="{{ context }}"
+              data-ai-prompt="{{ prompt }}">
+        <i data-lucide="sparkles"></i>
+        <span>Ask AI about this</span>
+      </button>
+    </li>
+    <li><hr class="dropdown-divider"></li>
+    <li><button class="dropdown-item" type="button"><i data-lucide="refresh-cw"></i><span>Refresh</span></button></li>
+    <li><button class="dropdown-item" type="button"><i data-lucide="download"></i><span>Export</span></button></li>
+    <li><button class="dropdown-item" type="button"><i data-lucide="maximize-2"></i><span>Expand</span></button></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><button class="dropdown-item bx-text-danger" type="button"><i data-lucide="eye-off"></i><span>Hide</span></button></li>
+  </ul>
+</div>
+{% endmacro %}

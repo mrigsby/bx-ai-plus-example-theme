@@ -1,0 +1,57 @@
+---
+layout: vertical.njk
+title: Icons
+pageTitle: Icons
+pageSubtitle: Lucide is the primary icon library — render any icon with <code>&lt;i data-lucide="name"&gt;&lt;/i&gt;</code>.
+permalink: /ui/icons/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "UI" }
+  - { label: "Icons" }
+---
+
+<div class="bx-widget mb-3">
+  <div class="bx-widget__head">
+    <div class="bx-widget__title-wrap">
+      <h3 class="bx-widget__title">Common Lucide icons used in BX-AI+</h3>
+      <p class="bx-widget__subtitle">Tap any tile to copy the icon name (the <code>data-lucide</code> value).</p>
+    </div>
+  </div>
+  <div class="bx-widget__body">
+    <div class="d-grid gap-2" style="grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));">
+      {% for name in [
+        "sparkles","mic","bell","layout-dashboard","activity","gauge","brain",
+        "search","settings","sliders-horizontal","user","users","user-plus","log-out",
+        "lock","shield-check","triangle-alert","alert-circle","check","check-circle",
+        "trending-up","trending-down","chart-column","file-text","file-bar-chart",
+        "calendar","calendar-plus","clock","timer","history","star","heart",
+        "plus","x","arrow-up","arrow-down","arrow-right","arrow-left","arrow-up-right",
+        "send","reply","forward","paperclip","download","upload","share-2","copy","trash-2",
+        "menu","more-horizontal","ellipsis-vertical","filter","refresh-cw","play","square",
+        "boxes","blocks","clipboard-list","table","kanban","folder","file","image","video",
+        "archive","hard-drive","database","server-crash","hammer","life-buoy","book-open",
+        "message-circle","message-circle-question","message-square","mail","inbox","bot",
+        "git-fork","git-commit","git-pull-request","git-compare-arrows","tag","pen-tool","rocket",
+        "panel-right","panel-left","panel-top","grid","list","sun","moon","chrome","github","zap"
+      ] %}
+      <div class="d-flex flex-column align-items-center justify-content-center text-center"
+           style="padding:0.75rem 0.5rem;background:var(--bx-surface-2);border:1px solid var(--bx-border);border-radius:var(--bx-radius-sm);cursor:pointer;"
+           onclick="navigator.clipboard?.writeText('{{ name }}');this.style.borderColor='var(--bx-brand-primary)';setTimeout(()=>this.style.borderColor='',900);"
+           title="Copy icon name">
+        <i data-lucide="{{ name }}" style="width:22px;height:22px;color:var(--bx-text-heading);"></i>
+        <span class="text-secondary mt-1" style="font-family:var(--bs-font-monospace);font-size:0.66rem;">{{ name }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="bx-widget">
+  <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Usage</h3></div></div>
+  <div class="bx-widget__body">
+    <p class="mb-2">Drop a Lucide tag anywhere in your markup. The auto-init in <code>core/icons.js</code> will replace it with an inline SVG on page load.</p>
+<pre style="background:var(--bx-surface-2);border:1px solid var(--bx-border);border-radius:var(--bx-radius-sm);padding:0.85rem;font-size:0.8rem;"><code>&lt;i data-lucide="sparkles"&gt;&lt;/i&gt;
+&lt;i data-lucide="mic" style="width:16px;height:16px;"&gt;&lt;/i&gt;</code></pre>
+    <p class="text-secondary small mb-0">Browse the full set: <a href="https://lucide.dev/icons/" target="_blank" rel="noopener">lucide.dev/icons</a></p>
+  </div>
+</div>

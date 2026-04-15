@@ -1,0 +1,112 @@
+---
+layout: vertical.njk
+title: Forms · Basic
+pageTitle: Basic forms
+pageSubtitle: Bootstrap form controls with BX-AI+ tokens applied.
+permalink: /forms/basic/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Forms" }
+  - { label: "Basic" }
+---
+
+<div class="row g-3">
+
+  <div class="col-12 col-xl-6">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Inputs</h3></div></div>
+      <div class="bx-widget__body">
+        <div class="mb-3">
+          <label class="form-label" for="bxf-text">Text</label>
+          <input type="text" class="form-control" id="bxf-text" placeholder="Type something…">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="bxf-email">Email</label>
+          <input type="email" class="form-control" id="bxf-email" placeholder="you@company.com">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="bxf-pass">Password</label>
+          <input type="password" class="form-control" id="bxf-pass" placeholder="••••••••">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="bxf-num">Number</label>
+          <input type="number" class="form-control" id="bxf-num" value="42">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="bxf-textarea">Textarea</label>
+          <textarea class="form-control" id="bxf-textarea" rows="3" placeholder="Notes…"></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="bxf-file">File</label>
+          <input type="file" class="form-control" id="bxf-file">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-6">
+    <div class="bx-widget mb-3">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Selects &amp; checks</h3></div></div>
+      <div class="bx-widget__body">
+        <div class="mb-3">
+          <label class="form-label" for="bxf-select">Select</label>
+          <select class="form-select" id="bxf-select">
+            <option>Production</option><option>Staging</option><option>Sandbox</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="bxf-multi">Multi-select</label>
+          <select class="form-select" id="bxf-multi" multiple size="4">
+            <option selected>summarizer-v3</option>
+            <option>planner-alpha</option>
+            <option selected>retriever-xl</option>
+            <option>classifier-m</option>
+          </select>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="bxf-c1" checked>
+          <label class="form-check-label" for="bxf-c1">Enable realtime updates</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="bxf-c2">
+          <label class="form-check-label" for="bxf-c2">Email me a daily summary</label>
+        </div>
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="bxf-c3" disabled>
+          <label class="form-check-label" for="bxf-c3">Disabled option</label>
+        </div>
+
+        <div class="form-check"><input class="form-check-input" type="radio" name="bxf-r" id="bxf-r1" checked><label class="form-check-label" for="bxf-r1">Daily</label></div>
+        <div class="form-check"><input class="form-check-input" type="radio" name="bxf-r" id="bxf-r2"><label class="form-check-label" for="bxf-r2">Weekly</label></div>
+        <div class="form-check mb-3"><input class="form-check-input" type="radio" name="bxf-r" id="bxf-r3"><label class="form-check-label" for="bxf-r3">Monthly</label></div>
+
+        <div class="form-check form-switch"><input class="form-check-input" type="checkbox" role="switch" id="bxf-s1" checked><label class="form-check-label" for="bxf-s1">Auto-resolve anomalies</label></div>
+        <div class="form-check form-switch"><input class="form-check-input" type="checkbox" role="switch" id="bxf-s2"><label class="form-check-label" for="bxf-s2">Notify on cost overrun</label></div>
+      </div>
+    </div>
+
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Input groups &amp; ranges</h3></div></div>
+      <div class="bx-widget__body">
+        <div class="input-group mb-3">
+          <span class="input-group-text">@</span>
+          <input type="text" class="form-control" placeholder="Username">
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Search">
+          <button class="btn btn-primary" type="button">Go</button>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i data-lucide="search" style="width:14px;height:14px;"></i></span>
+          <input type="text" class="form-control" placeholder="With icon">
+          <span class="input-group-text">⌘K</span>
+        </div>
+
+        <label class="form-label" for="bxf-range">Range</label>
+        <input type="range" class="form-range" id="bxf-range" min="0" max="100" value="60">
+      </div>
+    </div>
+  </div>
+
+</div>

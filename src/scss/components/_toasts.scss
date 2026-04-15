@@ -1,0 +1,10 @@
+// ---------------------------------------------------------------------------
+// components/_toasts.scss
+// Toast headers use bright `text-bg-*` colors in BOTH themes, so the
+// close-X should remain dark regardless of theme. Bootstrap 5.3
+// auto-inverts .btn-close in dark mode — undo that inside .toast.
+// ---------------------------------------------------------------------------
+
+.toast .btn-close {
+  filter: none;
+}

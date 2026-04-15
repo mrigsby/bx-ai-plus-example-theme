@@ -1,0 +1,63 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/voice-toast.njk — floating voice-capture toast (bottom-right).
+  State machine: idle (hidden) → listening → processing → result → error.
+  Trigger: `[data-bx-voice-trigger]` anywhere on the page.
+  ----------------------------------------------------------------------------
+#}
+{% seamBegin "VOICE_TOAST" %}
+<div class="bx-voice-toast"
+     id="bx-voice-toast"
+     data-bx-voice-state="idle"
+     role="dialog"
+     aria-live="polite"
+     aria-hidden="true"
+     aria-labelledby="bx-voice-toast-title">
+
+  <div class="bx-voice-toast__border"></div>
+
+  <div class="bx-voice-toast__inner">
+
+    <div class="bx-voice-toast__head">
+      <div class="bx-voice-toast__icon-wrap">
+        <span class="bx-voice-toast__ring" aria-hidden="true"></span>
+        <span class="bx-voice-toast__icon" aria-hidden="true">
+          <i data-lucide="mic"></i>
+        </span>
+      </div>
+      <div class="bx-voice-toast__text">
+        <div class="bx-voice-toast__title" id="bx-voice-toast-title" data-bx-voice-title>Listening…</div>
+        <div class="bx-voice-toast__subtitle" data-bx-voice-subtitle>Speak now — press stop when done.</div>
+      </div>
+      <button type="button" class="bx-btn-icon bx-voice-toast__dismiss" data-bx-voice-dismiss aria-label="Cancel">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+
+    {# Listening: animated waveform bars (driven by seeded RNG in JS) #}
+    <div class="bx-voice-toast__viz" data-bx-voice-viz>
+      <div class="bx-waveform" data-bx-waveform>
+        {# 28 bars, positions set by JS via --amp #}
+        {% for i in range(0, 28) %}<span class="bx-waveform__bar" style="--bx-bar-idx: {{ i }};"></span>{% endfor %}
+      </div>
+
+      <div class="bx-voice-toast__processing" data-bx-voice-processing hidden>
+        <span class="bx-voice-toast__dot"></span>
+        <span class="bx-voice-toast__dot"></span>
+        <span class="bx-voice-toast__dot"></span>
+      </div>
+
+      <div class="bx-voice-toast__transcript" data-bx-voice-transcript hidden></div>
+    </div>
+
+    <div class="bx-voice-toast__actions">
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-bx-voice-cancel>Cancel</button>
+      <button type="button" class="btn btn-sm btn-primary" data-bx-voice-action="stop">
+        <i data-lucide="square" aria-hidden="true" style="width:14px;height:14px;"></i>
+        <span data-bx-voice-action-label>Stop</span>
+      </button>
+    </div>
+  </div>
+
+</div>
+{% seamEnd "VOICE_TOAST" %}

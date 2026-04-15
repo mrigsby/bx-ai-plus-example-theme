@@ -1,0 +1,25 @@
+{
+  "events": [
+    { "id": "e-01", "title": "Standup",                "start": "T+0 09:30", "end": "T+0 10:00", "category": "team",     "tone": "primary" },
+    { "id": "e-02", "title": "Anomaly review",         "start": "T+0 11:00", "end": "T+0 12:00", "category": "ops",      "tone": "danger"  },
+    { "id": "e-03", "title": "Design crit · Customizer","start": "T+0 14:00","end": "T+0 15:30", "category": "design",   "tone": "info"    },
+    { "id": "e-04", "title": "Customer call · Helix",  "start": "T+1 10:00", "end": "T+1 11:00", "category": "customer", "tone": "warning" },
+    { "id": "e-05", "title": "1:1 with Avery",         "start": "T+1 15:00", "end": "T+1 15:30", "category": "team",     "tone": "primary" },
+    { "id": "e-06", "title": "AI ops sync",            "start": "T+2 11:00", "end": "T+2 12:00", "category": "ops",      "tone": "danger"  },
+    { "id": "e-07", "title": "Pricing experiment recap","start": "T+2 14:00","end": "T+2 15:00", "category": "growth",   "tone": "primary" },
+    { "id": "e-08", "title": "Lunch · Marcus",         "start": "T+3 12:00", "end": "T+3 13:00", "category": "team",     "tone": "muted"   },
+    { "id": "e-09", "title": "Token budget review",    "start": "T+3 16:00", "end": "T+3 16:45", "category": "ops",      "tone": "warning" },
+    { "id": "e-10", "title": "Quarterly planning",     "start": "T+4 09:00", "end": "T+4 17:00","allDay": true,"category": "leadership","tone": "info" },
+    { "id": "e-11", "title": "Demo · scribe-bx",       "start": "T+5 11:00", "end": "T+5 11:30", "category": "design",   "tone": "info"    },
+    { "id": "e-12", "title": "Release Q1",             "start": "T+6 00:00", "end": "T+6 23:59","allDay": true, "category":"ops","tone": "primary" }
+  ],
+  "categories": [
+    { "id": "team",       "label": "Team",       "color": "#0DD3A8" },
+    { "id": "ops",        "label": "Ops",        "color": "#EF476F" },
+    { "id": "design",     "label": "Design",     "color": "#6173A0" },
+    { "id": "customer",   "label": "Customer",   "color": "#F6B93B" },
+    { "id": "growth",     "label": "Growth",     "color": "#0DD3A8" },
+    { "id": "leadership", "label": "Leadership", "color": "#4B4265" },
+    { "id": "muted",      "label": "Personal",   "color": "#8A9AA0" }
+  ]
+}

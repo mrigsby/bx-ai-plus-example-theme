@@ -1,0 +1,111 @@
+---
+layout: vertical.njk
+title: AI Chat
+pageTitle: AI Chat
+pageSubtitle: Full conversation workspace — recent threads in the sidebar.
+page_module: ai-chat
+permalink: /ai/chat/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "AI" }
+  - { label: "Chat" }
+---
+
+<div class="bx-ai-page" id="bx-ai-chat-page">
+
+  {# ---- Sidebar: search + grouped conversation history ---- #}
+  <aside class="bx-ai-page__sidebar">
+    <div class="bx-ai-page__sidebar-head">
+      <button class="btn btn-primary" type="button" data-bx-ai-chat-new>
+        <i data-lucide="plus" aria-hidden="true"></i>
+        New conversation
+      </button>
+      <div class="bx-ai-page__search">
+        <i data-lucide="search" aria-hidden="true"></i>
+        <input type="search" placeholder="Search conversations…" aria-label="Search conversations">
+      </div>
+    </div>
+    <div class="bx-ai-page__sidebar-body" data-simplebar>
+      {% for group in aiHistory.groups %}
+      <div class="bx-ai-page__group-label">{{ group.label }}</div>
+      {% for h in group.items %}
+      <button class="bx-ai-page__convo {% if loop.first and loop.parent.first %}is-active{% endif %}"
+              type="button"
+              data-bx-ai-convo="{{ h.id }}"
+              data-bx-ai-title="{{ h.title }}"
+              data-bx-ai-prompt="Recap this conversation: {{ h.title }}">
+        <span class="bx-ai-page__convo-icon"><i data-lucide="{{ h.icon }}"></i></span>
+        <span class="bx-ai-page__convo-body">
+          <span class="bx-ai-page__convo-title">{{ h.title }}</span>
+          <span class="bx-ai-page__convo-snip">{{ h.snippet }}</span>
+        </span>
+        <span class="bx-ai-page__convo-time">{{ h.time }}</span>
+      </button>
+      {% endfor %}
+      {% endfor %}
+    </div>
+  </aside>
+
+  {# ---- Main thread ---- #}
+  <section class="bx-ai-page__main">
+    <header class="bx-ai-page__main-head">
+      <span class="bx-chat-panel__avatar" aria-hidden="true"><i data-lucide="sparkles"></i></span>
+      <div>
+        <h2 class="bx-ai-page__main-title" data-bx-ai-thread-title>Investigate /api/agents anomaly</h2>
+        <p class="bx-ai-page__main-sub">
+          <span class="bx-chat-panel__status-dot" aria-hidden="true" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--bx-success);margin-right:4px;"></span>
+          BX-AI · mock agent · routed via planner-alpha
+        </p>
+      </div>
+      <div class="bx-ai-page__main-actions">
+        <button class="bx-btn-icon" type="button" aria-label="Star"><i data-lucide="star"></i></button>
+        <button class="bx-btn-icon" type="button" aria-label="Share"><i data-lucide="share-2"></i></button>
+        <button class="bx-btn-icon" type="button" aria-label="More"><i data-lucide="more-horizontal"></i></button>
+      </div>
+    </header>
+
+    <div class="bx-ai-page__messages" data-bx-ai-thread>
+      <div class="bx-chat-msg bx-chat-msg--user">
+        <div class="bx-chat-msg__bubble"><p>Investigate the anomaly on /api/agents at 14:22 UTC and suggest remediations.</p></div>
+      </div>
+      <div class="bx-chat-msg bx-chat-msg--ai">
+        <div class="bx-chat-msg__bubble">
+          <p>I'm looking at the /api/agents latency spike from 14:22 UTC. The p95 went from 380ms to 1,240ms — a 226% jump.</p>
+          <p>Most likely cause: the planner-alpha cache flush at 14:20 left the in-memory routing table cold for ~120s. Two corroborating signals:</p>
+          <p>• Cache hit rate dipped to 79% (baseline 92%) during the window<br>• Errors held at baseline — pure latency event, not failures</p>
+        </div>
+      </div>
+      <div class="bx-chat-msg bx-chat-msg--user">
+        <div class="bx-chat-msg__bubble"><p>What should we change to prevent this?</p></div>
+      </div>
+      <div class="bx-chat-msg bx-chat-msg--ai">
+        <div class="bx-chat-msg__bubble">
+          <p>Three options, ranked by ease vs. impact:</p>
+          <p>1. <strong>Warm-up on flush.</strong> Pre-populate the routing table with the top-100 routes after each cache flush. Estimated impact: −80% of the spike duration. Low risk.</p>
+          <p>2. <strong>Stagger flushes.</strong> Don't flush all shards simultaneously. Easy to implement, partial mitigation.</p>
+          <p>3. <strong>Bump cache TTL.</strong> Reduces flush frequency overall, but risks staler routing decisions.</p>
+          <p>Want me to draft a PR for option 1?</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx-ai-page__composer">
+      <form class="bx-ai-page__composer-form" data-bx-ai-chat-form autocomplete="off">
+        <textarea class="bx-ai-page__composer-input"
+                  rows="1"
+                  data-bx-ai-chat-input
+                  placeholder="Message BX-AI… (Enter to send, Shift+Enter for newline)"></textarea>
+        <div class="bx-ai-page__composer-actions">
+          <button type="button" class="bx-btn-icon" aria-label="Attach"><i data-lucide="paperclip"></i></button>
+          <button type="button" class="bx-btn-icon" aria-label="Voice" data-bx-voice-trigger><i data-lucide="mic"></i></button>
+          <span style="flex:1"></span>
+          <button type="submit" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:.35rem;">
+            <span>Send</span>
+            <i data-lucide="arrow-up" style="width:14px;height:14px;"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</div>

@@ -1,0 +1,35 @@
+{
+  "columns": [
+    {
+      "id": "k-backlog", "label": "Backlog", "tone": "muted",
+      "cards": [
+        { "id": "c-01", "title": "Plan Q2 model upgrades",        "tags": ["planning","ai"],     "due": "Apr 22", "owner": "Avery Liu",   "ownerInitials": "AL", "priority": "low" },
+        { "id": "c-02", "title": "Investigate scribe-bx errors",  "tags": ["ops","bug"],          "due": "Apr 18", "owner": "Marcus Reed", "ownerInitials": "MR", "priority": "high" },
+        { "id": "c-03", "title": "Onboarding email v2 copy",      "tags": ["growth","writing"],   "due": "Apr 24", "owner": "Sasha Volkov","ownerInitials": "SV", "priority": "medium" }
+      ]
+    },
+    {
+      "id": "k-doing", "label": "In progress", "tone": "warning",
+      "cards": [
+        { "id": "c-04", "title": "Customizer · sidenav swatches",  "tags": ["design","ui"],         "due": "Apr 16", "owner": "Theo Kim",    "ownerInitials": "TK", "priority": "medium" },
+        { "id": "c-05", "title": "planner-alpha v2 rollout plan",  "tags": ["ai","ops"],            "due": "Apr 17", "owner": "Marcus Reed", "ownerInitials": "MR", "priority": "high" },
+        { "id": "c-06", "title": "Token budget alerts → Slack",    "tags": ["ops","integration"],   "due": "Apr 19", "owner": "Priya Shah",  "ownerInitials": "PS", "priority": "medium" }
+      ]
+    },
+    {
+      "id": "k-review", "label": "Review", "tone": "info",
+      "cards": [
+        { "id": "c-07", "title": "Pricing CTA A/B test setup",     "tags": ["growth","exp"],        "due": "Apr 15", "owner": "Avery Liu",   "ownerInitials": "AL", "priority": "medium" },
+        { "id": "c-08", "title": "DataTables vs GridJS spike",     "tags": ["frontend"],            "due": "Apr 14", "owner": "Theo Kim",    "ownerInitials": "TK", "priority": "low" }
+      ]
+    },
+    {
+      "id": "k-done", "label": "Done", "tone": "success",
+      "cards": [
+        { "id": "c-09", "title": "Promote retriever-xl v1.2",      "tags": ["ai","release"],        "due": "Apr 13", "owner": "Marcus Reed", "ownerInitials": "MR", "priority": "high" },
+        { "id": "c-10", "title": "Helix Labs onboarding kickoff",  "tags": ["customer"],            "due": "Apr 12", "owner": "Sasha Volkov","ownerInitials": "SV", "priority": "medium" },
+        { "id": "c-11", "title": "Cache layer rollout",            "tags": ["infra"],               "due": "Apr 10", "owner": "Priya Shah",  "ownerInitials": "PS", "priority": "high" }
+      ]
+    }
+  ]
+}

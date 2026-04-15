@@ -1,0 +1,44 @@
+---
+layout: base.njk
+layoutVariant: vertical
+---
+{#
+  ----------------------------------------------------------------------------
+  layouts/vertical.njk — standard vertical-sidebar chrome.
+  Wraps page content with: topbar, sidenav, content wrapper, footer,
+  customizer drawer. Outer `base.njk` supplies <html>/<head>/<body>.
+  ----------------------------------------------------------------------------
+#}
+{% seamBegin "APP_WRAPPER" %}
+<div class="bx-wrapper" id="bx-wrapper">
+
+  {% include "partials/topbar.njk" %}
+
+  {% include "partials/sidenav.njk" %}
+
+  {% seamBegin "PAGE_WRAPPER" %}
+  <main class="bx-page" id="bx-page">
+    {% include "partials/page-title.njk" %}
+
+    <div class="bx-content">
+      {% seamBegin "PAGE_CONTENT" %}
+      {{ content | safe }}
+      {% seamEnd "PAGE_CONTENT" %}
+    </div>
+
+    {% include "partials/footer.njk" %}
+  </main>
+  {% seamEnd "PAGE_WRAPPER" %}
+
+</div>
+{% seamEnd "APP_WRAPPER" %}
+
+{# Overlays — outside .bx-wrapper so they can cover the whole viewport. #}
+{% include "partials/customizer.njk" %}
+{% include "partials/offcanvas-left.njk" %}
+{% include "partials/chat-panel.njk" %}
+{% include "partials/chat-command.njk" %}
+{% include "partials/voice-toast.njk" %}
+
+{# Sidenav mobile backdrop — shown only in offcanvas mode. #}
+<div class="bx-sidenav-backdrop" data-bx-sidenav-backdrop></div>

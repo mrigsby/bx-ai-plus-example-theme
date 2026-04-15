@@ -1,0 +1,77 @@
+---
+layout: vertical.njk
+title: Avatars & progress
+pageTitle: Avatars & progress
+pageSubtitle: Avatar sizes, presence indicators, progress bars, spinners.
+permalink: /ui/avatars-progress/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "UI" }
+  - { label: "Avatars & progress" }
+---
+
+<div class="row g-3">
+
+  <div class="col-12 col-xl-6">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Avatars</h3></div></div>
+      <div class="bx-widget__body d-flex flex-wrap gap-3 align-items-center">
+        <span class="bx-avatar bx-avatar--sm"><span class="bx-avatar__initials">SM</span></span>
+        <span class="bx-avatar"><span class="bx-avatar__initials">MD</span></span>
+        <span class="bx-avatar bx-avatar--lg"><span class="bx-avatar__initials">LG</span></span>
+        <span class="bx-avatar bx-avatar--lg" style="background:linear-gradient(135deg,#EF476F,#F6B93B);"><span class="bx-avatar__initials">RW</span></span>
+        <span class="bx-avatar bx-avatar--lg" style="background:linear-gradient(135deg,#6173A0,#4B4265);"><span class="bx-avatar__initials">TK</span></span>
+      </div>
+    </div>
+
+    <div class="bx-widget mt-3">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Stack</h3></div></div>
+      <div class="bx-widget__body">
+        <div class="bx-project-card__avatars">
+          <span class="bx-avatar"><span class="bx-avatar__initials">AL</span></span>
+          <span class="bx-avatar"><span class="bx-avatar__initials">MR</span></span>
+          <span class="bx-avatar"><span class="bx-avatar__initials">PS</span></span>
+          <span class="bx-project-card__avatars-more">+4</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bx-widget mt-3">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Presence</h3></div></div>
+      <div class="bx-widget__body d-flex flex-wrap gap-3 align-items-center small">
+        <span class="d-inline-flex align-items-center gap-2"><span class="bx-presence bx-presence--online"></span> Online</span>
+        <span class="d-inline-flex align-items-center gap-2"><span class="bx-presence bx-presence--away"></span> Away</span>
+        <span class="d-inline-flex align-items-center gap-2"><span class="bx-presence bx-presence--offline"></span> Offline</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-6">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Progress</h3></div></div>
+      <div class="bx-widget__body d-flex flex-column gap-2">
+        <div class="progress" role="progressbar"><div class="progress-bar" style="width:25%">25%</div></div>
+        <div class="progress"><div class="progress-bar bg-success" style="width:55%">55%</div></div>
+        <div class="progress"><div class="progress-bar bg-warning" style="width:72%">72%</div></div>
+        <div class="progress"><div class="progress-bar bg-danger" style="width:88%">88%</div></div>
+        <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:60%">Animated</div></div>
+        <div class="progress" style="height:6px;"><div class="progress-bar" style="width:80%"></div></div>
+        <div class="progress" style="height:4px;"><div class="progress-bar bg-info" style="width:42%"></div></div>
+      </div>
+    </div>
+
+    <div class="bx-widget mt-3">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Spinners</h3></div></div>
+      <div class="bx-widget__body d-flex flex-wrap gap-3 align-items-center">
+        <div class="spinner-border text-primary" role="status"></div>
+        <div class="spinner-border text-success" role="status"></div>
+        <div class="spinner-border text-warning" role="status"></div>
+        <div class="spinner-border text-danger" role="status"></div>
+        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+        <div class="spinner-grow text-primary" role="status"></div>
+        <div class="spinner-grow text-info" role="status"></div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,49 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/widgets/stat-card.njk — macro: statCard(s)
+  s = entry from dashboard.stats
+  ----------------------------------------------------------------------------
+#}
+{% from "partials/widgets/widget-menu.njk" import widgetMenu %}
+
+{% macro statCard(s) %}
+{% set trendClass = "bx-stat-card--trend-" + s.trend %}
+{% set trendIcon = "trending-up" %}
+{% if s.trend == "down-good" or s.trend == "down" %}{% set trendIcon = "trending-down" %}{% endif %}
+
+<div class="bx-stat-card {{ trendClass }}"
+     data-bx-stat-id="{{ s.id }}"
+     data-bx-stat-format="{{ s.format | default('number') }}"
+     data-bx-stat-drift-min="{{ s.drift.min }}"
+     data-bx-stat-drift-max="{{ s.drift.max }}"
+     data-bx-stat-drift-step="{{ s.drift.stepMax }}"
+     data-ai-context="{{ s.aiContext }}">
+
+  {{ widgetMenu(s.aiContext, "Explain the " + s.label + " metric, its formula, and what's changed recently.") }}
+
+  <div class="bx-stat-card__head">
+    <span class="bx-stat-card__icon" aria-hidden="true">
+      <i data-lucide="{{ s.icon }}"></i>
+    </span>
+    <span class="bx-stat-card__label">{{ s.label }}</span>
+  </div>
+
+  <div class="bx-stat-card__value-row">
+    <span class="bx-stat-card__value" data-bx-stat-value>{{ s.value }}</span>
+    {% if s.unit %}<span class="bx-stat-card__unit">{{ s.unit }}</span>{% endif %}
+  </div>
+
+  <div class="bx-stat-card__foot">
+    <span class="bx-stat-card__delta">
+      <i data-lucide="{{ trendIcon }}" aria-hidden="true"></i>
+      <span>{% if s.deltaPct > 0 %}+{% endif %}{{ s.deltaPct }}%</span>
+      <span class="bx-stat-card__delta-period">vs last period</span>
+    </span>
+    <span class="bx-stat-card__spark"
+          data-bx-sparkline
+          data-bx-sparkline-series="{{ s.sparkSeries | dump }}"></span>
+  </div>
+
+  <div class="bx-stat-card__pulse" aria-hidden="true" data-bx-stat-pulse></div>
+</div>
+{% endmacro %}

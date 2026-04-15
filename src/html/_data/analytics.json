@@ -1,0 +1,37 @@
+{
+  "stats": [
+    { "id": "an-sessions", "label": "Sessions",     "icon": "users",        "value": 24812, "unit": "",  "deltaPct": 8.4,  "trend": "up",        "aiContext": "sessions",  "sparkSeries": [12000,13500,14800,15200,16400,17900,18800,19500,20800,22100,23400,24812], "drift": { "min": 24000, "max": 25500, "stepMax": 80 } },
+    { "id": "an-pages",    "label": "Pageviews",    "icon": "file-bar-chart","value": 78540, "unit": "",  "deltaPct": 12.1, "trend": "up",        "aiContext": "pageviews", "sparkSeries": [40000,42000,46000,49000,55000,58000,62000,66000,70000,73000,75000,78540], "drift": { "min": 78000, "max": 79200, "stepMax": 100 } },
+    { "id": "an-bounce",   "label": "Bounce rate",  "icon": "logout",       "value": 38,    "unit": "%", "deltaPct": -2.3, "trend": "down-good", "aiContext": "bounce",    "sparkSeries": [44,43,42,41,40,40,39,39,38,38,38,38], "drift": { "min": 36, "max": 40, "stepMax": 0.4 } },
+    { "id": "an-conv",     "label": "Conversions",  "icon": "target",       "value": 612,   "unit": "",  "deltaPct": 4.7,  "trend": "up",        "aiContext": "conversions","sparkSeries": [380,420,450,470,505,520,540,562,580,594,605,612], "drift": { "min": 605, "max": 622, "stepMax": 2 } }
+  ],
+  "trafficChart": {
+    "title": "Traffic by channel",
+    "subtitle": "Last 14 days · sessions per day",
+    "aiContext": "traffic-by-channel",
+    "categories": ["Apr 1","Apr 2","Apr 3","Apr 4","Apr 5","Apr 6","Apr 7","Apr 8","Apr 9","Apr 10","Apr 11","Apr 12","Apr 13","Apr 14"],
+    "series": [
+      { "name": "Organic",  "data": [1240,1280,1320,1360,1410,1455,1480,1530,1570,1610,1640,1675,1700,1745] },
+      { "name": "Direct",   "data": [ 420, 410, 430, 440, 460, 475, 470, 485, 495, 505, 510, 515, 520, 525] },
+      { "name": "Referral", "data": [ 210, 215, 225, 230, 240, 245, 248, 252, 258, 264, 270, 274, 278, 282] }
+    ]
+  },
+  "deviceMix": {
+    "title": "Device mix",
+    "subtitle": "Sessions by device class",
+    "aiContext": "device-mix",
+    "legend": [
+      { "label": "Desktop", "value": 64, "variant": "success" },
+      { "label": "Mobile",  "value": 28, "variant": "warning" },
+      { "label": "Tablet",  "value":  8, "variant": "muted"   }
+    ]
+  },
+  "topPages": [
+    { "path": "/pricing",        "views": 9420, "avg":  84, "exit": 28 },
+    { "path": "/",               "views": 7890, "avg":  52, "exit": 18 },
+    { "path": "/docs/getting-started", "views": 6240, "avg": 142, "exit": 12 },
+    { "path": "/blog/announcing-ai+",  "views": 5810, "avg": 215, "exit": 36 },
+    { "path": "/changelog",      "views": 3920, "avg":  64, "exit": 22 },
+    { "path": "/contact",        "views": 2840, "avg":  38, "exit": 71 }
+  ]
+}

@@ -1,0 +1,83 @@
+---
+layout: vertical.njk
+title: Projects
+pageTitle: Projects
+pageSubtitle: Active initiatives across BX-AI+ — status, progress, owners.
+permalink: /apps/projects/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Apps" }
+  - { label: "Projects" }
+---
+{% from "partials/widgets/widget-menu.njk" import widgetMenu %}
+
+<div class="row g-3 mb-3">
+  {% for s in projects.stats %}
+  <div class="col-6 col-xl-3">
+    <div class="bx-stat-card">
+      <div class="bx-stat-card__head">
+        <span class="bx-stat-card__icon" aria-hidden="true"><i data-lucide="{{ s.icon }}"></i></span>
+        <span class="bx-stat-card__label">{{ s.label }}</span>
+      </div>
+      <div class="bx-stat-card__value-row">
+        <span class="bx-stat-card__value">{{ s.value }}</span>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <div class="bx-prompt-filters">
+    <button type="button" class="is-active">All <span class="bx-prompt-filters__count">{{ projects.projects | length }}</span></button>
+    <button type="button">On track</button>
+    <button type="button">At risk</button>
+    <button type="button">Blocked</button>
+  </div>
+  <button type="button" class="btn btn-primary btn-sm d-inline-flex align-items-center gap-1">
+    <i data-lucide="plus" style="width:14px;height:14px;"></i> New project
+  </button>
+</div>
+
+<div class="row g-3">
+  {% for p in projects.projects %}
+  <div class="col-12 col-md-6 col-xl-4">
+    <div class="bx-project-card bx-project-card--{{ p.tone }}">
+      <div class="bx-project-card__head">
+        <span class="bx-project-card__cat">{{ p.category }}</span>
+        <span class="bx-project-card__status bx-project-card__status--{{ p.tone }}" style="margin-left:auto;">{{ p.status | replace('-', ' ') }}</span>
+      </div>
+      <h3 class="bx-project-card__name">{{ p.name }}</h3>
+      <div class="bx-project-card__meta">
+        <span><i data-lucide="user"></i> {{ p.owner }}</span>
+        <span><i data-lucide="calendar"></i> Due {{ p.due }}</span>
+        <span><i data-lucide="check-square"></i> {{ p.tasks.done }}/{{ p.tasks.total }} tasks</span>
+      </div>
+      <div class="bx-project-card__progress">
+        <div class="bx-project-card__progress-row">
+          <span><strong>{{ p.progress }}%</strong> complete</span>
+        </div>
+        <div class="progress" role="progressbar">
+          <div class="progress-bar" style="width:{{ p.progress }}%"></div>
+        </div>
+      </div>
+      <div class="bx-project-card__foot">
+        <div class="bx-project-card__avatars">
+          {% for m in p.members %}{% if loop.index <= 3 %}
+          <span class="bx-avatar"><span class="bx-avatar__initials">{{ m }}</span></span>
+          {% endif %}{% endfor %}
+          {% if (p.members | length) > 3 %}
+          <span class="bx-project-card__avatars-more">+{{ (p.members | length) - 3 }}</span>
+          {% endif %}
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-secondary bx-ai-ask-btn d-inline-flex align-items-center gap-1"
+                data-bx-ai-ask
+                data-ai-context="project-{{ p.id }}"
+                data-ai-prompt="Give me a status read on the {{ p.name }} project — risks, momentum, what needs unblocking.">
+          <i data-lucide="sparkles" style="width:13px;height:13px;"></i> Ask AI
+        </button>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>

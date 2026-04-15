@@ -1,0 +1,116 @@
+---
+layout: vertical.njk
+title: Forms · Validation
+pageTitle: Form validation
+pageSubtitle: Bootstrap's native validation classes — submit the form to see feedback.
+permalink: /forms/validation/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Forms" }
+  - { label: "Validation" }
+---
+
+<div class="row g-3">
+  <div class="col-12 col-xl-7">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Live validation</h3></div></div>
+      <div class="bx-widget__body">
+        <form class="row g-3 needs-validation" novalidate id="bx-validation-form">
+          <div class="col-md-6">
+            <label class="form-label" for="bxv-name">First name</label>
+            <input type="text" class="form-control" id="bxv-name" required value="Jane">
+            <div class="valid-feedback">Looks good.</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="bxv-last">Last name</label>
+            <input type="text" class="form-control" id="bxv-last" required value="Doe">
+            <div class="valid-feedback">Looks good.</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="bxv-user">Username</label>
+            <div class="input-group has-validation">
+              <span class="input-group-text">@</span>
+              <input type="text" class="form-control" id="bxv-user" required>
+              <div class="invalid-feedback">Username is required.</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="bxv-email">Email</label>
+            <input type="email" class="form-control" id="bxv-email" required>
+            <div class="invalid-feedback">Please enter a valid email.</div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label" for="bxv-zip">Zip</label>
+            <input type="text" class="form-control" id="bxv-zip" required pattern="\d{5}">
+            <div class="invalid-feedback">5-digit zip required.</div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label" for="bxv-state">State</label>
+            <select class="form-select" id="bxv-state" required>
+              <option value="">Choose…</option>
+              <option>CA</option><option>NY</option><option>TX</option>
+            </select>
+            <div class="invalid-feedback">Pick a state.</div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label" for="bxv-city">City</label>
+            <input type="text" class="form-control" id="bxv-city" required>
+            <div class="invalid-feedback">City is required.</div>
+          </div>
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="bxv-tos" required>
+              <label class="form-check-label" for="bxv-tos">Agree to the terms.</label>
+              <div class="invalid-feedback">You must agree before submitting.</div>
+            </div>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary" type="submit">Submit form</button>
+            <button class="btn btn-outline-secondary" type="reset">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-5">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">States</h3></div></div>
+      <div class="bx-widget__body">
+        <div class="mb-3">
+          <label class="form-label">Default</label>
+          <input type="text" class="form-control" placeholder="Empty">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Valid</label>
+          <input type="text" class="form-control is-valid" value="Looks good">
+          <div class="valid-feedback">Looks good.</div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Invalid</label>
+          <input type="text" class="form-control is-invalid" value="Wrong">
+          <div class="invalid-feedback">That's not right.</div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Disabled</label>
+          <input type="text" class="form-control" disabled value="Disabled">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Read-only</label>
+          <input type="text" class="form-control" readonly value="Read-only">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const form = document.getElementById("bx-validation-form");
+    if (!form) return;
+    form.addEventListener("submit", (e) => {
+      if (!form.checkValidity()) { e.preventDefault(); e.stopPropagation(); }
+      form.classList.add("was-validated");
+    });
+  })();
+</script>

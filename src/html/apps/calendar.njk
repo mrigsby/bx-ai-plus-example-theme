@@ -1,0 +1,50 @@
+---
+layout: vertical.njk
+title: Calendar
+pageTitle: Calendar
+pageSubtitle: Team schedule, customer calls, and incidents in one view.
+page_module: calendar
+permalink: /apps/calendar/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Apps" }
+  - { label: "Calendar" }
+---
+
+<div class="bx-calendar-page">
+
+  <aside class="bx-calendar-page__sidebar">
+    <button type="button" class="btn btn-primary w-100 mb-3 d-inline-flex align-items-center justify-content-center gap-1">
+      <i data-lucide="plus" style="width:14px;height:14px;"></i> New event
+    </button>
+
+    <div class="bx-calendar-page__sidebar-section">
+      <div class="bx-calendar-page__sidebar-label">Categories</div>
+      <ul class="bx-calendar-page__cat-list">
+        {% for c in calendarEvents.categories %}
+        <li>
+          <span class="bx-cat-dot" style="background:{{ c.color }}"></span>
+          {{ c.label }}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="bx-calendar-page__sidebar-section">
+      <div class="bx-calendar-page__sidebar-label">AI assist</div>
+      <button type="button" class="btn btn-sm btn-outline-secondary w-100 d-inline-flex align-items-center justify-content-center gap-1 bx-ai-ask-btn"
+              data-bx-ai-ask
+              data-ai-context="calendar-week"
+              data-ai-prompt="Summarize my schedule for this week and flag any conflicts.">
+        <i data-lucide="sparkles" style="width:13px;height:13px;"></i> Summarize week
+      </button>
+    </div>
+  </aside>
+
+  <section class="bx-calendar-page__shell">
+    <div data-bx-calendar
+         data-bx-calendar-events='{{ calendarEvents.events | dump }}'
+         data-bx-calendar-categories='{{ calendarEvents.categories | dump }}'></div>
+  </section>
+
+</div>

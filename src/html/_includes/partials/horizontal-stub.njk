@@ -1,0 +1,46 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/horizontal-stub.njk — placeholder card for horizontal mirror pages
+  whose vertical equivalent is built later in Phases 7-8. Demonstrates the
+  horizontal chrome in different page contexts.
+  Inputs (from including page front-matter):
+    stubTitle    : page title
+    stubKind     : page category (e.g. "Calendar", "Kanban", "Buttons")
+    stubMessage  : descriptive paragraph
+  ----------------------------------------------------------------------------
+#}
+<div class="row g-3">
+  <div class="col-12">
+    <div class="bx-stub">
+      <span class="bx-stub__bar" aria-hidden="true"></span>
+      <div class="bx-stub__head">
+        <span class="bx-stub__icon" aria-hidden="true"><i data-lucide="layout-panel-top"></i></span>
+        <div>
+          <div class="bx-stub__eyebrow">Horizontal · {{ stubKind }}</div>
+          <h2 class="bx-stub__title">{{ stubTitle }}</h2>
+        </div>
+      </div>
+      <p class="bx-stub__text">{{ stubMessage }}</p>
+
+      <div class="bx-stub__hints">
+        <div class="bx-stub__hint">
+          <i data-lucide="sparkles" aria-hidden="true"></i>
+          <span>Try <kbd>⌘K</kbd> — the chat bar still works.</span>
+        </div>
+        <div class="bx-stub__hint">
+          <i data-lucide="mic" aria-hidden="true"></i>
+          <span>The voice toast still pops bottom-right.</span>
+        </div>
+        <div class="bx-stub__hint">
+          <i data-lucide="sliders-horizontal" aria-hidden="true"></i>
+          <span>Open the customizer to flip themes or sizes.</span>
+        </div>
+      </div>
+
+      <div class="bx-stub__actions">
+        <a class="btn btn-primary" href="/horizontal/">← Horizontal home</a>
+        <a class="btn btn-outline-secondary" href="/">Switch to vertical</a>
+      </div>
+    </div>
+  </div>
+</div>

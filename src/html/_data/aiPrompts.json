@@ -1,0 +1,25 @@
+{
+  "categories": [
+    { "id": "all",      "label": "All",         "count": 14 },
+    { "id": "summary",  "label": "Summaries",   "count":  4 },
+    { "id": "ops",      "label": "Ops",         "count":  3 },
+    { "id": "writing",  "label": "Writing",     "count":  3 },
+    { "id": "analysis", "label": "Analysis",    "count":  4 }
+  ],
+  "prompts": [
+    { "id": "p-01", "title": "Weekly leadership digest",          "category": "summary",  "categoryLabel": "Summaries", "snippet": "Synthesize last week's metrics, anomalies, and customer wins into a 5-bullet brief for #leadership.", "author": "Avery Liu",   "uses": 84, "updated": "2d ago", "favorite": true,  "tone": "primary" },
+    { "id": "p-02", "title": "Anomaly triage walkthrough",        "category": "ops",      "categoryLabel": "Ops",       "snippet": "Walk me through this anomaly: timestamp, affected services, blast radius, recommended remediations.",  "author": "Marcus Reed", "uses": 132,"updated": "5h ago", "favorite": true,  "tone": "danger" },
+    { "id": "p-03", "title": "Pricing page CTA rewriter",         "category": "writing",  "categoryLabel": "Writing",   "snippet": "Rewrite this pricing CTA for clarity and urgency, keep under 8 words, A/B variant style.",            "author": "Sasha Volkov","uses":  46, "updated": "1d ago", "favorite": false, "tone": "info" },
+    { "id": "p-04", "title": "Customer churn root cause",         "category": "analysis", "categoryLabel": "Analysis",  "snippet": "Given this customer's last 90 days of usage, surface the most likely churn signal and a save play.", "author": "Priya Shah",  "uses": 218,"updated": "12h ago","favorite": true,  "tone": "warning" },
+    { "id": "p-05", "title": "Weekly metric explainer",            "category": "summary",  "categoryLabel": "Summaries", "snippet": "Pick one metric on the analytics dashboard and explain its movement in plain English for non-eng.",   "author": "Theo Kim",    "uses":  61, "updated": "3d ago", "favorite": false, "tone": "primary" },
+    { "id": "p-06", "title": "On-call handoff brief",              "category": "ops",      "categoryLabel": "Ops",       "snippet": "Summarize active incidents, hot services, and pending escalations for the next on-call shift.",      "author": "Marcus Reed", "uses":  54, "updated": "Yesterday","favorite": false,"tone": "danger" },
+    { "id": "p-07", "title": "Cohort retention cut",               "category": "analysis", "categoryLabel": "Analysis",  "snippet": "Slice retention by signup cohort and surface the 2 worst weeks with a hypothesis for each.",         "author": "Avery Liu",   "uses":  39, "updated": "4d ago", "favorite": false, "tone": "warning" },
+    { "id": "p-08", "title": "Outbound email opener",              "category": "writing",  "categoryLabel": "Writing",   "snippet": "Open with a single line that references their latest product launch + a credible BX-AI hook.",        "author": "Sasha Volkov","uses":  72, "updated": "1d ago", "favorite": true,  "tone": "info" },
+    { "id": "p-09", "title": "Token budget audit",                 "category": "ops",      "categoryLabel": "Ops",       "snippet": "List agents projected to overrun this week's token budget, sorted by overshoot %.",                  "author": "Theo Kim",    "uses":  88, "updated": "6h ago", "favorite": false, "tone": "warning" },
+    { "id": "p-10", "title": "Release notes from PRs",             "category": "writing",  "categoryLabel": "Writing",   "snippet": "Generate human-readable release notes from this list of merged PR titles + descriptions.",            "author": "Priya Shah",  "uses": 156,"updated": "2d ago", "favorite": true,  "tone": "info" },
+    { "id": "p-11", "title": "Pricing experiment recap",           "category": "analysis", "categoryLabel": "Analysis",  "snippet": "Recap the last pricing test: lift, sample size, p-value, and recommended next experiment.",          "author": "Avery Liu",   "uses":  31, "updated": "1w ago", "favorite": false, "tone": "warning" },
+    { "id": "p-12", "title": "Customer call summary",              "category": "summary",  "categoryLabel": "Summaries", "snippet": "Three-bullet summary of this call transcript: ask, blocker, follow-up.",                              "author": "Marcus Reed", "uses": 412,"updated": "3h ago", "favorite": true,  "tone": "primary" },
+    { "id": "p-13", "title": "Cohort dashboard explainer",         "category": "summary",  "categoryLabel": "Summaries", "snippet": "Explain this cohort dashboard at a board-level — no jargon, focus on direction of travel.",          "author": "Sasha Volkov","uses":  17, "updated": "1w ago", "favorite": false, "tone": "primary" },
+    { "id": "p-14", "title": "Anomaly false-positive filter",      "category": "analysis", "categoryLabel": "Analysis",  "snippet": "Score this anomaly's likelihood of being noise vs. real, with reasoning.",                            "author": "Theo Kim",    "uses":  93, "updated": "8h ago", "favorite": false, "tone": "warning" }
+  ]
+}

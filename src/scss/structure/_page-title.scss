@@ -1,0 +1,74 @@
+// ---------------------------------------------------------------------------
+// structure/_page-title.scss
+// ---------------------------------------------------------------------------
+
+.bx-page-title {
+  // Full width within the parent (.bx-page) — no max-width centering. The
+  // gutter padding matches .bx-content so headings and content below align
+  // edge-to-edge regardless of viewport width.
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 1.25rem var(--bx-content-gutter) 0.25rem;
+  text-align: left;
+
+  &__text { text-align: left; }
+
+  &__heading {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--bx-text-heading);
+    margin: 0;
+    letter-spacing: -0.01em;
+    text-align: left;
+  }
+
+  &__subtitle {
+    margin: 0.25rem 0 0;
+    color: var(--bx-text-muted);
+    font-size: 0.85rem;
+    text-align: left;
+  }
+}
+
+.bx-breadcrumbs {
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    color: var(--bx-text-muted);
+
+    + .bx-breadcrumbs__item::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      margin-right: 0.4rem;
+      border-right: 1px solid var(--bx-border-strong);
+      border-top: 1px solid var(--bx-border-strong);
+      transform: rotate(45deg);
+    }
+
+    a {
+      color: var(--bx-text-muted);
+      text-decoration: none;
+      transition: color var(--bx-transition-fast);
+      &:hover { color: var(--bx-brand-primary-text); }
+    }
+
+    &--active { color: var(--bx-text); font-weight: 500; }
+  }
+}

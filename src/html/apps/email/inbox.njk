@@ -1,0 +1,80 @@
+---
+layout: vertical.njk
+title: Inbox
+pageTitle: Inbox
+pageSubtitle: 14 messages — 4 unread.
+permalink: /apps/email/inbox/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Apps" }
+  - { label: "Email" }
+  - { label: "Inbox" }
+---
+
+<div class="bx-email">
+  <aside class="bx-email__sidebar">
+    <button class="btn btn-primary bx-email__compose">
+      <i data-lucide="pencil"></i>
+      <span>Compose</span>
+    </button>
+
+    <ul class="bx-email__folders">
+      {% for f in email.folders %}
+      <li>
+        <a href="#" class="{% if f.id == 'inbox' %}is-active{% endif %}">
+          <i data-lucide="{{ f.icon }}"></i>
+          <span>{{ f.label }}</span>
+          {% if f.count > 0 %}<span class="bx-email__folder-count">{{ f.count }}</span>{% endif %}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <div class="bx-email__labels">
+      <div class="bx-email__labels-title">Labels</div>
+      {% for l in email.labels %}
+      <div class="bx-email__label">
+        <span class="bx-cat-dot" style="background:{{ l.color }}"></span>
+        {{ l.label }}
+      </div>
+      {% endfor %}
+    </div>
+  </aside>
+
+  <section class="bx-email__main">
+    <div class="bx-email__head">
+      <div class="bx-ai-page__search" style="flex:1;max-width:320px;">
+        <i data-lucide="search"></i>
+        <input type="search" placeholder="Search inbox…">
+      </div>
+      <div class="bx-email__head-actions">
+        <button class="bx-btn-icon" aria-label="Refresh"><i data-lucide="refresh-cw"></i></button>
+        <button class="bx-btn-icon" aria-label="Filter"><i data-lucide="filter"></i></button>
+        <button class="bx-btn-icon bx-ai-ask-btn"
+                data-bx-ai-ask
+                data-ai-context="email-inbox"
+                data-ai-prompt="Summarize my unread inbox in 3 bullets and surface anything urgent."
+                aria-label="Ask AI" title="Summarize inbox">
+          <i data-lucide="sparkles"></i>
+        </button>
+      </div>
+    </div>
+
+    <ul class="bx-email__list">
+      {% for m in email.messages %}
+      <li class="bx-email__row {% if m.unread %}bx-email__row--unread{% endif %}">
+        <button class="bx-email__row-star {% if m.starred %}is-on{% endif %}" type="button" aria-label="Star">
+          <i data-lucide="star"></i>
+        </button>
+        <span class="bx-avatar bx-avatar--sm"><span class="bx-avatar__initials">{{ m.from.initials }}</span></span>
+        <div class="bx-email__row-body">
+          <div class="bx-email__row-from">{{ m.from.name }}</div>
+          <a href="/apps/email/read/" class="bx-email__row-subject" style="text-decoration:none;color:inherit;">{{ m.subject }}</a>
+          <div class="bx-email__row-snip">{{ m.snippet }}</div>
+        </div>
+        <div class="bx-email__row-meta">{{ m.time }}</div>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+</div>

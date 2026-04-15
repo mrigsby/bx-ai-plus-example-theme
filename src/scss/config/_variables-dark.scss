@@ -1,0 +1,26 @@
+// ===========================================================================
+// config/_variables-dark.scss
+// Point Bootstrap's dark-mode CSS vars at our BX-AI+ tokens so Bootstrap
+// components render against our surfaces and colors by default.
+//
+// Bootstrap 5.3 already scopes its dark vars under [data-bs-theme="dark"].
+// We don't redefine Bootstrap's darkmap — we just tell Bootstrap to use
+// OUR tokens for the values that matter visually.
+// ===========================================================================
+
+[data-bs-theme="dark"] {
+  --bs-body-bg:            var(--bx-body-bg);
+  --bs-body-color:         var(--bx-text);
+  --bs-body-secondary-bg:  var(--bx-surface-2);
+  --bs-body-tertiary-bg:   var(--bx-surface-3);
+  --bs-emphasis-color:     var(--bx-text-heading);
+  --bs-heading-color:      var(--bx-text-heading);
+  --bs-border-color:       var(--bx-border-strong);
+  --bs-border-color-translucent: var(--bx-border);
+  --bs-secondary-bg:       var(--bx-surface-2);
+  --bs-tertiary-bg:        var(--bx-surface-3);
+  --bs-secondary-color:    var(--bx-text-muted);
+  --bs-tertiary-color:     var(--bx-text-muted);
+  --bs-link-color:         var(--bx-brand-primary);
+  --bs-link-hover-color:   var(--bx-brand-primary-hover);
+}

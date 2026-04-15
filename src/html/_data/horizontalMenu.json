@@ -1,0 +1,70 @@
+[
+  {
+    "id": "h-dashboards",
+    "label": "Dashboards",
+    "icon": "layout-dashboard",
+    "children": [
+      { "id": "h-dash-main",      "label": "Main",       "href": "/horizontal/" },
+      { "id": "h-dash-analytics", "label": "Analytics",  "href": "/horizontal/dashboards/analytics/" },
+      { "id": "h-dash-ai-ops",    "label": "AI Ops",     "href": "/horizontal/dashboards/ai-ops/" }
+    ]
+  },
+  {
+    "id": "h-ai",
+    "label": "AI",
+    "icon": "sparkles",
+    "badge": { "text": "NEW", "variant": "primary" },
+    "children": [
+      { "id": "h-ai-chat",     "label": "Chat",        "href": "/horizontal/ai/chat/" },
+      { "id": "h-ai-insights", "label": "Insights",    "href": "/horizontal/ai/insights/" }
+    ]
+  },
+  {
+    "id": "h-apps",
+    "label": "Apps",
+    "icon": "boxes",
+    "children": [
+      { "id": "h-apps-calendar", "label": "Calendar", "href": "/horizontal/apps/calendar/" },
+      { "id": "h-apps-kanban",   "label": "Kanban",   "href": "/horizontal/apps/kanban/" }
+    ]
+  },
+  {
+    "id": "h-ui",
+    "label": "Components",
+    "icon": "blocks",
+    "children": [
+      { "id": "h-ui-buttons", "label": "Buttons", "href": "/horizontal/ui/buttons/" },
+      { "id": "h-ui-cards",   "label": "Cards",   "href": "/horizontal/ui/cards/" }
+    ]
+  },
+  {
+    "id": "h-forms",
+    "label": "Forms",
+    "icon": "clipboard-list",
+    "children": [
+      { "id": "h-forms-advanced", "label": "Advanced",   "href": "/horizontal/forms/advanced/" }
+    ]
+  },
+  {
+    "id": "h-tables",
+    "label": "Tables",
+    "icon": "table",
+    "children": [
+      { "id": "h-tables-datatables", "label": "DataTables", "href": "/horizontal/tables/datatables/" }
+    ]
+  },
+  {
+    "id": "h-pages",
+    "label": "Pages",
+    "icon": "file-text",
+    "children": [
+      { "id": "h-pages-profile", "label": "Profile",   "href": "/horizontal/pages/profile/" }
+    ]
+  },
+  {
+    "id": "h-back-to-vertical",
+    "label": "← Vertical",
+    "icon": "arrow-left",
+    "href": "/"
+  }
+]

@@ -1,0 +1,156 @@
+---
+layout: vertical.njk
+title: Forms · Wizard
+pageTitle: Form wizard
+pageSubtitle: Multi-step form with progress indicator and step navigation.
+permalink: /forms/wizard/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Forms" }
+  - { label: "Wizard" }
+---
+
+<div class="bx-widget">
+  <div class="bx-widget__body">
+
+    <div class="bx-wizard" id="bx-wizard">
+
+      {# ---- Step indicator ---- #}
+      <ol class="bx-wizard__steps" data-bx-wizard-steps>
+        <li class="is-active" data-step="1">
+          <span class="bx-wizard__step-num">1</span>
+          <div>
+            <div class="bx-wizard__step-label">Workspace</div>
+            <div class="bx-wizard__step-hint">Name &amp; org</div>
+          </div>
+        </li>
+        <li data-step="2">
+          <span class="bx-wizard__step-num">2</span>
+          <div>
+            <div class="bx-wizard__step-label">Models</div>
+            <div class="bx-wizard__step-hint">Pick defaults</div>
+          </div>
+        </li>
+        <li data-step="3">
+          <span class="bx-wizard__step-num">3</span>
+          <div>
+            <div class="bx-wizard__step-label">Team</div>
+            <div class="bx-wizard__step-hint">Invite members</div>
+          </div>
+        </li>
+        <li data-step="4">
+          <span class="bx-wizard__step-num"><i data-lucide="check"></i></span>
+          <div>
+            <div class="bx-wizard__step-label">Review</div>
+            <div class="bx-wizard__step-hint">Confirm &amp; finish</div>
+          </div>
+        </li>
+      </ol>
+
+      {# ---- Panes ---- #}
+      <div class="bx-wizard__panes">
+        <section class="bx-wizard__pane is-active" data-bx-wizard-pane="1">
+          <h4>Workspace</h4>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Workspace name</label>
+              <input type="text" class="form-control" value="Acme">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Subdomain</label>
+              <div class="input-group">
+                <input type="text" class="form-control" value="acme">
+                <span class="input-group-text">.bx-ai.io</span>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <label class="form-label">Industry</label>
+              <select class="form-select">
+                <option>SaaS</option><option>Fintech</option><option>Healthcare</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="bx-wizard__pane" data-bx-wizard-pane="2">
+          <h4>Default models</h4>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Primary chat</label>
+              <select class="form-select"><option>claude-sonnet-4.6</option><option>claude-opus-4.6</option><option>haiku-4.5</option></select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Routing</label>
+              <select class="form-select"><option>haiku-4.5</option><option>claude-sonnet-4.6</option></select>
+            </div>
+            <div class="col-12">
+              <div class="form-check"><input class="form-check-input" type="checkbox" id="wzd-fb" checked><label class="form-check-label" for="wzd-fb">Allow fall-back to a smaller model on quota</label></div>
+              <div class="form-check"><input class="form-check-input" type="checkbox" id="wzd-gd" checked><label class="form-check-label" for="wzd-gd">Run guardrails on every output</label></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="bx-wizard__pane" data-bx-wizard-pane="3">
+          <h4>Invite teammates</h4>
+          <div class="row g-3">
+            <div class="col-md-8">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" placeholder="teammate@company.com">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Role</label>
+              <select class="form-select"><option>Admin</option><option>Editor</option><option>Viewer</option></select>
+            </div>
+            <div class="col-12">
+              <button class="btn btn-outline-secondary btn-sm"><i data-lucide="user-plus" style="width:13px;height:13px;"></i> Add another</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="bx-wizard__pane" data-bx-wizard-pane="4">
+          <h4>You're all set</h4>
+          <p class="text-secondary">Review your choices below, then click <strong>Finish</strong> to provision the workspace.</p>
+          <ul class="bx-activity">
+            <li class="bx-activity__item"><span class="bx-activity__item-icon bx-activity__item-icon--success"><i data-lucide="check"></i></span><div class="bx-activity__item-body"><p class="bx-activity__item-text">Workspace name set to <strong>Acme</strong></p></div></li>
+            <li class="bx-activity__item"><span class="bx-activity__item-icon bx-activity__item-icon--success"><i data-lucide="check"></i></span><div class="bx-activity__item-body"><p class="bx-activity__item-text">Primary model: claude-sonnet-4.6</p></div></li>
+            <li class="bx-activity__item"><span class="bx-activity__item-icon bx-activity__item-icon--success"><i data-lucide="check"></i></span><div class="bx-activity__item-body"><p class="bx-activity__item-text">Guardrails enabled</p></div></li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="bx-wizard__nav">
+        <button class="btn btn-outline-secondary" type="button" data-bx-wizard-prev disabled><i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Back</button>
+        <button class="btn btn-primary ms-auto" type="button" data-bx-wizard-next>Next <i data-lucide="arrow-right" style="width:14px;height:14px;"></i></button>
+        <button class="btn btn-primary ms-auto" type="button" data-bx-wizard-finish hidden>Finish</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const w = document.getElementById("bx-wizard");
+  if (!w) return;
+  const steps = Array.from(w.querySelectorAll("[data-step]"));
+  const panes = Array.from(w.querySelectorAll("[data-bx-wizard-pane]"));
+  const prev = w.querySelector("[data-bx-wizard-prev]");
+  const next = w.querySelector("[data-bx-wizard-next]");
+  const finish = w.querySelector("[data-bx-wizard-finish]");
+  let current = 1;
+  function show(n) {
+    current = Math.min(Math.max(1, n), steps.length);
+    steps.forEach((s, i) => {
+      s.classList.toggle("is-active", i + 1 === current);
+      s.classList.toggle("is-done", i + 1 < current);
+    });
+    panes.forEach((p) => p.classList.toggle("is-active", Number(p.getAttribute("data-bx-wizard-pane")) === current));
+    prev.disabled = current === 1;
+    next.hidden = current === steps.length;
+    finish.hidden = current !== steps.length;
+  }
+  prev.addEventListener("click", () => show(current - 1));
+  next.addEventListener("click", () => show(current + 1));
+})();
+</script>

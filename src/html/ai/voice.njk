@@ -1,0 +1,77 @@
+---
+layout: vertical.njk
+title: Voice log
+pageTitle: Voice log
+pageSubtitle: Every voice interaction with BX-AI in the last 24 hours.
+permalink: /ai/voice/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "AI" }
+  - { label: "Voice" }
+---
+
+<div class="row g-3 mb-3">
+  {% for s in aiVoice.stats %}
+  <div class="col-6 col-xl-3">
+    <div class="bx-stat-card">
+      <div class="bx-stat-card__head">
+        <span class="bx-stat-card__icon" aria-hidden="true"><i data-lucide="{{ s.icon }}"></i></span>
+        <span class="bx-stat-card__label">{{ s.label }}</span>
+      </div>
+      <div class="bx-stat-card__value-row">
+        <span class="bx-stat-card__value">{{ s.value }}</span>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="bx-widget bx-voice-log">
+  <div class="bx-widget__head">
+    <div class="bx-widget__title-wrap">
+      <h3 class="bx-widget__title">Recent voice sessions</h3>
+      <p class="bx-widget__subtitle">Tap a transcript to send it back to the AI panel.</p>
+    </div>
+    <button type="button" class="bx-btn-icon" aria-label="Filter"><i data-lucide="filter"></i></button>
+  </div>
+  <div class="bx-widget__body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>User</th>
+          <th class="num">Duration</th>
+          <th>Transcript</th>
+          <th>Outcome</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for v in aiVoice.log %}
+        <tr>
+          <td>{{ v.time }}</td>
+          <td>{{ v.user }}</td>
+          <td class="num">{{ v.duration }}</td>
+          <td>
+            <span class="bx-voice-log__transcript {% if v.transcript == '—' %}bx-voice-log__transcript--muted{% endif %}">
+              {% if v.transcript == "—" %}{{ v.transcript }}{% else %}"{{ v.transcript }}"{% endif %}
+            </span>
+          </td>
+          <td><span class="bx-voice-log__outcome bx-voice-log__outcome--{{ v.tone }}">{{ v.outcome }}</span></td>
+          <td>
+            {% if v.transcript != "—" %}
+            <button type="button" class="bx-btn-icon bx-ai-ask-btn"
+                    data-bx-ai-ask
+                    data-ai-context="voice-{{ v.id }}"
+                    data-ai-prompt="{{ v.transcript }}"
+                    aria-label="Send to chat" title="Send to chat">
+              <i data-lucide="send"></i>
+            </button>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>

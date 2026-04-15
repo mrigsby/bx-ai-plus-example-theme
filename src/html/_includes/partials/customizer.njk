@@ -1,0 +1,118 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/customizer.njk — theme/layout picker drawer (Bootstrap offcanvas).
+  Writes to <html data-*> attributes via core/customizer.js.
+  ----------------------------------------------------------------------------
+#}
+{% seamBegin "CUSTOMIZER" %}
+<div class="offcanvas offcanvas-end bx-customizer"
+     tabindex="-1"
+     id="bx-customizer"
+     aria-labelledby="bx-customizer-title">
+  <div class="offcanvas-header">
+    <div>
+      <h5 class="offcanvas-title mb-0" id="bx-customizer-title">Customize</h5>
+      <small class="text-secondary">Theme, layout, size</small>
+    </div>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body bx-customizer__body">
+
+    <section class="bx-customizer__group">
+      <h6 class="bx-customizer__group-title">Theme mode</h6>
+      <div class="bx-customizer__choice-grid bx-customizer__choice-grid--2">
+        <label class="bx-customizer__choice">
+          <input type="radio" name="bx-theme" value="light">
+          <span class="bx-customizer__choice-box bx-customizer__choice-box--light">
+            <span class="bx-customizer__choice-thumb bx-customizer__choice-thumb--light"></span>
+            <span class="bx-customizer__choice-label">Light</span>
+          </span>
+        </label>
+        <label class="bx-customizer__choice">
+          <input type="radio" name="bx-theme" value="dark">
+          <span class="bx-customizer__choice-box bx-customizer__choice-box--dark">
+            <span class="bx-customizer__choice-thumb bx-customizer__choice-thumb--dark"></span>
+            <span class="bx-customizer__choice-label">Dark</span>
+          </span>
+        </label>
+      </div>
+    </section>
+
+    <section class="bx-customizer__group">
+      <h6 class="bx-customizer__group-title">Sidebar size</h6>
+      <div class="bx-customizer__choice-grid bx-customizer__choice-grid--2">
+        <label class="bx-customizer__choice">
+          <input type="radio" name="bx-sidenav-size" value="default">
+          <span class="bx-customizer__choice-box">
+            <span class="bx-customizer__mini bx-customizer__mini--default"></span>
+            <span class="bx-customizer__choice-label">Default</span>
+          </span>
+        </label>
+        <label class="bx-customizer__choice">
+          <input type="radio" name="bx-sidenav-size" value="compact">
+          <span class="bx-customizer__choice-box">
+            <span class="bx-customizer__mini bx-customizer__mini--compact"></span>
+            <span class="bx-customizer__choice-label">Compact</span>
+          </span>
+        </label>
+        <label class="bx-customizer__choice">
+          <input type="radio" name="bx-sidenav-size" value="hover">
+          <span class="bx-customizer__choice-box">
+            <span class="bx-customizer__mini bx-customizer__mini--hover"></span>
+            <span class="bx-customizer__choice-label">Hover</span>
+          </span>
+        </label>
+        <label class="bx-customizer__choice">
+          <input type="radio" name="bx-sidenav-size" value="offcanvas">
+          <span class="bx-customizer__choice-box">
+            <span class="bx-customizer__mini bx-customizer__mini--offcanvas"></span>
+            <span class="bx-customizer__choice-label">Off-canvas</span>
+          </span>
+        </label>
+      </div>
+    </section>
+
+    <section class="bx-customizer__group">
+      <h6 class="bx-customizer__group-title">Layout variant</h6>
+      <div class="bx-customizer__choice-grid bx-customizer__choice-grid--2">
+        {# Layout variants live in parallel page sets — switching is a navigation,
+           not a runtime attribute change. The links below jump between sets
+           while preserving the current page when an equivalent exists. #}
+        <a class="bx-customizer__choice-box" data-bx-layout-link="vertical" href="/">
+          <span class="bx-customizer__mini bx-customizer__mini--vertical"></span>
+          <span class="bx-customizer__choice-label">Vertical</span>
+        </a>
+        <a class="bx-customizer__choice-box" data-bx-layout-link="horizontal" href="/horizontal/">
+          <span class="bx-customizer__mini bx-customizer__mini--horizontal"></span>
+          <span class="bx-customizer__choice-label">Horizontal</span>
+        </a>
+      </div>
+      <p class="bx-customizer__hint">Switching layout navigates to the parallel page set.</p>
+    </section>
+
+    <section class="bx-customizer__group">
+      <h6 class="bx-customizer__group-title">Sidenav color</h6>
+      <div class="bx-customizer__choice-grid bx-customizer__choice-grid--3">
+        <label class="bx-customizer__choice"><input type="radio" name="bx-sidenav-color" value="dark"><span class="bx-customizer__swatch bx-customizer__swatch--dark">Dark</span></label>
+        <label class="bx-customizer__choice"><input type="radio" name="bx-sidenav-color" value="light"><span class="bx-customizer__swatch bx-customizer__swatch--light">Light</span></label>
+        <label class="bx-customizer__choice"><input type="radio" name="bx-sidenav-color" value="brand"><span class="bx-customizer__swatch bx-customizer__swatch--brand">Brand</span></label>
+      </div>
+    </section>
+
+    <section class="bx-customizer__group">
+      <h6 class="bx-customizer__group-title">Topbar color</h6>
+      <div class="bx-customizer__choice-grid bx-customizer__choice-grid--3">
+        <label class="bx-customizer__choice"><input type="radio" name="bx-topbar-color" value="dark"><span class="bx-customizer__swatch bx-customizer__swatch--dark">Dark</span></label>
+        <label class="bx-customizer__choice"><input type="radio" name="bx-topbar-color" value="light"><span class="bx-customizer__swatch bx-customizer__swatch--light">Light</span></label>
+        <label class="bx-customizer__choice"><input type="radio" name="bx-topbar-color" value="brand"><span class="bx-customizer__swatch bx-customizer__swatch--brand">Brand</span></label>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="bx-customizer__footer">
+    <button type="button" class="btn btn-outline-secondary w-100" data-bx-customizer-reset>Reset to defaults</button>
+  </div>
+</div>
+{% seamEnd "CUSTOMIZER" %}

@@ -1,0 +1,239 @@
+// ---------------------------------------------------------------------------
+// plugins/_simple-datatables.scss — simple-datatables (v9.2) theming.
+//
+// v9.2 markup:
+//   <th class="datatable-sortable datatable-ascending|datatable-descending">
+//     <a class="datatable-sorter">Header label</a>
+//   </th>
+// The library renders sort indicators as two CSS triangles via
+// .datatable-sorter::before (down arrow, top half) and ::after (up arrow,
+// bottom half). They're hardcoded `border-top: 4px solid #000` / `#000`
+// which is invisible on dark surfaces. We retheme them in place — bigger,
+// tone-correct, and the active triangle uses brand primary.
+// ---------------------------------------------------------------------------
+
+.datatable-wrapper {
+  font-size: 0.85rem;
+
+  // ---- Top + bottom strips (search, info, pagination) ----
+  .datatable-top, .datatable-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+
+    // Reset the library's float-based layout in favor of flex.
+    > nav, > div { float: none !important; }
+
+    .datatable-search input,
+    .datatable-selector { max-width: 220px; }
+  }
+
+  .datatable-dropdown {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--bx-text-muted);
+    font-size: 0.78rem;
+
+    label { display: inline-flex; align-items: center; gap: 0.5rem; margin: 0; }
+    select { width: auto; }
+  }
+
+  .datatable-info { color: var(--bx-text-muted); font-size: 0.78rem; }
+
+  // ---- Container + table ----
+  .datatable-container {
+    background: var(--bx-surface-1);
+    border: 0;
+  }
+
+  // The Bootstrap .table inside the wrapper. Use BX tokens.
+  .table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--bx-text);
+    --bs-table-border-color: var(--bx-divider);
+    --bs-table-hover-bg: var(--bx-surface-2);
+    --bs-table-hover-color: var(--bx-text-heading);
+    color: var(--bx-text);
+    margin-bottom: 0;
+  }
+
+  // ---- Sortable header cells ----
+  // Force the header background + text color so they match the dashboard
+  // tables (uppercase muted label on a translucent surface-2 strip).
+  thead th,
+  thead .datatable-sortable {
+    background: color-mix(in srgb, var(--bx-surface-2) 60%, transparent) !important;
+    color: var(--bx-text-muted) !important;
+    border-bottom: 1px solid var(--bx-border) !important;
+    border-top: 0 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.7rem 0.85rem;
+    vertical-align: middle;
+  }
+
+  // Defensive reset: if the library or any user-passed `classes` config
+  // wraps the header in a <select>, <button>, or <input>, strip the
+  // form-control / form-select / btn appearance.
+  thead select,
+  thead button,
+  thead input,
+  thead .form-select,
+  thead .form-control,
+  thead .btn {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    background-image: none !important;
+    background-color: transparent !important;
+    color: inherit !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font: inherit !important;
+    text-transform: inherit !important;
+    letter-spacing: inherit !important;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  // The .datatable-sorter is the inner anchor/button. Make it inherit the
+  // header colors and reserve room on the right for the sort indicator.
+  .datatable-sorter {
+    color: inherit !important;
+    text-decoration: none !important;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    padding-right: 18px;
+    position: relative;
+  }
+
+  // ---- Retheme the library's CSS-triangle indicators ----
+  // The library positions both pseudos absolutely on the right. We override
+  // the colors and bump the size so they read on dark surfaces.
+  .datatable-sorter::before,
+  .datatable-sorter::after {
+    right: 2px !important;
+    border-left-width: 5px !important;
+    border-right-width: 5px !important;
+    opacity: 0.45;
+    transition: opacity var(--bx-transition-fast),
+                border-color var(--bx-transition-fast);
+  }
+  .datatable-sorter::before {
+    border-top: 5px solid var(--bx-text) !important;
+    border-bottom: 0 !important;
+    bottom: calc(50% - 7px) !important;
+  }
+  .datatable-sorter::after {
+    border-bottom: 5px solid var(--bx-text) !important;
+    border-top: 0 !important;
+    top: calc(50% - 7px) !important;
+  }
+
+  // Hover the whole header — both arrows brighten.
+  thead th.datatable-sortable:hover .datatable-sorter::before,
+  thead th.datatable-sortable:hover .datatable-sorter::after {
+    opacity: 0.85;
+  }
+
+  // Active ascending: hide the down arrow, light up the up arrow in brand color.
+  thead th.datatable-ascending .datatable-sorter::before {
+    opacity: 0;
+  }
+  thead th.datatable-ascending .datatable-sorter::after {
+    opacity: 1;
+    border-bottom-color: var(--bx-brand-primary) !important;
+    border-bottom-width: 6px !important;
+    border-left-width: 6px !important;
+    border-right-width: 6px !important;
+  }
+
+  // Active descending: hide the up arrow, light up the down arrow in brand color.
+  thead th.datatable-descending .datatable-sorter::after {
+    opacity: 0;
+  }
+  thead th.datatable-descending .datatable-sorter::before {
+    opacity: 1;
+    border-top-color: var(--bx-brand-primary) !important;
+    border-top-width: 6px !important;
+    border-left-width: 6px !important;
+    border-right-width: 6px !important;
+  }
+
+  // ---- Body cells ----
+  tbody td {
+    background: transparent;
+    border-color: var(--bx-divider) !important;
+    color: var(--bx-text);
+    padding: 0.6rem 0.85rem;
+  }
+  tbody tr:hover td {
+    background: var(--bx-surface-2);
+  }
+
+  // ---- Pagination ----
+  .datatable-pagination {
+    margin: 0;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: inline-flex;
+      gap: 2px;
+    }
+    li { float: none !important; }
+
+    a, button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      height: 32px;
+      padding: 0 0.55rem;
+      margin: 0 !important;
+      color: var(--bx-text);
+      background: var(--bx-surface-2);
+      border: 1px solid var(--bx-border-strong) !important;
+      border-radius: var(--bx-radius-sm);
+      text-decoration: none;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: background var(--bx-transition-fast),
+                  border-color var(--bx-transition-fast),
+                  color var(--bx-transition-fast);
+
+      &:hover {
+        background: var(--bx-surface-3) !important;
+        border-color: var(--bx-brand-primary) !important;
+        color: var(--bx-brand-primary-text);
+      }
+    }
+
+    .datatable-active a,
+    .datatable-active button {
+      background: var(--bx-brand-primary) !important;
+      color: var(--bx-text-on-primary) !important;
+      border-color: var(--bx-brand-primary) !important;
+      font-weight: 600;
+      cursor: default;
+    }
+
+    .datatable-disabled a,
+    .datatable-disabled button {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  }
+
+  .datatable-empty { text-align: center; padding: 1.5rem; color: var(--bx-text-muted); }
+}

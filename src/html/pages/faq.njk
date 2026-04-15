@@ -1,0 +1,81 @@
+---
+layout: vertical.njk
+title: FAQ
+pageTitle: Frequently asked questions
+pageSubtitle: Common questions about BX-AI+ — search or browse by topic.
+permalink: /pages/faq/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Pages" }
+  - { label: "FAQ" }
+---
+
+<div class="row g-3 mb-3">
+  <div class="col-12 col-md-7">
+    <div class="bx-ai-page__search">
+      <i data-lucide="search"></i>
+      <input type="search" placeholder="Search the knowledge base…">
+    </div>
+  </div>
+  <div class="col-12 col-md-5 d-flex justify-content-md-end gap-2">
+    <button class="btn btn-outline-secondary btn-sm bx-ai-ask-btn d-inline-flex align-items-center gap-1"
+            data-bx-ai-ask
+            data-ai-context="faq"
+            data-ai-prompt="Help me find the right FAQ topic. I'm looking for…">
+      <i data-lucide="sparkles" style="width:13px;height:13px;"></i> Ask BX-AI
+    </button>
+    <a class="btn btn-primary btn-sm" href="#"><i data-lucide="life-buoy" style="width:13px;height:13px;"></i> Contact support</a>
+  </div>
+</div>
+
+<div class="row g-3">
+  {% for cat in [
+    { label: "Getting started",  icon: "rocket",      qs: [
+      ["What is BX-AI+?", "BX-AI+ is an AI-centric admin and observability dashboard for the BoxLang runtime. It combines real-time fleet metrics with a contextual AI assistant."],
+      ["How do I create a workspace?", "Sign up at /auth/sign-up, pick a subdomain, and you'll be in within seconds."],
+      ["Can I import existing agents?", "Yes — bring your own model + prompt definitions via the Import button on AI → Agents."]
+    ]},
+    { label: "AI & models",      icon: "brain",       qs: [
+      ["Which models are supported?", "All Anthropic Claude models (Haiku, Sonnet, Opus). Ollama and self-hosted models on Business and above."],
+      ["How does BX-AI guardrail outputs?", "A dedicated guardrails agent runs on every output by default. Configure under Settings → AI defaults."],
+      ["Where do prompts live?", "AI → Prompt library. Star your favorites, share with the team, version them."]
+    ]},
+    { label: "Billing",          icon: "dollar-sign", qs: [
+      ["How is usage measured?", "By tokens (prompt + completion). Each plan includes a daily cap; overages are billed at $0.40 per 1k tokens."],
+      ["Do you offer annual discounts?", "Yes — 20% off when you pay yearly."],
+      ["Can I cancel anytime?", "Yes — your workspace remains active until the end of the current period."]
+    ]},
+    { label: "Security",         icon: "shield-check", qs: [
+      ["Is data used to train models?", "No. Your data is never used to train or fine-tune any underlying model."],
+      ["Is BX-AI+ SOC2 certified?", "Type I attestation in place. Type II is in progress — see status.bx-ai.io."],
+      ["How do I enable SSO?", "Available on Business and above via Settings → Security → SSO."]
+    ]}
+  ] %}
+  <div class="col-12 col-xl-6">
+    <div class="bx-widget" style="height:100%;">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap" style="display:flex;align-items:center;gap:0.6rem;">
+          <span class="bx-stat-card__icon" aria-hidden="true"><i data-lucide="{{ cat.icon }}"></i></span>
+          <h3 class="bx-widget__title" style="margin:0;">{{ cat.label }}</h3>
+        </div>
+      </div>
+      <div class="bx-widget__body">
+        <div class="accordion" id="acc-{{ loop.index }}">
+          {% for q in cat.qs %}
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button {% if not loop.first %}collapsed{% endif %}" data-bs-toggle="collapse" data-bs-target="#acc-{{ loop.index0 }}-{{ loop.index }}">
+                {{ q[0] }}
+              </button>
+            </h2>
+            <div id="acc-{{ loop.index0 }}-{{ loop.index }}" class="accordion-collapse collapse {% if loop.first %}show{% endif %}" data-bs-parent="#acc-{{ loop.index0 }}">
+              <div class="accordion-body">{{ q[1] }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>

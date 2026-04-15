@@ -1,0 +1,273 @@
+// ---------------------------------------------------------------------------
+// pages/_dashboard.scss
+// Flagship dashboard — AI morning brief, stat cards, charts, insights,
+// activity feed, top agents.
+// ---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
+// AI morning brief banner
+// ---------------------------------------------------------------------------
+.bx-ai-brief {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.1rem 1.25rem 1.25rem;
+  background: var(--bx-surface-1);
+  border: 1px solid var(--bx-border);
+  border-radius: var(--bx-radius-lg);
+  box-shadow: var(--bx-shadow-xs);
+  overflow: hidden;
+
+  &__stripe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--bx-ai-gradient);
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  &__avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--bx-radius-pill);
+    background: var(--bx-ai-gradient);
+    color: var(--bx-text-on-primary);
+    flex-shrink: 0;
+
+    i, svg { width: 18px; height: 18px; }
+  }
+
+  &__title-wrap {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--bx-text-heading);
+    letter-spacing: -0.005em;
+  }
+
+  &__subhead {
+    margin: 2px 0 0;
+    font-size: 0.82rem;
+    color: var(--bx-text-muted);
+  }
+
+  &__time {
+    font-size: 0.72rem;
+    color: var(--bx-text-muted);
+    padding: 2px 8px;
+    background: var(--bx-surface-3);
+    border-radius: var(--bx-radius-pill);
+  }
+
+  &__bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.88rem;
+      color: var(--bx-text);
+      line-height: 1.45;
+    }
+  }
+
+  &__marker {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-top: 0.55rem;
+    background: var(--bx-ai-gradient);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+
+    .btn { display: inline-flex; align-items: center; gap: 0.35rem; }
+    i, svg { width: 14px; height: 14px; }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Activity feed
+// ---------------------------------------------------------------------------
+.bx-activity {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.7rem 0.25rem;
+    border-bottom: 1px solid var(--bx-divider);
+
+    &:last-child { border-bottom: 0; }
+
+    &-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: var(--bx-radius-sm);
+      background: color-mix(in srgb, var(--bx-brand-primary) 12%, var(--bx-surface-3));
+      color: var(--bx-brand-primary-text);
+      flex-shrink: 0;
+
+      i, svg { width: 15px; height: 15px; }
+
+      &--success   { background: color-mix(in srgb, var(--bx-success) 16%, var(--bx-surface-3)); color: var(--bx-brand-primary-text); }
+      &--danger    { background: color-mix(in srgb, var(--bx-danger) 18%, var(--bx-surface-3));  color: #ff6b8b; }
+      &--warning   { background: color-mix(in srgb, var(--bx-warning) 22%, var(--bx-surface-3));  color: #f2a400; }
+      &--info      { background: color-mix(in srgb, var(--bx-info) 20%, var(--bx-surface-3));  color: #fff; }
+      &--secondary { background: var(--bx-surface-3); color: var(--bx-text); }
+    }
+
+    &-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    &-text {
+      margin: 0;
+      font-size: 0.84rem;
+      color: var(--bx-text);
+      line-height: 1.35;
+    }
+
+    &-meta {
+      margin: 2px 0 0;
+      font-size: 0.72rem;
+      color: var(--bx-text-muted);
+    }
+
+    &-time {
+      font-size: 0.72rem;
+      color: var(--bx-text-muted);
+      flex-shrink: 0;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Top agents table
+// ---------------------------------------------------------------------------
+.bx-top-agents {
+  .table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--bx-text);
+    --bs-table-border-color: var(--bx-divider);
+    --bs-table-hover-bg: var(--bx-surface-2);
+    --bs-table-hover-color: var(--bx-text-heading);
+
+    font-size: 0.84rem;
+    margin-bottom: 0;
+
+    thead th {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--bx-text-muted);
+      border-bottom: 1px solid var(--bx-border);
+    }
+
+    td, th { padding: 0.6rem 0.75rem; vertical-align: middle; }
+    td.num { font-variant-numeric: tabular-nums; text-align: right; }
+  }
+
+  &__name {
+    font-weight: 500;
+    color: var(--bx-text-heading);
+  }
+
+  &__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 2px 8px;
+    border-radius: var(--bx-radius-pill);
+    text-transform: uppercase;
+
+    &::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 18%, transparent);
+    }
+
+    &--healthy  { color: var(--bx-brand-primary-text); background: color-mix(in srgb, var(--bx-brand-primary) 14%, transparent); }
+    &--degraded { color: #f2a400;                       background: color-mix(in srgb, var(--bx-warning) 20%, transparent); }
+    &--errored  { color: #ff6b8b;                       background: color-mix(in srgb, var(--bx-danger) 18%, transparent); }
+    &--paused   { color: var(--bx-text-muted);          background: var(--bx-surface-3); }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Agent status donut
+// ---------------------------------------------------------------------------
+.bx-donut-legend {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.82rem;
+
+    &-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    &-label { color: var(--bx-text); flex: 1; }
+    &-value { color: var(--bx-text-heading); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+    &--success .bx-donut-legend__item-dot { background: var(--bx-brand-primary); }
+    &--warning .bx-donut-legend__item-dot { background: var(--bx-warning); }
+    &--danger  .bx-donut-legend__item-dot { background: var(--bx-danger); }
+    &--muted   .bx-donut-legend__item-dot { background: var(--bx-text-muted); }
+  }
+}

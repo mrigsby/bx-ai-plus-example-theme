@@ -1,0 +1,178 @@
+---
+layout: base.njk
+title: Tokens · Design System
+permalink: /__tokens/index.html
+eleventyExcludeFromCollections: true
+---
+{#
+  ----------------------------------------------------------------------------
+  __tokens.njk — Phase 2 design-system preview.
+  Internal dev page — not part of final theme inventory.
+  Exhaustive swatch sheet for palette, surfaces, text, borders, chart colors,
+  radii, shadows, and motion. Toggling the theme button visibly flips the
+  whole sheet — proof that every token is wired to a CSS custom property.
+  ----------------------------------------------------------------------------
+#}
+<section class="bx-preview">
+  <header class="bx-preview-header">
+    <h1><span>BX-AI+</span> · Design tokens</h1>
+    <div class="bx-preview-toggle">
+      <a class="bx-theme-toggle" href="/__components/">Components →</a>
+      <button class="bx-theme-toggle" type="button" data-bx-theme-toggle>Switch theme</button>
+    </div>
+  </header>
+
+  <p class="bx-preview-lede">
+    Every value below is a CSS custom property. Flip the theme — dark surfaces
+    become light, brand accent stays constant, text contrasts re-balance.
+  </p>
+
+  {# ---- Brand palette ---- #}
+  <h2 class="bx-preview-section">Brand palette</h2>
+  <div class="bx-swatch-grid">
+    <div class="bx-swatch">
+      <div class="bx-swatch__chip" style="--_swatch-color:#092221"></div>
+      <span class="bx-swatch__name">Color 1 · Teal Deep</span>
+      <span class="bx-swatch__hex">#092221</span>
+      <span class="bx-swatch__label">Page background (dark)</span>
+    </div>
+    <div class="bx-swatch">
+      <div class="bx-swatch__chip" style="--_swatch-color:#0DD3A8"></div>
+      <span class="bx-swatch__name">Color 2 · Teal Bright</span>
+      <span class="bx-swatch__hex">#0DD3A8</span>
+      <span class="bx-swatch__label">Primary accent (all modes)</span>
+    </div>
+    <div class="bx-swatch">
+      <div class="bx-swatch__chip" style="--_swatch-color:#D7DDE0"></div>
+      <span class="bx-swatch__name">Color 3 · Gray Light</span>
+      <span class="bx-swatch__hex">#D7DDE0</span>
+      <span class="bx-swatch__label">Borders / muted (via alpha)</span>
+    </div>
+    <div class="bx-swatch">
+      <div class="bx-swatch__chip" style="--_swatch-color:#227762"></div>
+      <span class="bx-swatch__name">Color 4 · Teal Medium</span>
+      <span class="bx-swatch__hex">#227762</span>
+      <span class="bx-swatch__label">Secondary / chart 2</span>
+    </div>
+    <div class="bx-swatch">
+      <div class="bx-swatch__chip" style="--_swatch-color:#6173A0"></div>
+      <span class="bx-swatch__name">Color 5 · Blue Purple</span>
+      <span class="bx-swatch__hex">#6173A0</span>
+      <span class="bx-swatch__label">Info / chart 3</span>
+    </div>
+    <div class="bx-swatch">
+      <div class="bx-swatch__chip" style="--_swatch-color:#4B4265"></div>
+      <span class="bx-swatch__name">Color 6 · Purple Dark</span>
+      <span class="bx-swatch__hex">#4B4265</span>
+      <span class="bx-swatch__label">Deep accent / chart 4</span>
+    </div>
+  </div>
+
+  {# ---- Surfaces ---- #}
+  <h2 class="bx-preview-section">Surfaces</h2>
+  <p class="bx-preview-lede">Container backgrounds. In dark, these lift from color 1 toward neutral; in light, they collapse to near-white.</p>
+  <div class="bx-surface-grid">
+    <div class="bx-surface-tile" style="background: var(--bx-body-bg)">
+      <div class="bx-surface-tile__label">Body</div>
+      <div class="bx-surface-tile__token">--bx-body-bg</div>
+      <div class="bx-surface-tile__sample-text">Primary text sample</div>
+      <div class="bx-surface-tile__sample-muted">Muted text sample</div>
+    </div>
+    <div class="bx-surface-tile" style="background: var(--bx-surface-1)">
+      <div class="bx-surface-tile__label">Surface 1 — cards</div>
+      <div class="bx-surface-tile__token">--bx-surface-1</div>
+      <div class="bx-surface-tile__sample-text">Primary text sample</div>
+      <div class="bx-surface-tile__sample-muted">Muted text sample</div>
+    </div>
+    <div class="bx-surface-tile" style="background: var(--bx-surface-2)">
+      <div class="bx-surface-tile__label">Surface 2 — elevated</div>
+      <div class="bx-surface-tile__token">--bx-surface-2</div>
+      <div class="bx-surface-tile__sample-text">Primary text sample</div>
+      <div class="bx-surface-tile__sample-muted">Muted text sample</div>
+    </div>
+    <div class="bx-surface-tile" style="background: var(--bx-surface-3)">
+      <div class="bx-surface-tile__label">Surface 3 — hover</div>
+      <div class="bx-surface-tile__token">--bx-surface-3</div>
+      <div class="bx-surface-tile__sample-text">Primary text sample</div>
+      <div class="bx-surface-tile__sample-muted">Muted text sample</div>
+    </div>
+  </div>
+
+  {# ---- Text ---- #}
+  <h2 class="bx-preview-section">Text</h2>
+  <div class="bx-surface-grid">
+    <div class="bx-surface-tile" style="background: var(--bx-surface-1)">
+      <div style="color: var(--bx-text-heading); font-size:1.5rem; font-weight:700;">Heading</div>
+      <div class="bx-surface-tile__token">--bx-text-heading</div>
+    </div>
+    <div class="bx-surface-tile" style="background: var(--bx-surface-1)">
+      <div style="color: var(--bx-text);">Body text — readable against surface 1 in both themes.</div>
+      <div class="bx-surface-tile__token">--bx-text</div>
+    </div>
+    <div class="bx-surface-tile" style="background: var(--bx-surface-1)">
+      <div style="color: var(--bx-text-muted);">Muted text — for captions, metadata, helpers.</div>
+      <div class="bx-surface-tile__token">--bx-text-muted</div>
+    </div>
+    <div class="bx-surface-tile" style="background: var(--bx-surface-1)">
+      <div style="color: var(--bx-brand-primary-text); font-weight:600;">Primary accent text</div>
+      <div class="bx-surface-tile__token">--bx-brand-primary-text</div>
+    </div>
+  </div>
+
+  {# ---- Borders / dividers ---- #}
+  <h2 class="bx-preview-section">Borders &amp; dividers</h2>
+  <div class="bx-surface-grid">
+    <div class="bx-surface-tile" style="border-color: var(--bx-border)">
+      <div class="bx-surface-tile__label">--bx-border</div>
+      <div class="bx-surface-tile__token">subtle container edge</div>
+    </div>
+    <div class="bx-surface-tile" style="border-color: var(--bx-border-strong)">
+      <div class="bx-surface-tile__label">--bx-border-strong</div>
+      <div class="bx-surface-tile__token">input borders, strong edges</div>
+    </div>
+    <div class="bx-surface-tile" style="border: 1px dashed var(--bx-divider)">
+      <div class="bx-surface-tile__label">--bx-divider</div>
+      <div class="bx-surface-tile__token">between list rows</div>
+    </div>
+  </div>
+
+  {# ---- Chart palette ---- #}
+  <h2 class="bx-preview-section">Chart palette</h2>
+  <p class="bx-preview-lede">Ordered series colors. Pass to ApexCharts as <code>colors: [...]</code>.</p>
+  <div class="bx-swatch-grid">
+    {% for n in [1,2,3,4,5,6] %}
+    <div class="bx-swatch">
+      <div class="bx-swatch__chip" style="--_swatch-color: var(--bx-chart-{{ n }})"></div>
+      <span class="bx-swatch__name">Series {{ n }}</span>
+      <span class="bx-swatch__hex">--bx-chart-{{ n }}</span>
+    </div>
+    {% endfor %}
+  </div>
+
+  {# ---- Radii ---- #}
+  <h2 class="bx-preview-section">Radii</h2>
+  {% for r in [ ["xs", "4px"], ["sm", "8px"], ["", "12px"], ["lg", "16px"], ["xl", "24px"], ["pill", "999px"] ] %}
+  <div class="bx-scale-row">
+    <div class="bx-scale-row__label">--bx-radius{% if r[0] %}-{{ r[0] }}{% endif %}</div>
+    <div class="bx-scale-row__sample" style="--_scale-color: var(--bx-surface-3); border-radius: var(--bx-radius{% if r[0] %}-{{ r[0] }}{% endif %});"></div>
+    <div class="bx-scale-row__token">{{ r[1] }}</div>
+  </div>
+  {% endfor %}
+
+  {# ---- Shadows ---- #}
+  <h2 class="bx-preview-section">Shadows</h2>
+  <div class="bx-surface-grid">
+    {% for s in ["xs", "sm", "", "lg"] %}
+    <div class="bx-surface-tile" style="background: var(--bx-surface-1); box-shadow: var(--bx-shadow{% if s %}-{{ s }}{% endif %});">
+      <div class="bx-surface-tile__label">--bx-shadow{% if s %}-{{ s }}{% endif %}</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {# ---- AI gradient ---- #}
+  <h2 class="bx-preview-section">AI gradient</h2>
+  <div class="bx-surface-tile" style="background: var(--bx-ai-gradient); color: var(--bx-text-on-primary); padding: 2.5rem; font-weight: 600; border: 0;">
+    Signature gradient — used for brand mark, voice toast border, summary insight card header.
+    <div style="margin-top:0.5rem; font-family: var(--bs-font-monospace, monospace); font-size: 0.78rem; opacity: 0.85;">--bx-ai-gradient</div>
+  </div>
+</section>

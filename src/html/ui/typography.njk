@@ -1,0 +1,86 @@
+---
+layout: vertical.njk
+title: Typography
+pageTitle: Typography
+pageSubtitle: Headings, body text, code, and inline elements.
+permalink: /ui/typography/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "UI" }
+  - { label: "Typography" }
+---
+
+<div class="row g-3">
+
+  <div class="col-12 col-xl-6">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Headings</h3></div></div>
+      <div class="bx-widget__body">
+        <h1>H1 · The quick brown fox</h1>
+        <h2>H2 · The quick brown fox</h2>
+        <h3>H3 · The quick brown fox</h3>
+        <h4>H4 · The quick brown fox</h4>
+        <h5>H5 · The quick brown fox</h5>
+        <h6>H6 · The quick brown fox</h6>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-6">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Body</h3></div></div>
+      <div class="bx-widget__body">
+        <p>This is a paragraph of body text in the default style. It uses Inter at 14.4 px with 1.55 line height.</p>
+        <p class="text-secondary">This paragraph uses the secondary text color, applied via Bootstrap's <code>.text-secondary</code> class.</p>
+        <p>Inline elements: <strong>bold</strong>, <em>italic</em>, <a href="#">a link</a>, <code>inline code</code>, <kbd>⌘K</kbd>, <mark>highlighted</mark>, <small>small</small>, <s>strikethrough</s>.</p>
+        <blockquote class="blockquote ps-3" style="border-left:3px solid var(--bx-brand-primary);">
+          <p class="mb-0">"BX-AI+ surfaces the right insight at the right moment — and asks the next question for you."</p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Code</h3></div></div>
+      <div class="bx-widget__body">
+<pre style="background:var(--bx-surface-2);border:1px solid var(--bx-border);border-radius:var(--bx-radius-sm);padding:1rem;font-size:0.82rem;overflow:auto;"><code>// Calling BX-AI+ from BoxLang
+agent = bxai.run( "summarize", {
+  context: "/api/agents anomaly window 14:18-14:24 UTC",
+  voice: "internal-ops"
+} );
+return agent.reply;</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="bx-widget">
+      <div class="bx-widget__head"><div class="bx-widget__title-wrap"><h3 class="bx-widget__title">Lists</h3></div></div>
+      <div class="bx-widget__body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <ul>
+              <li>Unordered list item</li>
+              <li>Another item</li>
+              <li>Nested
+                <ul>
+                  <li>Sub-item one</li>
+                  <li>Sub-item two</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ol>
+              <li>Ordered list item</li>
+              <li>Another item</li>
+              <li>And another</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

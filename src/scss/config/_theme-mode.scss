@@ -1,0 +1,76 @@
+// ===========================================================================
+// config/_theme-mode.scss
+// Light-theme pivot. Overrides --bx-* and --bs-* tokens when
+// <html data-bs-theme="light"> is set.
+//
+// Dark theme is the default and its tokens are defined in
+// _variables-custom.scss (:root).
+// ===========================================================================
+
+[data-bs-theme="light"] {
+  // ------ BX-AI+ surfaces ------
+  --bx-body-bg:       #F4F6F7;
+  --bx-surface-1:     #FFFFFF;
+  --bx-surface-2:     #FAFBFC;
+  --bx-surface-3:     #EEF1F2;
+  --bx-surface-elev:  rgba(9, 34, 33, 0.02);
+
+  // Borders
+  --bx-border:        #{rgba($bx-teal-deep, 0.08)};
+  --bx-border-strong: #{rgba($bx-teal-deep, 0.14)};
+  --bx-divider:       #{rgba($bx-teal-deep, 0.06)};
+
+  // Text
+  --bx-text:          #143936;
+  --bx-text-muted:    #5E7077;
+  --bx-text-heading:  #092221;
+  --bx-text-on-primary: #041310;
+  --bx-text-on-dark:  #E6ECEF;
+
+  // Brand-primary-text: on white bg, the pure teal-bright (#0DD3A8) fails
+  // contrast. Swap to darkened variant for text/icon use on light surfaces.
+  --bx-brand-primary-text: #{$bx-teal-bright-darker};
+  --bx-brand-primary-hover: #{bx-shade($bx-teal-bright, 10%)};
+
+  // Topbar / sidenav
+  --bx-topbar-bg:      #FFFFFF;
+  --bx-topbar-fg:      #143936;
+  --bx-topbar-border:  #{rgba($bx-teal-deep, 0.08)};
+
+  --bx-sidenav-bg:     #FFFFFF;
+  --bx-sidenav-fg:     #3A4A4D;
+  --bx-sidenav-fg-muted: #5E7077;
+  --bx-sidenav-fg-hover: #{$bx-teal-medium};
+  --bx-sidenav-active-bg: #{rgba($bx-teal-bright, 0.14)};
+  --bx-sidenav-active-fg: #{$bx-teal-bright-darker};
+  --bx-sidenav-section-label: #8A9AA0;
+
+  // Focus ring still readable on both themes
+  --bx-focus-ring: #{rgba($bx-teal-bright, 0.35)};
+
+  // AI glow — softer on light
+  --bx-ai-glow-active: 0 0 0 4px #{rgba($bx-teal-bright, 0.22)};
+
+  // Shadows — lighter on light surfaces
+  --bx-shadow-xs: 0 1px 2px rgba(9, 34, 33, 0.08);
+  --bx-shadow-sm: 0 2px 8px -2px rgba(9, 34, 33, 0.08);
+  --bx-shadow:    0 8px 24px -8px rgba(9, 34, 33, 0.12);
+  --bx-shadow-lg: 0 20px 60px -20px rgba(9, 34, 33, 0.18);
+  --bx-shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+  // ------ Bootstrap pass-through ------
+  --bs-body-bg:            var(--bx-body-bg);
+  --bs-body-color:         var(--bx-text);
+  --bs-body-secondary-bg:  var(--bx-surface-2);
+  --bs-body-tertiary-bg:   var(--bx-surface-3);
+  --bs-emphasis-color:     var(--bx-text-heading);
+  --bs-heading-color:      var(--bx-text-heading);
+  --bs-border-color:       var(--bx-border-strong);
+  --bs-border-color-translucent: var(--bx-border);
+  --bs-secondary-bg:       var(--bx-surface-2);
+  --bs-tertiary-bg:        var(--bx-surface-3);
+  --bs-secondary-color:    var(--bx-text-muted);
+  --bs-tertiary-color:     var(--bx-text-muted);
+  --bs-link-color:         var(--bx-brand-primary-text);
+  --bs-link-hover-color:   var(--bx-brand-primary-hover);
+}

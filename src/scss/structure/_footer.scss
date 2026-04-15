@@ -1,0 +1,37 @@
+// ---------------------------------------------------------------------------
+// structure/_footer.scss
+// ---------------------------------------------------------------------------
+
+.bx-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem var(--bx-content-gutter);
+  font-size: 0.78rem;
+  color: var(--bx-text-muted);
+  border-top: 1px solid var(--bx-border);
+  background: color-mix(in srgb, var(--bx-body-bg) 90%, transparent);
+
+  a {
+    color: var(--bx-text-muted);
+    text-decoration: none;
+    transition: color var(--bx-transition-fast);
+
+    &:hover { color: var(--bx-brand-primary-text); }
+  }
+
+  &__sep { opacity: 0.5; }
+
+  &__right {
+    display: inline-flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  @media (max-width: 575.98px) {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+}

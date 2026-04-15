@@ -1,0 +1,209 @@
+---
+layout: vertical.njk
+title: Documentation
+pageTitle: Documentation
+pageSubtitle: A developer-facing reference for the BX-AI+ theme structure, components, and conventions.
+permalink: /documentation/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Documentation" }
+---
+
+<div class="bx-docs">
+
+  {# ---- Sticky nav ---- #}
+  <nav class="bx-docs__nav">
+    <h6>Getting started</h6>
+    <a href="#overview">Overview</a>
+    <a href="#install">Install &amp; build</a>
+    <a href="#structure">File structure</a>
+
+    <h6>Theming</h6>
+    <a href="#tokens">Design tokens</a>
+    <a href="#dark-light">Dark / light themes</a>
+    <a href="#layout-attrs">Layout attributes</a>
+
+    <h6>Components</h6>
+    <a href="#widgets">Widget primitives</a>
+    <a href="#ai">AI affordances</a>
+    <a href="#charts">Charts</a>
+
+    <h6>Libraries</h6>
+    <a href="#libs">Bundled libraries</a>
+    <a href="#vendor-css">Vendor CSS pipeline</a>
+
+    <h6>BoxLang port</h6>
+    <a href="#seams">Seam markers</a>
+    <a href="#data-shape">Data shape</a>
+  </nav>
+
+  {# ---- Article ---- #}
+  <article class="bx-docs__article">
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>BX-AI+ is a static, AI-centric Bootstrap 5 dashboard theme for Ortus Solutions BoxLang. It ships as 50+ HTML pages plus an SCSS pipeline you can recompile and rebrand.</p>
+      <p>The defining feature is the <strong>AI affordance layer</strong>: a topbar chat bar (⌘K command palette), a global voice toast, contextual "Ask AI" buttons on every widget, and an AI insights feed.</p>
+    </section>
+
+    <section id="install">
+      <h2>Install &amp; build</h2>
+      <p>Requires Node 20+. From the project root:</p>
+<pre><code>npm install
+npm run dev      # live-reload dev server at :3000
+npm run build    # production build → dist/</code></pre>
+      <p>Build output is plain HTML/CSS/JS in <code>dist/</code>. No server runtime is required to view the demo.</p>
+    </section>
+
+    <section id="structure">
+      <h2>File structure</h2>
+<pre><code>src/
+├── html/         Eleventy input — pages, layouts, partials, _data
+├── scss/         SCSS sources — config, components, structure, ai, pages, plugins
+├── js/           JS modules — core, ai, components, pages, util
+├── assets/       Images, fonts, brand marks
+└── static/       Top-level static files
+tools/            Build scripts (clean, css, js, asset copy)
+dist/             Build output</code></pre>
+
+      <h3>Adding a page</h3>
+      <ol>
+        <li>Create <code>src/html/section/page.njk</code> with a front-matter block (<code>layout</code>, <code>title</code>, <code>permalink</code>, optional <code>page_module</code>).</li>
+        <li>Add it to <code>src/html/_data/menu.json</code> if it should appear in the sidebar.</li>
+        <li>If it needs page-specific JS, create <code>src/js/pages/page.js</code> and register it in the switch in <code>src/js/app.js</code>.</li>
+      </ol>
+    </section>
+
+    <section id="tokens">
+      <h2>Design tokens</h2>
+      <p>All visual tokens live in <code>src/scss/config/_variables-custom.scss</code> and are emitted as CSS custom properties on <code>:root</code>. The full sheet is browseable at <a href="/__tokens/">/__tokens/</a>.</p>
+      <table class="mb-3">
+        <thead><tr><th>Token</th><th>Default (dark)</th><th>Used for</th></tr></thead>
+        <tbody>
+          <tr><td><code>--bx-body-bg</code></td><td>#092221</td><td>Page background</td></tr>
+          <tr><td><code>--bx-brand-primary</code></td><td>#0DD3A8</td><td>Primary accent, focus rings, active state</td></tr>
+          <tr><td><code>--bx-surface-1</code></td><td>#0E2D2B</td><td>Card / panel background</td></tr>
+          <tr><td><code>--bx-text</code></td><td>#E6ECEF</td><td>Body text</td></tr>
+          <tr><td><code>--bx-ai-gradient</code></td><td>teal → blue-purple → purple</td><td>AI-flavored emphasis</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="dark-light">
+      <h2>Dark / light themes</h2>
+      <p>Dark is the default. Light theme is a token pivot defined in <code>src/scss/config/_theme-mode.scss</code> and applied via <code>&lt;html data-bs-theme="light"&gt;</code>. The theme toggle in the topbar persists to <code>localStorage</code> so it survives reloads.</p>
+      <p>To add a new theme variant, add a new <code>[data-bs-theme="…"]</code> selector in the same file and override the <code>--bx-*</code> tokens.</p>
+    </section>
+
+    <section id="layout-attrs">
+      <h2>Layout attributes</h2>
+      <p>Layout state lives on <code>&lt;html&gt;</code> as <code>data-*</code> attributes. The customizer drawer reads / writes them and persists to <code>sessionStorage</code>.</p>
+      <table>
+        <thead><tr><th>Attribute</th><th>Values</th></tr></thead>
+        <tbody>
+          <tr><td><code>data-bs-theme</code></td><td><code>dark</code> / <code>light</code></td></tr>
+          <tr><td><code>data-layout</code></td><td><code>vertical</code> / <code>horizontal</code> (set by the layout file, navigation-driven)</td></tr>
+          <tr><td><code>data-sidenav-size</code></td><td><code>default</code> / <code>compact</code> / <code>hover</code> / <code>offcanvas</code></td></tr>
+          <tr><td><code>data-sidenav-color</code></td><td><code>dark</code> / <code>light</code> / <code>brand</code></td></tr>
+          <tr><td><code>data-topbar-color</code></td><td><code>dark</code> / <code>light</code> / <code>brand</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="widgets">
+      <h2>Widget primitives</h2>
+      <p>Reusable widgets live in <code>src/html/_includes/partials/widgets/</code> as Nunjucks macros:</p>
+      <ul>
+        <li><code>statCard(s)</code> — KPI card with sparkline + live counter (drift-driven)</li>
+        <li><code>insightCard(insight)</code> — AI insight with anomaly / suggestion / query / summary variants</li>
+        <li><code>widgetMenu(context, prompt)</code> — 3-dot overflow menu including "Ask AI about this"</li>
+        <li><code>inlinePrompt(context, placeholder)</code> — embedded one-line AI prompt input</li>
+      </ul>
+<pre><code>{% raw %}{% from "partials/widgets/stat-card.njk" import statCard %}
+{{ statCard(s) }}{% endraw %}</code></pre>
+    </section>
+
+    <section id="ai">
+      <h2>AI affordances</h2>
+      <p>All four AI affordances are wired globally in <code>src/js/app.js</code>:</p>
+      <ul>
+        <li><strong>Chat bar</strong> — the topbar pill, triggered by click or <kbd>⌘K</kbd>. Opens a command palette modal with live-filtered suggestions.</li>
+        <li><strong>Voice toast</strong> — bottom-right, triggered by any <code>[data-bx-voice-trigger]</code>. State machine (idle → listening → processing → result → error) with a DOM-based waveform.</li>
+        <li><strong>AI chat panel</strong> — right offcanvas, accepts queries from the chat bar, voice toast, and "Ask AI" buttons. Mock replies via <code>src/js/ai/mock-ai.js</code>.</li>
+        <li><strong>Ask AI</strong> — buttons everywhere with <code>data-bx-ai-ask</code> + <code>data-ai-context</code> + <code>data-ai-prompt</code>. Submits the prompt to the chat panel.</li>
+      </ul>
+    </section>
+
+    <section id="charts">
+      <h2>Charts</h2>
+      <p>ApexCharts is the primary chart library. Theming hooks into our token system via <code>src/js/components/apex-defaults.js</code>:</p>
+<pre><code>import { palette, themeSettings } from "./components/apex-defaults.js";
+
+const t = themeSettings();
+new ApexCharts(el, {
+  chart: { ...t.chart, type: "line" },
+  colors: palette(),
+  grid: t.grid,
+  xaxis: t.xaxis,
+  yaxis: t.yaxis,
+  legend: t.legend,
+  tooltip: t.tooltip,
+  series: [...]
+});</code></pre>
+      <p>Charts re-skin automatically on theme flip — pages with charts listen for <code>document.addEventListener("bx:layoutchange", …)</code>.</p>
+    </section>
+
+    <section id="libs">
+      <h2>Bundled libraries</h2>
+      <table>
+        <thead><tr><th>Library</th><th>Used for</th></tr></thead>
+        <tbody>
+          <tr><td>Bootstrap 5.3</td><td>Framework</td></tr>
+          <tr><td>ApexCharts</td><td>All charts</td></tr>
+          <tr><td>Lucide</td><td>Icons (auto-init via <code>data-lucide</code>)</td></tr>
+          <tr><td>SimpleBar</td><td>Custom scrollbars</td></tr>
+          <tr><td>FullCalendar 6</td><td>Calendar app</td></tr>
+          <tr><td>Dragula</td><td>Kanban drag-drop</td></tr>
+          <tr><td>simple-datatables</td><td>Sortable / filterable tables (vanilla)</td></tr>
+          <tr><td>GridJS</td><td>Modern table alternative</td></tr>
+          <tr><td>Choices.js</td><td>Enhanced selects</td></tr>
+          <tr><td>Flatpickr</td><td>Date / time pickers</td></tr>
+          <tr><td>Inputmask</td><td>Masked inputs</td></tr>
+          <tr><td>noUiSlider</td><td>Range sliders</td></tr>
+          <tr><td>Quill</td><td>Rich text editor</td></tr>
+          <tr><td>Dropzone</td><td>File upload</td></tr>
+          <tr><td>SweetAlert2</td><td>Themed alert dialogs</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="vendor-css">
+      <h2>Vendor CSS pipeline</h2>
+      <p>Plugin base CSS files are copied into <code>dist/assets/vendor/</code> by <code>tools/copy-assets.mjs</code>. A page opts into a vendor stylesheet via front-matter:</p>
+<pre><code>---
+pageVendorCss:
+  - choices
+  - flatpickr
+  - quill.snow
+---</code></pre>
+      <p>BX-AI+ overrides for these libraries live in <code>src/scss/plugins/</code> and are loaded for every page via <code>app.css</code>, but the heavy structural CSS only loads where needed.</p>
+    </section>
+
+    <section id="seams">
+      <h2>Seam markers</h2>
+      <p>Every shared partial wraps its output with HTML comments via the <code>seamBegin</code> / <code>seamEnd</code> Eleventy shortcodes:</p>
+<pre><code>&lt;!-- BEGIN :: TOPBAR --&gt;
+... topbar markup ...
+&lt;!-- END :: TOPBAR --&gt;</code></pre>
+      <p>These survive Eleventy compilation and give the BoxLang module a mechanical find-and-replace path. Search for <code>BEGIN ::</code> in any built HTML to see the full seam map.</p>
+    </section>
+
+    <section id="data-shape">
+      <h2>Data shape</h2>
+      <p>All page data comes from JSON files in <code>src/html/_data/</code> — the BoxLang module should emit identical shapes at runtime to keep the templates working unchanged.</p>
+      <p>Locked schemas: <code>menu.json</code>, <code>horizontalMenu.json</code>, <code>notifications.json</code>, <code>user.json</code>, <code>dashboard.json</code> (stats, charts, insights, activity), <code>aiAgents.json</code>, <code>aiPrompts.json</code>, <code>aiHistory.json</code>, plus per-app data (calendar, kanban, email, chat, files, projects).</p>
+      <p>See <code>BOXLANG-PORT-NOTES.md</code> at the project root for the full porting guide.</p>
+    </section>
+
+  </article>
+</div>

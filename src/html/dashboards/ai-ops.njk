@@ -1,0 +1,89 @@
+---
+layout: vertical.njk
+title: AI Ops
+pageTitle: AI Ops
+pageSubtitle: Runtime telemetry — request rate, model latency, token economy, anomalies.
+page_module: ai-ops
+permalink: /dashboards/ai-ops/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Dashboards" }
+  - { label: "AI Ops" }
+---
+{% from "partials/widgets/widget-menu.njk"      import widgetMenu %}
+{% from "partials/widgets/stat-card.njk"        import statCard %}
+{% from "partials/widgets/ai-inline-prompt.njk" import inlinePrompt %}
+
+<div class="row g-3 mb-3">
+  {% for s in aiOps.stats %}
+  <div class="col-12 col-sm-6 col-xl-3">{{ statCard(s) }}</div>
+  {% endfor %}
+</div>
+
+<div class="row g-3 mb-3">
+  <div class="col-12 col-xl-8">
+    <div class="bx-widget bx-widget--full-height">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">{{ aiOps.throughputChart.title }}</h3>
+          <p class="bx-widget__subtitle">{{ aiOps.throughputChart.subtitle }}</p>
+        </div>
+        {{ widgetMenu(aiOps.throughputChart.aiContext, "Correlate request throughput and p95 latency over the past 24 hours.") }}
+      </div>
+      <div class="bx-widget__body">
+        <div data-bx-chart-throughput
+             data-bx-chart-data='{{ aiOps.throughputChart | dump }}'
+             style="min-height:320px"></div>
+      </div>
+      <div class="bx-widget__footer">
+        {{ inlinePrompt(aiOps.throughputChart.aiContext, "Ask about throughput vs latency…") }}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 col-xl-4">
+    <div class="bx-widget bx-widget--full-height">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">Anomaly events</h3>
+          <p class="bx-widget__subtitle">Detected in the last 24 hours</p>
+        </div>
+        {{ widgetMenu("anomaly-events-24h", "Summarize the anomaly events from the last 24 hours.") }}
+      </div>
+      <div class="bx-widget__body">
+        <ul class="bx-activity">
+          {% for e in aiOps.anomalyEvents %}
+          <li class="bx-activity__item">
+            <span class="bx-activity__item-icon bx-activity__item-icon--{{ e.variant }}" aria-hidden="true">
+              <i data-lucide="{{ e.icon }}"></i>
+            </span>
+            <div class="bx-activity__item-body">
+              <p class="bx-activity__item-text"><strong>{{ e.title }}</strong> · {{ e.body }}</p>
+              <p class="bx-activity__item-meta">{{ e.time }}</p>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-12">
+    <div class="bx-widget">
+      <div class="bx-widget__head">
+        <div class="bx-widget__title-wrap">
+          <h3 class="bx-widget__title">{{ aiOps.byModelChart.title }}</h3>
+          <p class="bx-widget__subtitle">{{ aiOps.byModelChart.subtitle }}</p>
+        </div>
+        {{ widgetMenu(aiOps.byModelChart.aiContext, "Which model has the highest token spend and is it justified by usage?") }}
+      </div>
+      <div class="bx-widget__body">
+        <div data-bx-chart-models
+             data-bx-chart-data='{{ aiOps.byModelChart | dump }}'
+             style="min-height:280px"></div>
+      </div>
+    </div>
+  </div>
+</div>

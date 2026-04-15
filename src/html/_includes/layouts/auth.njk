@@ -1,0 +1,34 @@
+---
+layout: base.njk
+layoutVariant: vertical
+---
+{#
+  ----------------------------------------------------------------------------
+  layouts/auth.njk — centred card layout with brand glow background.
+  Used by sign-in, sign-up, forgot-password, lock-screen.
+  No topbar / sidenav — full-bleed.
+  ----------------------------------------------------------------------------
+#}
+{% seamBegin "AUTH_SHELL" %}
+<main class="bx-auth">
+  <div class="bx-auth__bg" aria-hidden="true"></div>
+
+  <div class="bx-auth__inner">
+    <a href="/" class="bx-auth__brand">
+      <img src="/assets/images/brand/bx-ai-icon-full.svg" alt="" width="40" height="40">
+      <span class="bx-auth__brand-text">{{ site.name }}</span>
+    </a>
+
+    <div class="bx-auth__card">
+      {% seamBegin "AUTH_CARD" %}
+      {{ content | safe }}
+      {% seamEnd "AUTH_CARD" %}
+    </div>
+
+    <p class="bx-auth__foot">
+      © {% year %} {{ site.vendor }} ·
+      <a href="#">Terms</a> · <a href="#">Privacy</a> · <a href="#">Help</a>
+    </p>
+  </div>
+</main>
+{% seamEnd "AUTH_SHELL" %}

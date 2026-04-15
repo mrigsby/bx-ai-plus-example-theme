@@ -1,0 +1,18 @@
+{
+  "stats": [
+    { "label": "Sessions today", "value":  47, "icon": "mic" },
+    { "label": "Avg duration",   "value": "4.2s", "icon": "timer" },
+    { "label": "Routed to chat", "value":  31, "icon": "message-circle" },
+    { "label": "Failed",         "value":   2, "icon": "alert-circle" }
+  ],
+  "log": [
+    { "id": "v-01", "time": "14:31", "user": "M. Rigsby",   "duration": "3.8s", "transcript": "Show me the current anomalies.",                "outcome": "Routed to chat", "tone": "success" },
+    { "id": "v-02", "time": "14:18", "user": "Avery Liu",   "duration": "5.1s", "transcript": "Summarize yesterday's customer calls.",         "outcome": "Routed to chat", "tone": "success" },
+    { "id": "v-03", "time": "13:54", "user": "Marcus Reed", "duration": "2.6s", "transcript": "What's the token budget looking like?",         "outcome": "Routed to chat", "tone": "success" },
+    { "id": "v-04", "time": "13:42", "user": "Priya Shah",  "duration": "0.4s", "transcript": "—",                                              "outcome": "No audio detected","tone": "danger" },
+    { "id": "v-05", "time": "13:21", "user": "Theo Kim",    "duration": "6.0s", "transcript": "Compare planner-alpha to v2 in detail.",         "outcome": "Routed to chat", "tone": "success" },
+    { "id": "v-06", "time": "12:58", "user": "Sasha Volkov","duration": "4.3s", "transcript": "Draft an email about the pricing changes.",      "outcome": "Routed to chat", "tone": "success" },
+    { "id": "v-07", "time": "12:14", "user": "M. Rigsby",   "duration": "1.2s", "transcript": "—",                                              "outcome": "Cancelled",       "tone": "muted" },
+    { "id": "v-08", "time": "11:46", "user": "Avery Liu",   "duration": "3.5s", "transcript": "Explain the revenue metric.",                    "outcome": "Routed to chat", "tone": "success" }
+  ]
+}

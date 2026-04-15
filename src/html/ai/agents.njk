@@ -1,0 +1,75 @@
+---
+layout: vertical.njk
+title: Agents
+pageTitle: Agents
+pageSubtitle: Browse, monitor, and manage your AI agents.
+permalink: /ai/agents/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "AI" }
+  - { label: "Agents" }
+---
+{% from "partials/widgets/widget-menu.njk" import widgetMenu %}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <div class="d-flex gap-2 align-items-center">
+    <span class="text-secondary small">{{ aiAgents.agents | length }} agents</span>
+    <span class="bx-top-agents__status bx-top-agents__status--healthy">{{ aiAgents.agents | length }} total</span>
+  </div>
+  <div class="d-flex gap-2">
+    <button type="button" class="btn btn-outline-secondary btn-sm">
+      <i data-lucide="filter" style="width:14px;height:14px;"></i> Filter
+    </button>
+    <button type="button" class="btn btn-primary btn-sm">
+      <i data-lucide="plus" style="width:14px;height:14px;"></i> New agent
+    </button>
+  </div>
+</div>
+
+<div class="row g-3">
+  {% for a in aiAgents.agents %}
+  <div class="col-12 col-md-6 col-xl-4">
+    <div class="bx-agent-card">
+      {{ widgetMenu("agent-" + a.id, "Tell me about the " + a.name + " agent — recent activity, health, and any concerns.") }}
+
+      <div class="bx-agent-card__head">
+        <span class="bx-agent-card__icon bx-agent-card__icon--{{ a.tone }}" aria-hidden="true">
+          <i data-lucide="{{ a.icon }}"></i>
+        </span>
+        <div style="flex:1;min-width:0;">
+          <h3 class="bx-agent-card__name">{{ a.name }}</h3>
+          <div class="bx-agent-card__role">{{ a.role }} · {{ a.model }}</div>
+        </div>
+        <span class="bx-agent-card__status bx-agent-card__status--{{ a.status }}">{{ a.status }}</span>
+      </div>
+
+      <p class="bx-agent-card__desc">{{ a.description }}</p>
+
+      <dl class="bx-agent-card__meta">
+        <div><dt>Owner</dt><dd>{{ a.owner }}</dd></div>
+        <div><dt>Last run</dt><dd>{{ a.lastRun }}</dd></div>
+        <div><dt>p95 latency</dt><dd>{% if a.p95 %}{{ a.p95 }}ms{% else %}—{% endif %}</dd></div>
+        <div><dt>Spend (k tok)</dt><dd>{{ a.spend }}</dd></div>
+      </dl>
+
+      <div class="bx-agent-card__foot">
+        <button type="button" class="btn btn-sm btn-primary bx-ai-ask-btn"
+                data-bx-ai-ask
+                data-ai-context="agent-{{ a.id }}"
+                data-ai-prompt="Tell me about the {{ a.name }} agent — recent activity, health, and any concerns.">
+          <i data-lucide="sparkles" aria-hidden="true"></i>
+          Ask AI
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">
+          <i data-lucide="settings" aria-hidden="true"></i>
+          Configure
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">
+          <i data-lucide="bar-chart-3" aria-hidden="true"></i>
+          Logs
+        </button>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>

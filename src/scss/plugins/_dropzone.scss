@@ -1,0 +1,28 @@
+// ---------------------------------------------------------------------------
+// plugins/_dropzone.scss — Dropzone theming.
+// ---------------------------------------------------------------------------
+
+.bx-dropzone {
+  background: var(--bx-surface-2);
+  border: 1.5px dashed var(--bx-border-strong);
+  border-radius: var(--bx-radius);
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  transition: border-color var(--bx-transition-fast), background var(--bx-transition-fast);
+  min-height: 140px;
+  cursor: pointer;
+
+  &:hover, &.dz-drag-hover {
+    border-color: var(--bx-brand-primary);
+    background: color-mix(in srgb, var(--bx-brand-primary) 6%, var(--bx-surface-2));
+  }
+
+  .dz-message { color: var(--bx-text); margin: 0; }
+
+  .dz-preview {
+    background: var(--bx-surface-1);
+    border: 1px solid var(--bx-border);
+    border-radius: var(--bx-radius-sm);
+    color: var(--bx-text);
+  }
+}

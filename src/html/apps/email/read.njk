@@ -1,0 +1,82 @@
+---
+layout: vertical.njk
+title: Read message
+pageTitle: Inbox
+permalink: /apps/email/read/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Apps" }
+  - { label: "Email", href: "/apps/email/inbox/" }
+  - { label: "Message" }
+---
+
+<div class="d-flex gap-2 mb-3">
+  <a href="/apps/email/inbox/" class="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-1">
+    <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Back to inbox
+  </a>
+  <div class="ms-auto d-flex gap-1">
+    <button class="bx-btn-icon" aria-label="Archive" title="Archive"><i data-lucide="archive"></i></button>
+    <button class="bx-btn-icon" aria-label="Delete" title="Delete"><i data-lucide="trash-2"></i></button>
+    <button class="bx-btn-icon" aria-label="Star" title="Star"><i data-lucide="star"></i></button>
+    <button class="bx-btn-icon bx-ai-ask-btn"
+            data-bx-ai-ask
+            data-ai-context="email-{{ email.selected.id }}"
+            data-ai-prompt="Summarize this email and draft a 3-line response."
+            aria-label="Ask AI" title="Summarize and draft reply">
+      <i data-lucide="sparkles"></i>
+    </button>
+  </div>
+</div>
+
+<div class="bx-email-read">
+  <header class="bx-email-read__head">
+    <span class="bx-avatar"><span class="bx-avatar__initials">{{ email.selected.from.initials }}</span></span>
+    <div style="flex:1;">
+      <h2 class="bx-email-read__subject">{{ email.selected.subject }}</h2>
+      <div class="bx-email-read__from-line">
+        <span class="bx-email-read__from-name">{{ email.selected.from.name }}</span>
+        <span style="color:var(--bx-text-muted);">&lt;{{ email.selected.from.email }}&gt;</span>
+        <span style="color:var(--bx-text-muted);">→ {{ email.selected.to }}</span>
+        <span style="color:var(--bx-text-muted);">· {{ email.selected.time }}</span>
+        <span class="bx-email__label" style="padding:1px 7px;background:color-mix(in srgb, var(--bx-danger) 18%, transparent);border-radius:var(--bx-radius-pill);">
+          <span class="bx-cat-dot" style="background:var(--bx-danger);"></span>
+          {{ email.selected.label }}
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <div class="bx-email-read__body">
+    {% for line in email.selected.body %}<p>{{ line }}</p>{% endfor %}
+  </div>
+
+  {% if email.selected.attachments %}
+  <div class="bx-email-read__attachments">
+    {% for a in email.selected.attachments %}
+    <a href="#" class="bx-email-read__attachment">
+      <i data-lucide="{{ a.icon }}"></i>
+      <span>{{ a.name }}</span>
+      <span style="color:var(--bx-text-muted);font-size:0.7rem;">{{ a.size }}</span>
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="bx-email-read__actions">
+    <button class="btn btn-primary d-inline-flex align-items-center gap-1">
+      <i data-lucide="reply" style="width:14px;height:14px;"></i> Reply
+    </button>
+    <button class="btn btn-outline-secondary d-inline-flex align-items-center gap-1">
+      <i data-lucide="reply-all" style="width:14px;height:14px;"></i> Reply all
+    </button>
+    <button class="btn btn-outline-secondary d-inline-flex align-items-center gap-1">
+      <i data-lucide="forward" style="width:14px;height:14px;"></i> Forward
+    </button>
+    <button class="btn btn-outline-secondary bx-ai-ask-btn d-inline-flex align-items-center gap-1"
+            data-bx-ai-ask
+            data-ai-context="email-{{ email.selected.id }}-reply"
+            data-ai-prompt="Draft a 3-line response to this email — confirm understanding, propose a next step.">
+      <i data-lucide="sparkles" style="width:14px;height:14px;"></i> Draft reply with AI
+    </button>
+  </div>
+</div>

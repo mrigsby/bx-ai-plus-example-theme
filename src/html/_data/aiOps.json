@@ -1,0 +1,34 @@
+{
+  "stats": [
+    { "id": "ao-rps",      "label": "Requests / sec", "icon": "activity",     "value": 184,  "unit": "",   "deltaPct": 11.0, "trend": "up",       "aiContext": "rps",         "sparkSeries": [120,128,134,142,150,156,162,170,176,184], "drift": { "min": 170, "max": 200, "stepMax": 4 } },
+    { "id": "ao-tokens",   "label": "Tokens / min",   "icon": "brain",        "value": 92400, "unit": "",  "deltaPct": 5.6,  "trend": "up",       "aiContext": "tokens-per-min","sparkSeries": [62000,68000,72000,76000,80000,84000,87000,89000,90500,92400], "drift": { "min": 91000, "max": 94000, "stepMax": 200 } },
+    { "id": "ao-p95",      "label": "p95 latency",    "icon": "gauge",        "value": 192,   "unit": "ms","deltaPct": -5.9, "trend": "down-good","aiContext": "p95-latency",  "sparkSeries": [220,234,225,210,205,198,196,201,194,192], "drift": { "min": 170, "max": 260, "stepMax": 8 } },
+    { "id": "ao-cache",    "label": "Cache hit rate", "icon": "database",     "value": 92,    "unit": "%", "deltaPct": 1.2,  "trend": "up",       "aiContext": "cache-hit",    "sparkSeries": [88,89,89,90,91,91,92,92,92,92], "drift": { "min": 89, "max": 95, "stepMax": 0.5 } }
+  ],
+  "throughputChart": {
+    "title": "Throughput vs latency",
+    "subtitle": "Past 24 hours — req/s (teal) and p95 ms (purple)",
+    "aiContext": "throughput-vs-latency",
+    "categories": ["00","02","04","06","08","10","12","14","16","18","20","22"],
+    "series": [
+      { "name": "Req/s",  "data": [ 80, 65, 60, 70, 95,140,170,184,178,165,150,135] },
+      { "name": "p95 ms", "data": [180,170,165,170,200,235,250,240,225,210,200,195] }
+    ]
+  },
+  "byModelChart": {
+    "title": "Spend by model",
+    "subtitle": "Past 7 days — thousands of tokens",
+    "aiContext": "spend-by-model",
+    "categories": ["summarizer-v3","planner-alpha","retriever-xl","classifier-m","rewriter-lg"],
+    "series": [
+      { "name": "Prompt",     "data": [280, 420, 140, 110, 90] },
+      { "name": "Completion", "data": [132, 260,  50,  44, 28] }
+    ]
+  },
+  "anomalyEvents": [
+    { "icon": "triangle-alert", "variant": "danger",  "title": "Latency spike", "body": "/api/agents p95 climbed to 1.24s", "time": "14:22 UTC" },
+    { "icon": "trending-up",   "variant": "warning", "title": "Token surge",   "body": "planner-alpha +42% vs baseline",   "time": "13:08 UTC" },
+    { "icon": "gauge",          "variant": "warning", "title": "Cache thrash", "body": "Hit rate dipped to 79% briefly",    "time": "11:46 UTC" },
+    { "icon": "circle-check",  "variant": "success", "title": "Auto-resolved", "body": "router-s recovered after retry",   "time": "10:22 UTC" }
+  ]
+}

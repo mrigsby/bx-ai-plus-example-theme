@@ -1,0 +1,62 @@
+{#
+  ----------------------------------------------------------------------------
+  partials/notifications-dropdown.njk — Bootstrap dropdown menu fed by
+  _data/notifications.json. Bell button lives in the topbar; this is the
+  dropdown pane markup rendered right next to it.
+  ----------------------------------------------------------------------------
+#}
+{% seamBegin "NOTIFICATIONS_MENU" %}
+<div class="dropdown-menu dropdown-menu-end bx-notifications"
+     id="bx-notifications-menu"
+     aria-labelledby="bx-notifications-trigger">
+
+  <div class="bx-notifications__header">
+    <div>
+      <div class="bx-notifications__title">Notifications</div>
+      <div class="bx-notifications__subtitle" data-bx-notifications-subtitle>
+        {{ notifications.unreadCount }} unread
+      </div>
+    </div>
+    <div class="bx-notifications__header-actions">
+      <button type="button" class="bx-notifications__link" data-bx-notifications-mark-all>
+        Mark all read
+      </button>
+    </div>
+  </div>
+
+  <div class="bx-notifications__list" data-bx-notifications-list>
+    {% for n in notifications.items %}
+    <button type="button"
+            class="bx-notification {% if n.unread %}bx-notification--unread{% endif %}"
+            data-bx-notification-id="{{ n.id }}"
+            data-bx-notification-unread="{{ n.unread }}">
+      <span class="bx-notification__icon bx-notification__icon--{{ n.variant }}" aria-hidden="true">
+        <i data-lucide="{{ n.icon }}"></i>
+      </span>
+      <span class="bx-notification__body">
+        <span class="bx-notification__title">{{ n.title }}</span>
+        <span class="bx-notification__text">{{ n.body }}</span>
+        <span class="bx-notification__time">{{ n.time }}</span>
+      </span>
+      {% if n.unread %}<span class="bx-notification__dot" aria-hidden="true"></span>{% endif %}
+    </button>
+    {% endfor %}
+  </div>
+
+  <div class="bx-notifications__empty" data-bx-notifications-empty hidden>
+    <i data-lucide="bell-off"></i>
+    <span>You're all caught up.</span>
+  </div>
+
+  <div class="bx-notifications__footer">
+    <button type="button" class="bx-notifications__link" data-bx-notifications-clear>
+      <i data-lucide="trash-2" aria-hidden="true"></i>
+      Clear all
+    </button>
+    <a class="bx-notifications__link bx-notifications__link--primary" href="#">
+      View all
+      <i data-lucide="arrow-right" aria-hidden="true"></i>
+    </a>
+  </div>
+</div>
+{% seamEnd "NOTIFICATIONS_MENU" %}

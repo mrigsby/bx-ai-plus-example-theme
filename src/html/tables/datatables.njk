@@ -1,0 +1,51 @@
+---
+layout: vertical.njk
+title: Tables · DataTables
+pageTitle: Advanced data tables
+pageSubtitle: Sortable, filterable, paginated — powered by simple-datatables (vanilla JS).
+page_module: tables-dt
+pageVendorCss:
+  - simple-datatables
+permalink: /tables/datatables/index.html
+breadcrumbs:
+  - { label: "BX-AI+", href: "/" }
+  - { label: "Tables" }
+  - { label: "DataTables" }
+---
+
+<div class="bx-widget">
+  <div class="bx-widget__head">
+    <div class="bx-widget__title-wrap">
+      <h3 class="bx-widget__title">Agents fleet</h3>
+      <p class="bx-widget__subtitle">Sort columns, filter, paginate — and export below.</p>
+    </div>
+  </div>
+  <div class="bx-widget__body">
+    <table class="table table-hover" id="bx-dt">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Model</th>
+          <th>Owner</th>
+          <th>Status</th>
+          <th class="num">p95 ms</th>
+          <th class="num">Spend (k)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in aiAgents.agents %}
+        <tr>
+          <td>{{ a.name }}</td>
+          <td>{{ a.role }}</td>
+          <td>{{ a.model }}</td>
+          <td>{{ a.owner }}</td>
+          <td><span class="bx-top-agents__status bx-top-agents__status--{{ a.status }}">{{ a.status }}</span></td>
+          <td class="num">{{ a.p95 }}</td>
+          <td class="num">{{ a.spend }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
