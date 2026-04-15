@@ -6,6 +6,7 @@ dist
 *.log
 npm-debug.log*
 .vscode
+.claude
 .idea
 .env
 .env.local
